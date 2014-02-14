@@ -10,7 +10,7 @@ Various views includes
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-For demo & api documentation visit [CalenStyle Page](http://curioussolutions.github.io/Multi-Purpose-Responsive-Event-Calendar/ "CalenStyle Plugin Details")
+For demo & api documentation visit [CalenStyle Page](http://curioussolutions.github.io/CalenStyle-Event-Calendar/ "CalenStyle Plugin Details")
 
 ## Special Views
 Paid version of CalenStyle includes
