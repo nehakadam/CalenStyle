@@ -1,5 +1,7 @@
-##  CalenStyle - A Multi-Purpose Responsive Event Calendar
-CalenStyle is jQuery based event calendar designed for multiple visual needs. Various views includes
+##  CalenStyle - Event Calendar
+CalenStyle is jQuery based multipurpose event calendar designed for multiple screens & visuals need. 
+
+Various views includes
 1. 2 forms of full calendar: 
 2. Event calendar for small viewing area
 
@@ -9,6 +11,9 @@ CalenStyle is jQuery based event calendar designed for multiple visual needs. Va
 
 ## More Details
 For demo & api documentation visit [CalenStyle Page](http://curioussolutions.github.io/Multi-Purpose-Responsive-Event-Calendar/ "CalenStyle Plugin Details")
+
+## Special Views
+Paid version of CalenStyle includes
 
 ## Author
 [@nehakadam](https://github.com/nehakadam): CalenStyle is designed & developed by Ms Neha Kadam.
