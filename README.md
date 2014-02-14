@@ -1,4 +1,4 @@
-**## Multi-Purpose Responsive Event Calendar**
+## ** Calenstyle Multi-Purpose Responsive Event Calendar**
 window.
 
 ## Browser Support
@@ -8,11 +8,11 @@ window.
 ## More Details
 For demo & api documentation visit [Plugin Page](http://curioussolutions.github.io/Multi-Purpose-Responsive-Event-Calendar/ "Multi-Purpose Responsive Event Calendar Plugin Details")
 
-## Authors
-[@nehakadam](https://github.com/nehakadam)
+## Author
+[@nehakadam](https://github.com/nehakadam): Ms Neha Kadam designed & developed this event ca  
 
 
 ## License
-Copyright 2014 Curious Solutions Pvt Ltd and @nehakadam
+Copyright 2014 Curious Solutions Pvt Ltd and [@nehakadam](https://github.com/nehakadam)
 
 Licensed under the MIT License
