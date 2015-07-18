@@ -1,4 +1,4 @@
-## CalenStyle - Event Calendar ([Download](https://curioussolutions/apps/calenstyle/ "CalenStyle Library Download"))
+## CalenStyle - Event Calendar ([Download](https://curioussolutions/apps/calenstyle/ "Download CalenStyle"))
 **Responsive jQuery Drag & Drop Event Calendar Library for Web & Mobile** <br/><br/>
 
 ## What is CalenStyle?
@@ -11,15 +11,23 @@ You can use CalenStyle in your
 - Native Mobile Applications using Webview
 - Hybrid Mobile Applications created using Phonegap, Titanium etc.  
 
-## Design Themes
+## Design Themes 
 CalenStyle includes many design themes for representing events in colorful & informative manner. Themes were designed specifically targeting small screen or viewing area, eg mobile devices or a small section on a web page. But they work equally well on large screens. Few theme examples are shown below:
+
+## Dependency
+- jQuery 1.8
 
 ## Browser Support
 - Chrome, Firefox, Safari, Opera, IE 9+
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-For demo & source code please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Library Details")
+For demo & source code please visit [CalenStyle Details](https://curioussolutions/apps/calenstyle/ "CalenStyle Library Details")
+- [Features](https://curioussolutions/apps/calenstyle/ "CalenStyle Features")
+- [Demo](https://curioussolutions/apps/calenstyle/ "CalenStyle Demo")
+- [Download](https://curioussolutions/apps/calenstyle/ "Download CalenStyle")
+- [Report issues, Ask questions](https://github.com/CuriousSolutions/CalenStyle/issues "Report Issues")
+
 
 ## Author
 - [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
@@ -28,4 +36,4 @@ For demo & source code please visit [CalenStyle webpage](https://curioussolution
 Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
 
 ## License
-For more information about the license, please visit [CalenStyle license](https://curioussolutions/apps/calenstyle/ "CalenStyle License")
+For more information about the license, please view [CalenStyle License](https://curioussolutions/apps/calenstyle/ "CalenStyle License")
