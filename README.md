@@ -1,5 +1,5 @@
 ##  CalenStyle - Event Calendar
-**Responsive Event Calendar for Web & Mobile** <br/><br/>
+**Responsive Event Calendar for Web & Mobile** <br/>
 CalenStyle is a responsive jQuery event calendar plugin. CalenStyle has 10+ customizable themes including specially designed themes for mobile OS (Android, iOS & Windows). One can use CalenStyle in a web application, mobile website, in native mobile application using webview, in mobile applications created using Phonegap, Titanium etc. CalenStyle is extensively tested to work smoothly & respond well to gesture navigations. 
 
 ## Design Themes
@@ -26,7 +26,7 @@ Another useful CalenStyle theme to show available & booked appointment hours wit
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-For demo & api documentation visit [CalenStyle Page](http://curioussolutions.github.io/CalenStyle-Event-Calendar/ "CalenStyle Plugin Details")
+For demo & pricing visit [CalenStyle webpage](http://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
 
 ## Author
 [@nehakadam](https://github.com/nehakadam): CalenStyle is designed & developed by Ms Neha Kadam.
