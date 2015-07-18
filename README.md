@@ -2,7 +2,7 @@
 **Responsive jQuery Drag & Drop Event Calendar Library for Web & Mobile** <br/><br/>
 
 ## What is CalenStyle?
-CalenStyle is a responsive jQuery event calendar library. CalenStyle has 10+ customizable themes including specially designed themes for mobile OS (Android, iOS & Windows). 
+CalenStyle is a responsive jQuery drag & drop event calendar library. CalenStyle has 10+ customizable themes including specially designed themes for mobile OS (Android, iOS & Windows). 
 
 ## Where can I use CalenStyle?
 One can use CalenStyle in a web application, mobile website, in native mobile application using webview, in mobile applications created using Phonegap, Titanium etc. CalenStyle is extensively tested to work smoothly & respond well to gesture navigations. 
