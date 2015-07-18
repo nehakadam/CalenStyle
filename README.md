@@ -33,6 +33,7 @@ For demo & source code please visit [CalenStyle Details](https://curioussolution
 - [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
 - [Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
 <br/> <br/> 
+You can reach us at [calenstyle@curioussolutions.in](mailto:calenstyle@curioussolutions.in)
 Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
 
 ## License
