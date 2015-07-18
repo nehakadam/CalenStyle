@@ -30,10 +30,10 @@ For demo & source code please visit [CalenStyle Details](https://curioussolution
 
 
 ## Author
-- [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
-- [Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
+[Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
+[Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
 <br/> <br/> 
-You can reach us at [calenstyle@curioussolutions.in](mailto:calenstyle@curioussolutions.in)
+You can reach us at [calenstyle@curioussolutions.in](mailto:calenstyle@curioussolutions.in) <br/> <br/> 
 Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
 
 ## License
