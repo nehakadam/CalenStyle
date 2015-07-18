@@ -20,10 +20,10 @@ For demo & pricing please visit [CalenStyle webpage](https://curioussolutions/ap
 
 
 ## Author
-[@nehakadam](https://github.com/nehakadam): Principle developer of CalenStyle 
-[@lajpat](https://github.com/lajpatshah): Principle developer of CalenStyle
+[Neha Kadam](https://github.com/nehakadam): Principle Developer of CalenStyle 
+[@lajpatshah](https://github.com/lajpatshah): Concept & Design Contributor
 
 ## License
-Copyright 2014 Curious Solutions Pvt Ltd and [@nehakadam](https://github.com/nehakadam)
+Copyright 2015 [@Curious Solutions LLP and [@nehakadam](https://github.com/nehakadam)
 
 Licensed under the MIT License
