@@ -16,10 +16,10 @@ CalenStyle includes many design themes for representing events in colorful & inf
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-For demo & pricing visit [CalenStyle webpage](http://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
+For demo & pricing please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
 
 ## Author
-[@nehakadam](https://github.com/nehakadam): CalenStyle is designed & developed by Ms Neha Kadam.
+[@nehakadam](https://github.com/nehakadam): She is principle developer of CalenStyle. Neha single-handedly designed & wrote entire code of CalenStyle
 
 ## License
 Copyright 2014 Curious Solutions Pvt Ltd and [@nehakadam](https://github.com/nehakadam)
