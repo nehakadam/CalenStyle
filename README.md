@@ -19,7 +19,7 @@ CalenStyle includes many design themes for representing events in colorful & inf
 For demo & source code please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
 
 ## Author
--[Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
--[Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
+- [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
+- [Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
 <br/> <br/> 
 Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
