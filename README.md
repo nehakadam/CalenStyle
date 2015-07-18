@@ -1,4 +1,4 @@
-##  CalenStyle - Event Calendar
+## CalenStyle - Event Calendar
 **Responsive jQuery Drag & Drop Event Calendar Library for Web & Mobile** <br/><br/>
 
 ## What is CalenStyle?
