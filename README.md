@@ -1,4 +1,4 @@
-## CalenStyle - Event Calendar ([Download](https://curioussolutions/apps/calenstyle/ "Download CalenStyle"))
+## CalenStyle - Event Calendar ([Download](https://curioussolutions/libraries/calenstyle/ "Download CalenStyle"))
 <br/>
 ## What is CalenStyle?
 CalenStyle is a **Responsive** jQuery **Drag & Drop** Event Calendar Library for Web, Mobile Sites, Android, iOS & Windows Phone.
@@ -22,9 +22,9 @@ CalenStyle includes many design themes for representing events in colorful & inf
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-- [Features](https://curioussolutions/apps/calenstyle/ "CalenStyle Features")
-- [Demo](https://curioussolutions/apps/calenstyle/ "CalenStyle Demo")
-- [Download](https://curioussolutions/apps/calenstyle/ "Download CalenStyle")
+- [Features](https://curioussolutions/libraries/calenstyle/ "CalenStyle Features")
+- [Demo](https://curioussolutions/libraries/calenstyle/ "CalenStyle Demo")
+- [Download](https://curioussolutions/libraries/calenstyle/ "Download CalenStyle")
 - [Report issues, Ask questions](https://github.com/CuriousSolutions/CalenStyle/issues "Report Issues")
 
 
@@ -36,4 +36,4 @@ You can reach us at [calenstyle@curioussolutions.in](mailto:calenstyle@curiousso
 Copyright 2015 [Curious Solutions LLP](https://github.com/CuriousSolutions)
 
 ## License
-For more information about the license, please view [CalenStyle License](https://curioussolutions/apps/calenstyle/ "CalenStyle License")
+For more information about the license, please view [CalenStyle License](https://curioussolutions/libraries/calenstyle/ "CalenStyle License")
