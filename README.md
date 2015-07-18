@@ -18,14 +18,10 @@ CalenStyle includes many design themes for representing events in colorful & inf
 ## More Details
 For demo & pricing please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
 
-## Roadmap
-- Zepto support
-- Integration with frameworks like Backbone, Ember, Angular etc
-- Localization strings for various languages
-
 
 ## Author
-[@nehakadam](https://github.com/nehakadam): She is principle developer of CalenStyle. Neha single-handedly designed & wrote entire code of CalenStyle.
+[@nehakadam](https://github.com/nehakadam): Principle developer of CalenStyle 
+[@lajpat](https://github.com/lajpatshah): Principle developer of CalenStyle
 
 ## License
 Copyright 2014 Curious Solutions Pvt Ltd and [@nehakadam](https://github.com/nehakadam)
