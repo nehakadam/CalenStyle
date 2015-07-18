@@ -16,7 +16,7 @@ CalenStyle includes many design themes for representing events in colorful & inf
 - Android 2.3+, iOS 6+, Windows Phone 8
 
 ## More Details
-For demo & pricing please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
+For demo & source code please visit [CalenStyle webpage](https://curioussolutions/apps/calenstyle/ "CalenStyle Plugin Details")
 
 ## Author
 [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer of CalenStyle <br/> 
