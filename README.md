@@ -11,7 +11,13 @@ You can use CalenStyle in your
 - Hybrid mobile applications created using Phonegap, Titanium etc.  
 
 ## Design Themes 
-CalenStyle includes many design themes for representing events in colorful & informative manner. Themes were designed keeping in mind a need to show event calendar on small screens like mobile devices & in a small viewing section on a web page. But they work equally well on large screens like desktop browsers. Few theme examples are shown below:
+CalenStyle includes many design themes for representing events in colorful & informative manner. Themes were designed keeping in mind a need to show event calendar on small screens like mobile devices & in a small viewing section on a web page. But they work equally well on large screens like desktop browsers. Few theme examples are shown below:<br/>
+### Timeline View (Agenda)
+![](http://curioussolutions.in/libraries/calenstyle/content/images/timeline.png)
+### Planner View (Agenda)
+![](http://curioussolutions.in/libraries/calenstyle/content/images/planner.png)
+### Dot & Line View (Event Indicator)
+![](http://curioussolutions.in/libraries/calenstyle/content/images/event_listing-dots.png)
 
 ## Dependency
 - jQuery 1.8
