@@ -24,9 +24,6 @@ CalenStyle includes many design themes for representing events in colorful & inf
 ### Dot & Line View (Event Indicator)
 ![](http://curioussolutions.in/libraries/calenstyle/content/images/event_listing-dots.png)
 
-## Dependency
-- jQuery 1.8
-
 ## Browser Support
 - Chrome, Firefox, Safari, Opera, IE 9+
 - Android 2.3+, iOS 6+, Windows Phone 8
