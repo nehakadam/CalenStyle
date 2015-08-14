@@ -1,7 +1,8 @@
 ## CalenStyle - Event Calendar ([Download](https://curioussolutions.in/libraries/calenstyle/ "Download CalenStyle"))
+[![Join the chat at https://gitter.im/CuriousSolutions/CalenStyle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CuriousSolutions/CalenStyle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## What is CalenStyle?
 
-[![Join the chat at https://gitter.im/CuriousSolutions/CalenStyle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CuriousSolutions/CalenStyle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 CalenStyle is a **Responsive** jQuery **Drag & Drop** Event Calendar Library for Web, Mobile Sites, Android, iOS & Windows Phone.
  
 ## Where can I use CalenStyle?
