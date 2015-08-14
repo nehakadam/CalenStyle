@@ -12,6 +12,8 @@ You can use CalenStyle in your
 
 ## Design Themes 
 CalenStyle includes many design themes for representing events in colorful & informative manner. Themes were designed keeping in mind a need to show event calendar on small screens like mobile devices & in a small viewing section on a web page. But they work equally well on large screens like desktop browsers. Few theme examples are shown below:<br/>
+### Full Calendar (Drag & Drop)
+![](http://curioussolutions.in/libraries/calenstyle/content/images/full_calendar.png)
 ### Timeline View (Agenda)
 ![](http://curioussolutions.in/libraries/calenstyle/content/images/timeline.png)
 ### Planner View (Agenda)
