@@ -1,4 +1,4 @@
-## CalenStyle - Event Calendar ([Download](https://curioussolutions.in/libraries/calenstyle/ "Download CalenStyle"))
+## CalenStyle - Event Calendar ([Buy Commercial License](https://gumroad.com/l/pWcjy "CalenStyle License"))
 [![Join the chat at https://gitter.im/CuriousSolutions/CalenStyle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CuriousSolutions/CalenStyle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## What is CalenStyle?
