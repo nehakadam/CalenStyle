@@ -1,0 +1,293 @@
+/*----------------------------------------------------------------------------*/
+
+.popover-content
+{
+	font-size: 80%;
+}
+
+.calendarContOuterParent
+{
+	width: 100%;
+	height: 700px;
+}
+
+.calendarContOuter
+{
+	margin: 10px auto 0px auto;
+}
+
+.calendarContOuterWeb
+{
+	width: 90%;
+	height: 600px;
+	font-size: 14px;
+}
+
+.calendarContOuterTablet
+{
+	width: 768px;
+	height: 1024px;
+	font-size: 14px;
+}
+
+.calendarContOuterPhone
+{
+	/* iPhone 5 */  width: 320px;height: 568px;
+	/* iPhone 6   width: 375px;height: 667px;*/
+	/* iPhone 6 Plus   width: 414px;height: 736px;*/
+	font-size: 13px;
+}
+
+.cEventResizeHandle
+{
+	background: #FFFFFF;
+	opacity: 0.5;
+}
+
+.cHandleSouth
+{
+	background-image: url('images/resize-handle.png');
+	background-size: 10px 10px;
+	width: 10px;
+	height:10px;
+	margin: -4px auto 0px auto;
+}
+
+/*----------------------------------------------------------------------------*/
+ 
+.pluginSettingsBg
+{
+ 	position: absolute;
+ 	top: 0px;
+ 	left: 0px;
+
+ 	width: 100%;
+ 	min-height: 100%;
+
+ 	background: #000000;
+ 	opacity: 0.5;
+
+ 	z-index: 1000;
+}
+ 
+.pluginSettings
+{
+ 	display: inline-block;
+ 	width: 740px;
+ 	min-height: 100%;
+
+ 	position: absolute;
+ 	left: -1px;
+    top: 0px;
+
+    z-index: 1001;
+}
+
+.pluginSettingsSwitch
+{
+ 	display: inline-block;
+ 	width: 40px;
+ 	height: 40px;
+
+ 	position: absolute;
+ 	right: 0px;
+    top: 0px;
+
+ 	background: #22313F;
+ 	box-shadow: 1px 1px 15px #888888;
+}
+
+.pluginSettingsSwitch img
+{
+	width: 40px;
+ 	height: 40px;
+}
+
+.pluginSettingsHeader
+{
+	font-size: 160%;
+	text-align: center;
+	padding-bottom: 8px !important;
+	color: #FF3B30;
+}
+
+.pluginSettingsHeader hr
+{
+	margin-top: 5px;
+  	margin-bottom: 0px;
+}
+
+.pluginSettingsCont
+{
+ 	display: inline-block;
+ 	width: 700px;
+ 	height: 88%;
+
+ 	padding: 20px;
+
+    background: #FFFFFF;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 1px 1px 15px #888888;
+}
+
+.pluginSettingsCont td:nth-child(2)
+{
+	width: 300px;
+}
+
+.pluginSettingsCont td
+{
+	padding-bottom: 20px;
+}
+
+.pluginSettingsCont .title
+{
+	width: 360px;
+	max-width: 360px;
+	padding-right: 10px;
+
+	color: #666666;
+	word-wrap: break-word;
+	font-size: 120%;
+}
+
+.pluginSettingsCont .variableName
+{
+	color: #888888;
+}
+
+.small-textbox
+{
+	width: 50%;
+}
+
+/*----------------------------------------------------------------------------*/
+
+.cFilterBar
+{
+	text-align: center;
+}
+
+.cFilterBarHeader
+{
+	text-align: center;
+	color: #FF3B30;
+	font-weight: bold;
+	font-size: 110%;
+	
+	height: 30px;
+	line-height: 30px;
+}
+
+.filterBox
+{
+	position: relative;
+
+	display: inline-block;
+	height: 140px;
+	width: 150px;
+
+	margin: 10px;
+
+	border: 1px solid #CCCCCC;
+}
+
+input[type='checkbox']
+{
+	margin: 6px 0px 0px 6px;
+}
+
+.filterBoxTitle
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+
+	padding: 0px 0px 0px 4px;
+
+	display: inline-block;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+
+	color: #444444;
+	font-size: 80%;
+	font-weight: bold;
+	background: #F8F8F8;
+	text-align: center;
+
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.filterBoxContent
+{
+	position: absolute;
+	top: 35px;
+	left: 0px;
+
+	width: 100%;
+	height: 100px;
+
+	overflow: auto;
+
+	text-align: left;
+	font-size: 80%;
+}
+
+/*----------------------------------------------------------------------------*/
+
+.dropdown-menu>.active>a, 
+.dropdown-menu>.active>a:hover, 
+.dropdown-menu>.active>a:focus 
+{
+	background-color: #F9F2F4;
+}
+
+.dropdown-menu>.active>a>label, 
+.dropdown-menu>.active>a:hover>label, 
+.dropdown-menu>.active>a:focus>label
+{
+	color: #333333;
+	font-weight: bold;
+}
+
+.dropdown-menu>.disabled>a:hover *, .dropdown-menu>.disabled>a:focus *
+{
+	cursor: not-allowed;
+}
+
+.dropdown-menu>li>a
+{
+	padding: 6px 20px;
+}
+
+/* --------------------- Small Scrollbar Start --------------------- */
+
+.small-scroll::-webkit-scrollbar 
+{
+	width: 3px;
+	height: 10px;
+}
+
+.small-scroll::-webkit-scrollbar-button:start:decrement,
+.small-scroll::-webkit-scrollbar-button:end:increment
+{
+	height: 0px;
+	display: block;
+	background-color: transparent;
+}
+
+.small-scroll::-webkit-scrollbar-track-piece  
+{
+	background-color: #FFFFFF;
+}
+
+.small-scroll::-webkit-scrollbar-thumb:vertical 
+{
+	height: 50px;
+	background-color: #555555;
+	border: 1px solid #555555;
+}
+
+/* --------------------- Small Scrollbar End --------------------- */

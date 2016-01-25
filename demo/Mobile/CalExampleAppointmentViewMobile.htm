@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Appointment View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui-custom-1.11.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-custom-1.11.2.min.css" />
+    
+    	<script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="../js/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/fastclick.js"></script>
+    
+		<link rel="stylesheet" type="text/css" href="../../src/calenstyle.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-jquery-ui-override.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-iconfont.css" />
+        <script type="text/javascript" src="../../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="../js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+            
+				font-size: 14px;
+				text-shadow: none;
+			}
+        
+            .cElemDatePicker
+            {
+                font-size: 13px;
+            }
+        
+            .cavCalendarCont
+            {
+                max-height: none;
+            }
+                
+		</style>
+	
+		<script type="text/javascript">
+		
+            $(function()
+            {
+                FastClick.attach(document.body);
+            
+                $(".calendarContOuter").CalenStyle(
+                {
+                    visibleView: "AppointmentView",
+                
+                    daysInAppointmentView: 2,
+                
+                    availableSlotTooltipContent: "",
+                
+                    isTooltipInAppointmentView: false,
+                
+                    headerSectionsList: 
+                    {
+                        left: ["HeaderLabelWithDropdownMenuArrow"],
+                        center: [],
+                        right: ["PreviousButton", "NextButton"]
+                    },
+                
+                    dropdownMenuElements: ["DatePicker"],
+                
+                    calDataSource: 
+                    [                   
+                        {
+                            sourceFetchType: "DateRange",
+                            sourceType: "FUNCTION",
+                            source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+                            {
+                                var calObj1 = this;
+                                calObj1.incrementDataLoadingCount(1);
+                            
+                                var oSlotAvailabilityResponse = generateJsonSlotAvailability(fetchStartDate, fetchEndDate);
+                                console.log(oSlotAvailabilityResponse);
+                                if(oSlotAvailabilityResponse != undefined)
+                                {
+                                    if(oSlotAvailabilityResponse[0])
+                                    {
+                                        calObj1.parseDataSource("slotAvailabilitySource", oSlotAvailabilityResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                   
+                    clickedAppointmentSlot: function(oSlot, oSlotElement)
+                    {
+                        console.log("Appointment Slot Clicked ");
+                        console.log(oSlot);
+                     
+                        $(oSlotElement).removeClass("cavStatusFree").addClass("cavStatusBusy");
+                    },
+
+                    useHammerjsAsGestureLibrary: true,
+
+                    //hideEventIcon: {Default: false},
+                
+                    hideEventTime: {Default: true}
+                     
+                });
+              
+            });
+
+		</script>
+    
+	</head>
+	
+	<body>
+		
+		<div class="calendarContOuter"></div>
+    
+	</body>
+	
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>DayEventList View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<!--  Sample Styles and Element Generation code for EventList -->
+		<link rel="stylesheet" type="text/css" href="css/CalEventList.css" />
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuterParent
+			{
+				width: 100%;
+				height: 600px;
+				margin: 0px auto;
+			}
+		
+			.calendarContOuter
+			{			
+            	width: 100%;
+				height: 500px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+			
+			$(function() 
+			{
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "Calendar", "EventList"],
+				
+					visibleView: "DayEventListView",
+				
+					daysInDayListView: 5,
+				
+					displayEventsForPeriodInList: function(listStartDate, listEndDate)
+					{
+						return displayEventsInList(this, listStartDate, listEndDate);
+					},
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								console.log(oEventResponse);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+					eventListAppended: function()
+					{
+						adjustList();
+					}
+				
+				});
+
+				setTimeout(function()
+				{
+					adjustList();
+				}, 0);
+				$(window).resize(function()
+				{
+					adjustList();
+				});
+			
+				function adjustList()
+                {
+                    var oCal3 = $(".calendarContOuter").CalenStyle();
+                    var iEventWidth = $(oCal3.elem).width(),
+                    iEventColorWidth = $(".cListEventColor").outerWidth(true),
+                    iEventIconWidth = $(".cListEventIcon span").outerWidth(true),
+                    oElems = $(".cListEventTime span");
+                    var iMaxWidth = Math.max.apply(null, $(oElems).map(function()
+                    {
+                        return $(this).outerWidth(true);
+                    }).get());
+                    iMaxWidth += 5;
+                    $(".cListEventTime").css({"width": iMaxWidth});
+              
+                    var iEventTitleWidth = iEventWidth - (iEventColorWidth + iMaxWidth + iEventIconWidth) - 25;
+                    $(".cListEventTitle").css({"width": iEventTitleWidth});
+                }
+			
+			});
+		
+		</script>
+	
+	</head>
+	
+	<body>
+	
+		<div class="calendarContOuterParent">
+			<div class="calendarContOuter"></div>
+		</div>
+	
+	</body>
+	
+</html>

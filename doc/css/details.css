@@ -1,0 +1,195 @@
+body
+{
+	position: relative;
+	-webkit-touch-callout: text;
+}
+
+.page-container
+{
+	position: relative;
+	margin: 0px auto 0px auto;
+	
+	color: #444444;
+}
+
+.page-content
+{
+	padding: 10px;
+}
+
+.BackToTop
+{
+	position: fixed;
+	right: 4px;
+	bottom: 4px;
+
+	width: 30px;
+	height: 30px;
+	font-size: 30px;
+
+	background: #F7F5F2;
+	color: #7D7D7D;
+	z-index: 4;
+
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+}
+
+.BackToTop:hover,
+.BackToTop:focus
+{
+	background: #F7F5F2;
+	color: #000000;
+}
+
+.section-header
+{
+	display: block;
+  	text-align: center;
+}
+
+/*------------------------------- Roadmap Start ---------------------------- */
+
+#roadmap
+{
+	padding-top: 30px;
+}
+
+
+@media (min-width: 992px)
+{
+	#roadmap .container:last-child
+	{
+		width: 970px;
+	}
+}
+
+.plan
+{
+	font-size: 1.2em;
+}
+
+.plan:not(:first-child)
+{
+	margin-top: 14px;
+}
+
+/*------------------------------- Roadmap End ------------------------------ */
+
+/*------------------------------- Changelog Start ---------------------------- */
+
+.Changelog-Content .option-header
+{
+	color: #336E7B;
+	font-size: 1.2em;
+	text-decoration: underline;
+}
+
+.Changelog-Content .parameter-version
+{
+	font-size: 1.9em;
+	color: #000;
+}
+
+.Changelog-Content .parameter-date
+{
+	font-size: 1.1em;
+}
+
+.Changelog-Content .parameter-description
+{
+	font-size: 1.2em;
+}
+
+@media (min-width: 992px)
+{
+	#changelog .container:last-child
+	{
+		width: 970px;
+	}
+}
+
+/*------------------------------- Changelog Start ---------------------------- */
+
+/*------------------------------- License Start ---------------------------- */
+
+#license
+{
+	padding-top: 30px;
+}
+
+
+@media (min-width: 992px)
+{
+	#license .container:last-child
+	{
+		width: 970px;
+	}
+}
+
+#license .container:last-child
+{
+	font-size: 1.1em;
+}
+
+.license-header
+{
+	font-size: 1.7em;
+	margin-bottom: 16px;
+}
+
+.license-subheader
+{
+	font-size: 1.3em;
+	margin-top: 20px;
+	margin-bottom: 4px;
+}
+
+.license-desc
+{
+	text-align: justify;
+}
+
+.license-desc-list
+{
+	text-align: left;
+}
+
+/*------------------------------- License End ---------------------------- */
+
+/*------------------------------- FAQ Start ----------------------------------- */
+
+#faq
+{
+	padding-top: 30px;
+}
+
+@media (min-width: 992px)
+{
+	#faq .container:last-child
+	{
+		width: 970px;
+	}
+}
+
+.faq-qa:not(:first-child)
+{
+	margin-top: 30px;
+}
+
+.faq-question
+{
+	font-weight: bold;
+	font-size: 1.5em;
+	color: #444444;
+}
+
+.faq-answer
+{
+	font-size: 1.2em;
+	color: #444444;
+
+	margin-left: 24px;
+}
+
+/*------------------------------- FAQ End ------------------------------------- */

@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>CalenStyle i18n</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+	
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+		<script type="text/javascript" src="../src/i18n/calenstyle-i18n.js"></script>
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+		<script type="text/javascript" src="js/en_US_POSIX_cldr_timezones.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuterParent
+			{
+				width: 1024px;
+				height: 768px;
+				margin: 20px auto 0px auto;
+			}
+		
+			.calendarContOuter
+			{			
+				width: 1000px;
+				height: 500px;
+				margin: 0px auto;
+            
+            	font-size: 14px;
+			}
+
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.forSelTz
+			{
+				margin-left: 20px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+
+				var sArrLang = Object.keys($.CalenStyle.i18n);
+				var sArrTz = Object.keys(en_US_POSIX_cldr_timezones_hash);
+				//console.log("Languages & Timezones");
+				//console.log(sArrLang);
+				//console.log(sArrTz);
+			
+				$.each(sArrLang, function (iIndex, sTempLang) 
+				{
+					$(".selLang").append($('<option>', { 
+				        value: sTempLang,
+				        text : sTempLang 
+				    }));
+				});
+
+				$.each(sArrTz, function (iIndex, sTempTz) 
+				{
+					$(".selTz").append($('<option>', { 
+				        value: function()
+				        {
+				        	var sTempVal = en_US_POSIX_cldr_timezones_hash[sTempTz];
+				        	sTempVal = sTempVal.split(")")[0];
+				        	sTempVal = sTempVal.replace("(GMT", "");
+				        	return sTempVal;
+				        },
+				        text : sTempTz
+				    }));
+				});
+			
+				var sLang = $(".selLang").val(),
+				sTz = $(".selTz option:selected").text(),
+				sTZD = $(".selTz").val(),
+			
+				i18n = $.CalenStyle.i18n[sLang],
+				oViewDisplayNames = i18n["viewDisplayNames"],
+				objCalenStyle;
+
+				$(".selLang").change(function() 
+				{
+					var sTempLang = $(".selLang").val();
+					console.log("Language Changed From '" + objCalenStyle.setting.language + "' to '" + sTempLang + "'");
+ 					objCalenStyle = objCalenStyle.setLanguage(sTempLang, false);
+				});
+
+				$(".selTz").change(function() 
+				{
+					var sTempTZ = $(".selTz option:selected").text(),
+					sTempTZD = $(".selTz").val();
+					console.log("TZ Changed From '" + objCalenStyle.setting.tz + "' to '" + sTempTZ + "'");
+					console.log("TZD Changed From '" + objCalenStyle.setting.outputTZOffset + "' to '" + sTempTZD + "'");
+					objCalenStyle.changeOutputTimezone(sTempTZ, sTempTZD, false); 					
+				});
+
+				console.log("'" + sLang + "' '" + sTz + "' '" + sTZD + "'");
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+					language: sLang,
+
+					tz: sTz,
+
+					outputTZOffset: sTZD,
+				
+					visibleView: "DetailedMonthView",
+				
+					viewsToDisplay: [
+										{ 
+											viewName: "DetailedMonthView",
+											viewDisplayName: oViewDisplayNames["DetailedMonthView"]
+										},
+										{ 
+											viewName: "WeekView",
+											viewDisplayName: oViewDisplayNames["WeekView"]
+										},
+										{ 
+											viewName: "DayView",
+											viewDisplayName: oViewDisplayNames["DayView"]
+										}
+									],
+				
+					initialize: function()
+					{
+						objCalenStyle = this;
+					},
+
+					displayWeekNumInMonthView: true,
+				
+					changeColorBasedOn: "Event",
+				
+					hideEventIcon: {Default: true},
+				
+					calDataSource: 
+					[
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								console.log("Response " + fetchStartDate + " " + fetchEndDate);
+								console.log(oEventResponse);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+				
+					saveChangesOnEventDrop: function(oDraggedEvent, startDateBeforeDrop, endDateBeforeDrop, startDateAfterDrop, endDateAfterDrop)
+					{
+						var calObj1 = this;
+					
+						console.log(oDraggedEvent);
+						console.log(startDateAfterDrop);
+						console.log(endDateAfterDrop);
+					
+						//calObj1.revertToOriginalEvent(oDraggedEvent, startDateBeforeDrop, endDateBeforeDrop);
+					}
+				
+				});
+				
+				
+							
+			});
+			
+		</script>
+	
+	</head>
+
+	<body>
+
+
+		<label class="forSelLang"> Select Language : </label>
+		<select class="selLang"></select>
+
+		<label class="forSelTz"> Select Timezone : </label>
+		<select class="selTz"></select>
+	
+		<div class="calendarContOuterParent">
+			<div class="calendarContOuter"></div>
+		</div>
+	
+	</body>
+
+</html>

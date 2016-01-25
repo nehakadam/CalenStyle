@@ -1,0 +1,3690 @@
+/* ----------------------------------------------------------------------------- 
+
+  CalenStyle - Responsive Event Calendar
+  Version 2.0.0
+  Copyright (c)2016 Curious Solutions LLP
+  https://curioussolutions.in/libraries/calenstyle/content/license.htm
+  See License Information in LICENSE file.
+
+ ----------------------------------------------------------------------------- */
+
+.cFullscreenCont
+{
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.calendarCont, .calendarCont *
+{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	padding: 0;
+	margin: 0;
+}
+
+.calendarCont
+{
+	font-family: Arial;
+
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	background-color: #FFFFFF;
+	overflow: hidden;
+
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	border: 1px solid #DDDDDD;
+}
+
+.br-ios .cListOuterCont
+{
+	overflow-y: scroll !important;
+}
+
+.cListOuterCont
+{
+	position: relative;
+	top: 0;
+	left: 0;
+	background: #FFFFFF;
+
+	overflow: auto;
+
+	-webkit-overflow-scrolling: touch;
+
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+	perspective: 1000px;
+
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+/*
+.cavCalendarCont
+{
+	max-height: 600px;
+}
+
+.cdlvCalendarCont
+{
+	max-height: 500px;
+}
+
+.cagvCalendarCont
+{
+	max-height: 600px;
+}
+
+.cdvCalendarCont
+{
+	min-height: 500px;
+	max-height: 600px;
+}
+*/
+
+.calendarContInner
+{
+	position: absolute;
+	background: #FFFFFF;
+}
+
+.cBold
+{
+	font-weight: bold;
+}
+
+.cCursorNotAllowed
+{
+	cursor: not-allowed !important;
+}
+
+.cFontLarge
+{
+	font-size: 100%;
+}
+
+.cFontMedium
+{
+	font-size: 90%;
+}
+
+.cFontSmall
+{
+	font-size: 80%;
+}
+
+.cFontExtraSmall
+{
+	font-size: 60%;
+}
+
+.cBlurredEvent
+{
+	opacity: 0.75;
+}
+
+.cPartialEvent
+{
+	display: inline-block;
+	height: 100%;
+	
+	width: 0;
+	border: 1px solid #000000;
+}
+
+.cPartialEventLeft
+{
+	float: left;
+}
+
+.cPartialEventRight
+{
+	float: right;
+}
+
+.cmvCalendarCont .cPartialEventRight
+{
+	border-width: 1px;
+}
+
+.cEditingEventClone
+{
+	opacity: 0.5;
+}
+
+.cEditingEvent
+{
+	z-index: 10;
+	opacity: 1 !important;	
+}
+
+.cEventOnlyText.cEditingEvent
+{
+	font-weight: bold;
+}
+
+.cEditingEventUI
+{
+	-webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+}
+
+.cEditingEventAllDay
+{
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.cEventBeingDragged
+{
+	opacity: 0.2;
+}
+
+.cEventResizeHandle
+{
+	background: transparent;
+}
+
+.cHandleSouth
+{
+	background-image: url('images/resize-handle.png');
+	background-size: 10px 10px;
+	width: 10px;
+	height: 10px;
+	margin: -4px auto 0 auto;
+}
+ 
+.cDragNDrop
+{
+ 	cursor: pointer;
+}
+
+.cdvCalendarCont, .cqavCalendarCont, .ctpvCalendarCont
+{
+	width: 100%;
+	float: none;
+}
+
+.cmvCalendarCont
+{
+	width: auto !important;
+	float: none;
+}
+
+.br-chrome .calendarCont table,
+.br-safari .calendarCont table,
+.br-opera .calendarCont table,
+.br-other .calendarCont table
+{
+	table-layout: fixed;
+}
+
+.calendarCont table, .calendarCont th, .calendarCont td, .calendarCont tr
+{
+	border-spacing: 0;
+}
+
+.br-chrome .cmvCalendarCont table,
+.br-safari .cmvCalendarCont table,
+.br-opera .cmvCalendarCont table,
+.br-other .cmvCalendarCont table,
+
+.br-chrome .cdvCalendarCont table,
+.br-safari .cdvCalendarCont table,
+.br-opera .cdvCalendarCont table,
+.br-other .cdvCalendarCont table,
+
+.br-chrome .cqavCalendarCont table,
+.br-safari .cqavCalendarCont table,
+.br-opera .cqavCalendarCont table,
+.br-other .cqavCalendarCont table,
+
+.br-chrome .ctpvCalendarCont table,
+.br-safari .ctpvCalendarCont table,
+.br-opera .ctpvCalendarCont table,
+.br-other .ctpvCalendarCont table
+{
+	border-collapse: collapse;
+}
+
+.calendarCont td
+{
+	padding: 0;
+}
+
+.cdvCalendarCont td
+{
+	border-top: 1px dotted #DDDDDD;
+	border-bottom: 1px dotted #DDDDDD;
+	border-right: 1px solid #DDDDDD;
+}
+
+.cqavCalendarCont td
+{
+	border-top: 1px dotted #DDDDDD;
+	border-bottom: 1px dotted #DDDDDD;
+	border-right: 1px dotted #DDDDDD;
+}
+
+.ctpvCalendarCont td
+{
+	border-top: 1px dotted #DDDDDD;
+	border-bottom: 1px dotted #DDDDDD;
+	border-right: 1px dotted #DDDDDD;
+}
+
+.cdvCalendarCont .cdvDetailTableRow2 td
+{
+	border-bottom-color: transparent !important;
+}
+
+.cdvCalendarCont .cdvLastColumn
+{
+	border-right-color: transparent !important;
+}
+
+.cdvDetailTableMain .cdvDetailTableColumnTime
+{
+	border-right-color: transparent !important;
+}
+
+.cdvDetailTableMain .cDayEventDetailView td
+{
+	border-bottom-color: transparent !important;
+}
+
+.cdvTimeSlotTable tr:nth-child(even)
+{
+	border-bottom: 1px dotted #000000;
+}
+
+.cavCalendarCont .cavTable td
+{
+	border-right: 1px solid #DDDDDD;
+}
+
+.cavTableRow1 td
+{
+	border-bottom: 1px solid #CCCCCC;
+	background: #FFFFFF;
+}
+
+.cavCalendarCont .cavTable .cavLastColumn
+{
+	border-right-color: transparent !important;
+}
+
+.cavCalendarCont td
+{
+	vertical-align: top;
+}
+
+.cmvCalendarContWithBorders td
+{
+	border: 1px solid #DDDDDD;
+}
+
+.cmvCalendarContWithBorders .cmvFirstColumn
+{
+	border-left: none;
+}
+
+.clickableLink
+{
+	cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------- */
+
+/* ---------------------* Common View Start *--------------------- */
+
+/* -------------------------------* Header View  Start *-----------------------------------*/
+
+.cContHeader
+{
+	height: 45px;
+
+	position: relative;
+	top: 0;
+	left: 0;
+
+	z-index: 12;
+
+	border-bottom: 1px solid #CCCCCC;
+	color: #757575;
+	background: #F5F5F5;
+
+	padding: 0 10px;
+}
+
+.cContHeaderButton
+{
+	cursor: pointer;
+}
+
+.calendarContWeb .cContHeaderButton:not(.cContHeaderToday):hover
+{
+	color: #96281B;
+}
+
+.calendarContWeb .cContHeaderToday:hover
+{
+	color: #FFFFFF;
+	background: #96281B;
+}
+
+.cContHeaderButtonActive
+{
+	color: #96281B;
+}
+
+.calendarContMobile .cContHeader
+{
+	font-size: 130%;
+}
+
+.cContHeaderSections
+{
+	height: 45px;
+	line-height: 45px;
+
+	text-align: center;
+	vertical-align: top;
+}
+
+.cContHeaderSectionLeft
+{
+	display: inline-block;
+	float: left;
+	z-index: 14;
+}
+
+.cContHeaderSectionCenter
+{
+	margin: 0 auto;
+	z-index: 13;
+}
+
+.cContHeaderSectionRight
+{
+	display: inline-block;
+	float: right;
+	z-index: 14;
+}
+
+.cContHeaderSections *
+{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.cContHeaderToday
+{
+	width: 38px;
+	height: 37px;
+
+	border-radius: 2px;
+
+	vertical-align: middle;
+	line-height: 28px;
+
+	background: #FF3B30;
+	color: #FFFFFF;
+	border: 6px solid #F5F5F5;
+}
+
+.cContHeaderDropdownMenuArrow
+{
+	height: 0;
+	width: 0;
+
+	z-index: 13;
+	cursor: pointer;
+
+	border-style: solid;
+	border-width: 4px;
+	border-color: rgba(0, 0, 0, 0);
+	border-bottom-color: #111111;
+	border-right-color: #111111;
+
+	vertical-align: middle;
+	margin-bottom: -10px;
+}
+
+.cContHeaderDropdownMenuArrow:active,
+.cContHeaderDropdownMenuArrow:hover, 
+.cContHeaderLabelOuter.clickableLink:hover .cContHeaderDropdownMenuArrow
+{
+	border-bottom-color: #96281B;
+	border-right-color: #96281B;
+}
+
+.cContHeaderNavButton
+{
+	width: 40px;
+	font-size: 150%;
+}
+
+.cContHeaderLabelMonth
+{
+	padding: 0 3px 0 0;
+}
+
+.cContHeaderLabelYear
+{
+	padding: 0 0 0 3px;
+}
+
+.cContHeaderLabelUnderline
+{
+	display: inline;
+	border-bottom: 1px dotted #757575;
+}
+
+.cContHeaderLabelOuter
+{
+	color: #111111;
+}
+
+.cContHeaderLabelOuter.clickableLink:hover,
+.cContHeaderLabelMonth.clickableLink:hover,
+.cContHeaderLabelYear.clickableLink:hover
+{
+	color: #96281B;
+}
+
+.cContHeaderLabelMonth.clickableLink:hover .cContHeaderLabelUnderline,
+.cContHeaderLabelYear.clickableLink:hover .cContHeaderLabelUnderline
+{
+	border-color: #96281B;
+}
+
+.cContHeaderLabelHover
+{
+	color: #96281B !important;
+}
+
+.cContHeaderDatePickerIcon
+{
+	margin: 0 2px 0 2px;
+
+	display: inline-block;
+ 	width: 30px;
+	height: 45px;
+
+	font-weight: bold;
+	font-size: 160%;
+}
+
+.cContHeaderFullscreen
+{
+	margin: 0 2px 0 2px;
+
+	display: inline-block;
+ 	width: 30px;
+	height: 45px;
+
+	font-weight: bold;
+	font-size: 110%;
+}
+
+.cContHeaderMenuButton
+{
+ 	width: 30px;
+
+	font-weight: bold;
+	font-size: 160%;
+}
+
+.cContHeaderMenuSections
+{
+	display: inline-block;
+}
+
+.cContHeaderMenuSections li
+{
+	list-style: none;
+	background: #FFFFFF;
+	font-size: 100%;
+}
+
+.cContHeaderMenuSegmentedTab .cContHeaderMenuSections li
+{
+	line-height: 26px;
+	margin-top: 8px;
+	float: left; /* to remove inline-block or white-space bug */
+
+	padding: 0 10px;
+	border: 1px solid #757575;
+
+	display: inline-block;
+	text-align: center;
+
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+
+	background: #FFFFFF;
+	color: #757575;
+}
+
+.calendarContWeb .cContHeaderMenuSegmentedTab .cContHeaderMenuSections li:hover
+{
+	background: #757575;
+	color: #FFFFFF;
+}
+
+.cContHeaderMenuSegmentedTab .cContHeaderMenuSections li.cSelectedMenu
+{
+	background: #757575;
+	color: #FFFFFF;
+}
+
+.cContHeaderMenuDropdownBg
+{
+	position: absolute;
+	z-index: 13;
+}
+
+.cContHeaderMenuDropdown
+{
+ 	position: absolute;
+ 	border: 1px solid #DDDDDD;
+}
+
+.cContHeaderMenuDropdown .cContHeaderMenuSections
+{
+    width: auto;
+    min-width: 130px;
+
+    -webkit-box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+    -moz-box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+    box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+}
+
+@media(max-width: 400px)
+{
+	.cContHeaderMenuDropdown .cContHeaderMenuSections
+	{
+		min-width: 110px;
+	}
+}
+
+.cContHeaderMenuDropdown .cContHeaderMenuSections li
+{
+	padding: 10px 20px;
+
+	background: #FFFFFF;
+	color: #111111;
+}
+
+.cContHeaderMenuDropdown .cContHeaderMenuSections li:first-child#cContHeaderMenuDatePicker
+{
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.cContHeaderMenuDropdown .cContHeaderMenuSections li:last-child#cContHeaderMenuDatePicker
+{
+	border-top: 1px solid #DDDDDD;
+}
+
+.calendarContWeb .cContHeaderMenuDropdown .cContHeaderMenuSections li:hover:not(.cSelectedMenu)
+{
+	background: #F8F8F8;
+	color: #96281B;
+}
+
+.cContHeaderMenuDropdown .cContHeaderMenuSections li.cSelectedMenu
+{
+	color: #96281B;
+}
+
+/* -------------------------------* Header View  End *-----------------------------------*/
+
+/* ---------------------* Common View End *--------------------- */
+
+/* --------------------------------------------------------------------------- */
+
+/* ---------------------* Week Planner View Start *--------------------- */
+
+.cwpvTableOuterCont
+{
+	overflow-y: auto;
+}
+
+.cwpvTable td
+{
+	vertical-align: top;
+
+	border-top: 1px dotted #DDDDDD;
+    border-bottom: 1px dotted #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+}
+
+.cwpvRowTwoColumn .cwpvDate
+{
+	margin: 4px 6px;
+	padding-left: 4px;
+	font-size: 100%;
+	color: #111111;
+	line-height: 25px;
+}
+
+.cwpvRowOneColumn .cwpvDate
+{
+	float: left;
+	display: inline-block;
+	max-width: 85px;
+
+	margin: 8px 6px;
+	padding-left: 4px;
+	font-size: 100%;
+	font-weight: bold;
+	color: #111111;
+}
+
+.cwpvRowOneColumn .cwpvDay
+{
+	font-size: 70%;
+	text-transform: uppercase;
+}
+
+.cwpvRowTwoColumn .cwpvDateToday,
+.cwpvRowOneColumn .cwpvDateToday
+{
+	color: #1E8BC3;
+}
+
+.cwpvEventCont
+{
+	overflow-y: auto;
+}
+
+.cwpvRowOneColumn .cwpvEventCont
+{
+	display: inline-block;
+	margin-top: 8px;
+}
+
+.cwpvRowTwoColumn .cwpvEvent
+{
+	padding: 2px 4px;
+	margin: 0 2px 2px 2px;
+	cursor: pointer;
+}
+
+.cwpvRowOneColumn .cwpvEvent
+{
+	padding: 2px 4px;
+	margin: 0 2px 2px 2px;
+	cursor: pointer;
+}
+
+.cwpvEventIcon
+{
+	float: left;
+	width: 20px;
+}
+
+.cwpvEventIconDot
+{
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+}
+
+.cwpvEventIconFont
+{
+	display: inline-block;
+	width: 14px;
+	height: 12px;
+
+	line-height: 12px !important;
+	font-size: 12px;
+	text-align: center;
+
+	color: #D1D1D1;
+}
+
+.cwpvEventContent
+{
+	display: inline-block;
+	width: auto;
+	height: 100%;
+}
+
+.cwpvEventTitle
+{
+	font-size: 85%;
+	color: #000000;
+}
+
+.cwpvEventTime
+{
+	font-size: 70%;
+	color: #ABB7B7;
+}
+
+.cwpvEventTimeBottom
+{
+	float: right;
+}
+
+.cwpvNoEvents
+{
+	color: #ABB7B7;
+	line-height: 25px;
+    font-size: 70%;
+    padding-left: 25px;
+}
+
+.cwpvRowOneColumn .cwpvNoEvents
+{
+	display: inline-block;
+}
+
+.cwpvEventCont::-webkit-scrollbar
+{
+	width: 1px !important;
+}
+
+/* ---------------------* Week Planner View End *--------------------- */
+
+/* --------------------------------------------------------------------------- */
+
+/* ---------------------* Agenda View (Timeline1) Start *--------------------- */
+
+.cagvTimeline1 .cListOuterCont
+{
+	background: #EEEEEE;
+}
+
+.cagvTimeline1 .cagvTable
+{
+	margin-top: 8px;
+	table-layout: auto !important;
+}
+
+.cagvTimeline1 .cagvTable *
+{
+	vertical-align: top;
+}
+
+.cagvTimeline1 .cagvDate
+{
+	margin: 4px 6px;
+	padding-left: 4px;
+	font-size: 95%;
+	color: #444444;
+	line-height: 40px;
+}
+
+.cagvTimeline1 .cagvDateToday
+{
+	color: #1E8BC3;
+}
+
+.cagvTimeline1 .cagvEvent
+{
+	height: 40px;
+	cursor: pointer;
+}
+
+.cagvTimeline1 .cagvEventCard
+{
+	position: relative;
+	margin: 10px 10px 10px 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 2px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+}
+
+.cagvTimeline1 .cagvEventCardBefore
+{
+	position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: -12px;
+    display: inline-block;
+    border-top: 12px solid rgba(0, 0, 0, 0);
+    border-right: 12px solid #CCCCCC;
+    border-left: 0 solid #CCCCCC;
+    border-bottom: 12px solid rgba(0, 0, 0, 0);
+    content: " ";
+}
+
+.cagvTimeline1 .cagvEventCard:after
+{
+	position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: -10px;
+    display: inline-block;
+    border-top: 11px solid rgba(0, 0, 0, 0);
+    border-right: 11px solid #FFFFFF;
+    border-left: 0 solid #FFFFFF;
+    border-bottom: 11px solid rgba(0, 0, 0, 0);
+    content: " ";
+}
+
+.cagvTimeline1 .cagvEventTime
+{
+	margin-left: 5px;
+	padding: 0 4px;
+	display: inline-block;
+	height: 100%;
+	width: 50px;
+}
+
+.cagvTimeline1 .cagvEventTime span
+{
+	display: inline-block;
+	font-size: 75%;
+}
+
+.cagvTimeline1 .cagvEventTimeTop
+{
+	margin-top: 2px;
+	color: #000000;
+}
+
+.cagvTimeline1 .cagvEventTimeBottom
+{
+	margin-top: 5px;
+	color: #ABB7B7 !important;
+}
+
+.cagvTimeline1 .cagvEventIcon
+{
+	position: relative;
+	padding: 0 4px;
+	width: 40px;
+
+	vertical-align: middle;
+	text-align: center;
+}
+
+.cagvTimeline1 .cagvEventIconLine
+{
+	position: absolute;
+	left: 50%;
+	margin-left: -1px;
+	top: 0;
+	width: 2px;
+	height: 100%;
+	background: #FFFFFF;
+	content: " ";
+	z-index: -1;
+}
+
+.cagvTimeline1 .cagvEventIconFont
+{
+	display: inline-block;
+	width: 27px;
+	height: 27px;
+
+	line-height: 22px !important;
+	font-size: 15px;
+	text-align: center;
+
+	background: #D1D1D1;
+	color: #FFFFFF;
+
+	border-radius: 25px;
+	border: 2px solid #FFFFFF;
+}
+
+.cagvTimeline1 .cagvEventIconDot
+{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 2px solid #FFFFFF;
+}
+
+.cagvTimeline1 .cagvEventContent
+{
+	padding: 0 4px;
+
+	display: inline-block;
+	height: 100%;
+}
+
+.cagvTimeline1 .cagvEventTitle
+{
+	font-size: 100%;
+	color: #000000;
+
+	max-height: 50px;
+	overflow: hidden;
+}
+
+.cagvTimeline1 .cagvEventDesc
+{
+	font-size: 85%;
+	color: #ABB7B7;
+
+	max-height: 80px;
+	overflow: hidden;
+
+	margin-top: 5px;
+}
+
+.cagvTimeline1 .cagvNoEvent
+{
+	color: #ABB7B7;
+	line-height: 25px;
+    font-size: 70%;
+    padding-left: 25px;
+}
+
+
+/* ---------------------* Agenda View (Timeline1) End *--------------------- */
+
+/* ---------------------* Agenda View (Timeline2) Start *--------------------- */
+
+.cagvTimeline2 .cagvTable
+{
+	margin-top: 8px;
+}
+
+.cagvTimeline2 .cagvTable *
+{
+	vertical-align: top;
+}
+
+.cagvTimeline2 .cagvDaySeparator
+{
+	height: 40px;
+	vertical-align: middle;
+}
+
+.cagvTimeline2 .cagvDaySeparator hr
+{
+	border-color: #FAFAFA;
+	border-style: solid;
+}
+
+.cagvTimeline2 .cagvContDate
+{
+	vertical-align: top;
+	width: 50px;
+}
+
+.cagvTimeline2 .cagvDate
+{
+	margin: 8px 4px 2px 10px;
+	font-size: 140%;
+	color: #000000;
+}
+
+.cagvTimeline2 .cagvDay
+{
+	margin: 2px 4px 2px 10px;
+	font-size: 80%;
+	color: #000000;
+	text-transform: uppercase;
+}
+
+.cagvTimeline2 .cagvDateToday
+{
+	color: #004AD9;
+}
+
+.cagvTimeline2 .cagvEvent
+{
+	cursor: pointer;
+}
+
+.cagvTimeline2 .cagvContDetails
+{
+	margin: 4px 4px;
+	padding: 8px 10px;
+	border-radius: 2px;
+	background: #ECEFF1;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.cagvTimeline2 .cagvEventIcon
+{
+	float: right;
+    clear: right;
+    margin-left: 5px;
+}
+
+.cagvTimeline2 .cagvEventIconFont
+{
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+
+	line-height: 12px !important;
+	font-size: 12px;
+
+	text-align: center;
+}
+
+.cagvTimeline2 .cagvEventIconDot
+{
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+}
+
+.cagvTimeline2 .cagvEventTitle
+{
+	font-size: 100%;
+
+	max-height: 50px;
+	margin-right: 2px;
+}
+
+.cagvTimeline2 .cagvContTime
+{
+	margin-top: 14px;
+}
+
+.cagvTimeline2 .cagvEventTime
+{
+	min-width: 80px;
+}
+
+.cagvTimeline2 .cagvEventTime span
+{
+	display: inline-block;
+	font-size: 75%;
+}
+
+.cagvTimeline2 .cagvEventTimeBottom
+{
+	float: right;
+}
+
+.cagvTimeline2 .cagvEventTimeDuration
+{
+	margin-right: 2px;
+}
+
+.cagvTimeline2 .cagvEventTimeLabel
+{
+    color: #FFFFFF !important;
+    padding: 3px 5px;
+    font-size: 70% !important;
+    border-radius: 5px;
+    text-transform: uppercase;
+}
+
+.cagvTimeline2 .cagvNoEvent
+{
+	padding-top: 10px;
+    padding-left: 25px;
+	color: #E1E1E1;
+
+    font-size: 70%;
+}
+
+
+/* ---------------------* Agenda View (Timeline2) End *--------------------- */
+
+/* ---------------------* Agenda View (Timeline3) Start *--------------------- */
+
+.cagvTimeline3 .cagvTable
+{
+	margin-top: 8px;
+	table-layout: auto !important;
+}
+
+.cagvTimeline3 .cagvTable *
+{
+	vertical-align: top;
+}
+
+.cagvTimeline3 .cagvDate
+{
+	padding-left: 4px;
+	font-size: 90%;
+	line-height: 40px;
+	color: #9E9E9E;
+	background: #F5F5F5;
+    border: 1px solid #E0E0E0;
+}
+
+.cagvTimeline3 .cagvDateToday
+{
+	color: #1E8BC3;
+}
+
+.cagvTimeline3 .cagvTable .cagvEvent td
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	max-height: 50px;
+	vertical-align: middle;
+}
+
+.cagvTimeline3 .cagvEventContent
+{
+	padding-left: 5px;
+}
+
+.cagvTimeline3 .cagvEvent
+{
+	height: 40px;
+	cursor: pointer;
+}
+
+.cagvTimeline3 .cagvEventSeparator hr
+{
+	border-color: #FAFAFA;
+	border-style: solid;
+}
+
+.cagvTimeline3 .cagvEventColor
+{
+	width: 16px;
+	min-width: 16px;
+}
+
+.cagvTimeline3 .cagvEventColor span
+{
+	display: inline-block;
+	height: 100%;
+	width: 4px;
+
+	margin: 0 6px;
+	vertical-align: middle;
+}
+
+.cagvTimeline3 .cagvEventTime
+{
+	padding: 0 4px;
+}
+
+.cagvTimeline3 .cagvEventTime span
+{
+	display: inline-block;
+	font-size: 85%;
+	color: #000000;
+}
+
+.cagvTimeline3 .cagvEventTime .cagvEventTimeAllDay
+{
+	font-size: 75%;
+}
+
+.cagvTimeline3 .cagvEventTimeDuration
+{
+	color: #ABB7B7 !important;
+}
+
+.cagvTimeline3 .cagvEventTimeLabel
+{
+	color: #000000 !important;
+}
+
+.cagvTimeline3 .cagvEventTimeBottom
+{
+	margin-top: 5px;
+	color: #ABB7B7 !important;
+}
+
+.cagvTimeline3 .cagvEventIcon
+{
+	padding: 0 4px;
+	min-width: 35px;
+
+	vertical-align: middle;
+	text-align: center;
+}
+
+.cagvTimeline3 .cagvEventIconFont
+{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+
+	line-height: 25px !important;
+	font-size: 15px;
+
+	background: #D1D1D1;
+	color: #FFFFFF;
+	border-radius: 25px;
+	text-align: center;
+}
+
+.cagvTimeline3 .cagvEventIconDot
+{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+
+.cagvTimeline3 .cagvEventTitle
+{
+	font-size: 100%;
+	color: #000000;
+
+	max-height: 50px;
+	overflow: hidden;
+}
+
+.cagvTimeline3 .cagvEventDesc
+{
+	font-size: 85%;
+	color: #ABB7B7;
+
+	max-height: 80px;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+@media(max-width: 400px)
+{
+	.cagvTimeline3 .cagvEventTime
+	{
+		min-width: 60px;
+	}
+}
+
+.cagvTimeline3 .cagvNoEvent
+{
+	color: #ABB7B7;
+	line-height: 25px;
+    font-size: 70%;
+    padding-left: 25px;
+}
+
+/* ---------------------* Agenda View (Timeline3) End *--------------------- */
+
+/* ---------------------* DayList View Start *--------------------- */
+
+.cdlvDaysTable
+{
+	position: relative;
+	top: 0;
+	left: 0;
+
+	background: #FFFFFF;
+	border-collapse: separate;
+	font-size: 100%;
+}
+
+.cdlvDaysTable td
+{
+	border-top: 1px solid transparent !important;
+	border-bottom: 1px solid transparent !important;
+	border-right: 1px solid transparent !important;
+
+	background: #FFFFFF;
+	vertical-align: top;
+}
+
+.cdlvDaysTableRow
+{
+	height: 60px;
+
+	text-align: center;
+	color: #444444;
+}
+
+.cdlvDaysTableRowDays
+{
+	height: 25px;
+	line-height: 25px;
+
+	font-size: 80%;
+	text-align: center;
+	color: #444444;
+	font-weight: bold;
+}
+
+.cdlvDaysTableRowDates
+{
+	height: 25px;
+	line-height: 25px;
+
+	text-align: center;
+	color: #444444;
+	font-weight: bold;
+}
+
+.cdlvDaysTableRowDates span
+{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+
+	border-radius: 50%;
+}
+
+.cdlvDaysTableRowDatesHover
+{
+	color: #96281B !important;
+}
+
+.cdlvDaysTableRowDatesHover .cdlvTodayHighlightCircle,
+.cdlvDaysTableRowDatesHover .cdlvCurrentHighlightCircle
+{
+	background: #96281B;
+    color: #FFFFFF;
+}
+
+.cdlvCurrentHighlightText
+{
+	color: #000000;
+	text-transform: uppercase;
+}
+
+.cdlvCurrentHighlightCircle
+{
+	background: #000000;
+	color: #FFFFFF;
+}
+
+.cdlvTodayHighlightText
+{
+	color: #FF3B30;
+}
+
+.cdlvTodayHighlightSelectedText
+{
+	text-transform: uppercase;
+}
+
+.cdlvTodayHighlightCircle
+{
+	background: #FF3B30;
+	color: #FFFFFF;
+}
+
+.cdlvDaysTableRowIndicator
+{
+	margin: 5px 5px 0 5px;
+	height: 3px;
+	font-size: 0;
+	line-height: 1px;
+}
+
+.cdlvDaysTableRowIndicator span
+{
+	display: inline-block;
+
+	height: 100%;
+	background: #242424;
+}
+
+.cdlvDaysTableRowCustom
+{
+	overflow: hidden;
+	margin-top: 4px;
+}
+
+.cdlvTableRowStatusGroup
+{
+	line-height: 1;
+	padding: 4px 0 6px 0;
+}
+
+.cdlvTableRowStatusGroup > span
+{
+	margin-right: 2px;
+	margin-top: 3px;
+  	margin-bottom: 2px;
+}
+
+.cdlvStatus
+{
+	display: inline-block;
+	position: relative;
+
+	font-size: 9px;
+	text-align: center;
+	color: #FFFFFF;
+
+	height: 16px;	
+	line-height: 16px;	
+
+	padding-left: 5px;
+	padding-right: 5px;		
+}
+
+/* ---------------------* DayList View End *--------------------- */
+
+/* --------------------------------------------------------------------------- */
+
+/* ---------------------* Appointment View Start *--------------------- */
+
+.cavTable
+{
+	position: relative;
+	top: 0;
+	left: 0;
+
+	background: #FFFFFF;
+}
+
+.cavTableList
+{
+	border: 1px solid #DDDDDD;
+}
+
+.cavTableScroll
+{
+	width: 10px;
+}
+
+.cavTableRow1
+{
+	position: relative;
+	top: 0;
+
+	height: 50px;
+
+	text-align: center;
+	color: #444444;
+}
+
+.cavSlotTableSection
+{
+	padding: 8px 0 !important;
+	font-size: 90%;
+	color: #1E8BC3;
+	background: #F1F1F1;
+    text-align: center;
+}
+
+.cavTableRowDays
+{
+	position: relative;
+	top: 0;
+
+	height: 25px;
+	line-height: 25px;
+
+	text-align: center;
+	color: #444444;
+	font-weight: bold;
+}
+
+.cavTableRowDates
+{
+	position: relative;
+	top: 0;
+
+	height: 25px;
+	line-height: 25px;
+
+	font-size: 100%;
+	text-align: center;
+	color: #444444;
+	font-weight: bold;
+}
+
+.cavTableRowDates span
+{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+
+	border-radius: 50%;
+}
+
+.cavSlotTableSubColumns
+{
+	width: 33%;
+	display: inline-block;
+	float: left;
+}
+
+.cavSlot
+{
+	height: 20px;
+	line-height: 20px;
+	margin: 2% 2%;
+
+	text-align: center;
+	overflow: hidden;
+}
+
+.cavSlotTable
+{
+	border: none !important;
+}
+
+.cavSlotTable td
+{
+	padding: 10px 0;
+}
+
+.cavStatusFree
+{
+	color: #444444;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.cavStatusBusy
+{
+	color: #999999;
+	text-decoration: line-through;
+}
+
+.cavTableRow2
+{
+	overflow: auto;
+}
+
+.cavContRow2
+{
+	width:100%;
+
+	position: absolute;
+	left: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.cavTooltipSlotCount
+{
+	font-size: 90%;
+}
+
+.cavTooltipBookNow
+{
+	font-size: 100%;
+	color: #000000;
+}
+
+/* ---------------------* Appointment View End *--------------------- */
+
+/* ---------------------------------------------------------------------------------- */
+
+/* -------------------------* Detail View Start *----------------------- */
+
+.cdvDetailTable
+{
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+	top: 0;
+	left: 0;
+
+	background: #FFFFFF;
+}
+
+.cdvDetailTableRow1
+{
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #444444;
+}
+
+.cdvDetailTableRow1 .cdvTableColumns:not(.cTodayHighlightTextColor) .cdvCellDayLeft
+{
+	color: #049372;
+}
+
+.cdvSingleColumn
+{
+	text-align: center;
+}
+
+.cdvSingleColumn .cdvCellDayLeft
+{
+	margin-right: 6px;
+}
+
+.cdvMultiColumn .cdvCellDayLeft
+{
+	float: left;
+	margin-left: 6px;
+}
+
+.cdvMultiColumn .cdvCellDayRight
+{
+	float: right;
+	margin-right: 6px;
+}
+
+@media screen and (max-width: 400px) 
+{
+	.cdvMultiColumn .cdvCellDayLeft, .cdvMultiColumn .cdvCellDayRight
+	{
+		display: block;
+		width: 100%;
+		text-align: center;
+
+		margin: 0;
+		float: none;
+	}
+}
+
+.cExceptDayEventDetailView
+{
+	font-size: 95%;
+}
+
+.cdvCellWeekNumber
+{
+	line-height: 15px;
+	color: #96281B;
+}
+
+.cdvCellWeekNumberLabel
+{
+	color: #444444;
+	font-size: 75%;
+	line-height: 15px;
+}
+
+.cdvDetailTableColumnTime
+{
+	width: 60px;
+	color: #666666;
+	font-size: 80%;
+	text-align: center;
+}
+
+.cdvDetailTableColumnTime span
+{
+	padding-left: 4px;
+}
+
+.cdvDetailTableScroll
+{
+	width: 10px;
+	border-right: none !important;
+}
+
+.cdvTimeSlotTable
+{
+	position: relative;
+}
+
+.cdvTimeSlotTableRow
+{
+	height: 30px;
+}
+
+.cdvContRow2
+{
+	width: 100%;
+	min-height: 20px;
+
+	position: absolute;
+	left: 0;
+}
+
+.cdvCellHeaderAllDay
+{
+	display: table;
+	width: 60px;
+	height: 30px;
+
+	color: #666666;
+  	font-size: 80%;
+  	text-align: center;
+}
+
+.cdvCellHeaderAllDay span
+{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.cdvContRow3
+{
+	width: 100%;
+
+	position: absolute;
+	left: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.cdvContRow3Events
+{
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	overflow: hidden;
+}
+
+.cdvDetailTableTemp
+{
+	z-index: 2;
+}
+
+.cdvContRow2Temp
+{
+	z-index: 3;
+}
+
+.cdvContRow3Temp
+{
+	z-index: 3;
+}
+
+/* ---------------------* Detail View End *--------------------- */
+
+/* ---------------------* Detail View Events Start *--------------------- */
+
+.cdvEvent
+{
+	position: absolute;
+	display: inline-block;
+
+	margin: 2px 2px;
+	text-align: center;
+	overflow: hidden;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
+}
+
+.cdvEventAllDay
+{
+	position: absolute;
+	display: inline-block;
+
+	margin: 2px 2px;
+	overflow: hidden;
+
+	border-width: 1px;
+	border-style: solid;
+	border-color: transparent;
+}
+
+.cdvEventIcon
+{
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	line-height: 12px;
+	font-size: 12px;
+
+	text-align: center;
+}
+
+.cdvEventIconDot
+{
+	display: inline-block;
+	height: 6px;
+	width: 6px;
+	border-radius: 50%;
+}
+
+.cdvEvent .cdvEventIcon
+{
+	float: right;
+	margin: 1px 4px 0 1px;
+}
+
+.cdvEvent .cdvEventStatus
+{
+	float: left;
+    margin: 5px 4px 0 4px;
+
+	border-width: 2px;
+	border-style: solid;
+}
+
+.cdvEventAllDay .cdvEventIcon
+{
+	float: left;
+	margin: 2px 0 0 4px;
+}
+
+.cdvEventAllDay .cdvEventStatus
+{
+	float: left;
+	margin: 6px 0 0 4px;
+
+	border-width: 2px;
+	border-style: solid;
+}
+
+.cEventLink
+{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+.cdvEventDetails
+{
+	display: block;
+	text-align: left;
+}
+
+.cdvEventTime
+{
+	overflow: hidden;
+	font-size: 65%;
+}
+
+.cdvEventTimeLeft
+{
+	float: left;
+	margin-left: 2px;
+	font-size: 65%;
+}
+
+.cdvEventTimeRight
+{
+	float: right;
+	margin-right: 2px;
+	font-size: 65%;
+}
+
+.cdvEvent .cdvEventTime
+{
+	margin: 1px 0 0 4px;
+}
+
+.cdvEventAllDay .cdvEventTimeLeft
+{
+	margin-right: 4px;
+}
+
+.cdvEventTitle
+{
+	margin: 0 2px 0 4px;
+
+	min-height: 10px;
+	text-decoration: none;
+	overflow: hidden;
+	word-wrap: break-word;
+	word-break: break-all;
+	font-size: 90%;
+	text-align: left;
+}
+
+.cdvEventAllDay .cdvEventTitle
+{
+	float: left;
+	display: inline-block;
+}
+
+/* ---------------------* Detail View Events End *--------------------- */
+
+/* --------------------------------------------------------------------------- */
+
+/* -------------------------* Quick Agenda View Start *----------------------- */
+
+.cqavTable
+{
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+	top: 0;
+	left: 0;
+
+	background: #FFFFFF;
+}
+
+.cqavTableRow1
+{
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #444444;
+
+	font-size: 85%;
+}
+
+.cqavTableRow1 .cqavTableColumns:not(.cTodayHighlightTextColor) .cqavDayColumnLeft
+{
+	color: #06998A;
+}
+
+.cqavSingleColumn
+{
+	text-align: center;
+}
+
+.cqavSingleColumn .cqavDayColumnLeft
+{
+	margin-right: 6px;
+}
+
+.cqavMultiColumn .cqavDayColumnLeft
+{
+	float: left;
+	margin-left: 6px;
+}
+
+.cqavMultiColumn .cqavDayColumnRight
+{
+	float: right;
+	margin-right: 6px;
+}
+
+@media screen and (max-width: 400px) 
+{
+	.cqavMultiColumn .cqavDayColumnLeft, .cqavMultiColumn .cqavDayColumnRight
+	{
+		display: block;
+		width: 100%;
+		height: 25px;
+
+	    line-height: 25px;
+		text-align: center;
+		font-weight: bold;
+
+		margin: 0;
+		float: none;
+	}
+
+	.cqavMultiColumn .cqavDayColumnRight
+	{
+	    font-size: 120%;
+	}
+}
+
+.cqavContRow2
+{
+	width: 100%;
+
+	position: absolute;
+	left: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.cqavTableTemp
+{
+	z-index: 2;
+}
+
+.cqavContRow2Temp
+{
+	z-index: 3;
+}
+
+.cqavEvent
+{
+	position: absolute;
+	overflow: hidden;
+
+	border-style: solid;
+	border-width: 1px;
+}
+
+.cqavEventTitle
+{
+	margin: 0 4px 0 2px;
+	float: left;
+
+	display: inline-block;
+	width: auto;
+	height: 100%;
+
+	font-size: 90%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.cqavEventIcon
+{
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	font-size: 12px;
+	text-align: center;
+
+	float: left;
+	margin: 2px 0 0 2px;
+}
+
+.cqavEventIcon .cEventLink
+{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	cursor: pointer;
+}
+
+.cqavEventTime
+{
+	float: left;
+	margin: 0 4px 0 3px;
+	font-size: 80%;
+
+	white-space: nowrap;
+}
+
+.cqavEventTimeRight
+{
+	float: right;
+	margin-right: 3px;
+	font-size: 80%;
+}
+
+/* ---------------------* Quick Agenda View End *--------------------- */
+
+/* -------------------------* Task Planner View Start *----------------------- */
+
+.ctpvTable
+{
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+	top: 0;
+	left: 0;
+
+	background: #FFFFFF;
+}
+
+.ctpvTableRow1
+{
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #444444;
+
+	font-size: 85%;
+}
+
+.ctpvTableRow1 .ctpvTableColumns:not(.cTodayHighlightTextColor) .ctpvDayColumnLeft
+{
+	color: #06998A;
+}
+
+.ctpvSingleColumn
+{
+	text-align: center;
+}
+
+.ctpvSingleColumn .ctpvDayColumnLeft
+{
+	margin-right: 6px;
+}
+
+.ctpvMultiColumn .ctpvDayColumnLeft
+{
+	float: left;
+	margin-left: 6px;
+}
+
+.ctpvMultiColumn .ctpvDayColumnRight
+{
+	float: right;
+	margin-right: 6px;
+}
+
+@media screen and (max-width: 400px) 
+{
+	.ctpvMultiColumn .ctpvDayColumnLeft, .ctpvMultiColumn .ctpvDayColumnRight
+	{
+		display: block;
+		width: 100%;
+		height: 25px;
+
+	    line-height: 25px;
+		text-align: center;
+		font-weight: bold;
+
+		margin: 0;
+		float: none;
+	}
+
+	.ctpvMultiColumn .ctpvDayColumnRight
+	{
+	    font-size: 120%;
+	}
+}
+
+.ctpvTableMain thead,
+.ctpvTableMain tbody
+{
+	overflow-y: auto;
+	float: left;
+}
+
+.ctpvTableRow2 .ctpvTableColumns
+{
+	vertical-align: top;
+
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.ctpvContRow2
+{
+	width: 100%;
+
+	position: absolute;
+	left: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.ctpvTableTemp
+{
+	z-index: 2;
+}
+
+.ctpvContRow2Temp
+{
+	z-index: 3;
+}
+
+.ctpvEvent
+{
+	border-left-width: 3px;
+	border-left-style: solid;
+
+	background: #FFFFFF;
+
+	margin: 5px 4px 4px 4px;
+    box-shadow: 1px 2px 2px #AEADAD, -1px -1px 1px #EAEAEA;
+
+    padding: 4px;
+}
+
+.ctpvEventTitle
+{
+    margin: 0 4px 6px 2px;
+    font-size: 90%;
+    word-wrap: break-word;
+    color: #444444;
+    padding-right: 2px;
+}
+
+.ctpvEventStatus
+{
+	display: inline-block;
+	width: 4px;
+	height: 4px;
+
+	margin: 2px;
+}
+
+.ctpvEventIcon
+{
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px !important;
+    font-size: 12px;
+    text-align: center;
+
+	float: right;
+}
+
+.ctpvEventTime
+{
+	margin: 0 4px 0 3px;
+	font-size: 70%;
+
+	white-space: nowrap;
+
+	color: #000000;
+}
+
+.ctpvEventTimeTop
+{
+	color: #777777;
+}
+
+.ctpvEventTimeBottom
+{
+	color: #ABB7B7;
+}
+
+.ctpvTableRowSummary td
+{
+	padding: 5px 2px;
+}
+
+/* ---------------------* Task Planner View End *--------------------- */
+
+/* --------------------------------------------------------------------------- */
+
+/* ---------------------* Month View Start *--------------------- */
+
+.cmvTableContainer
+{
+	position: relative;
+}
+
+.cmvMonthTable
+{
+	width: 100%;
+	height: 100%;
+	
+	position: relative;
+	top: 0;
+	left: 0;
+	
+	background: #FFFFFF;
+	overflow: auto;
+
+	-webkit-overflow-scrolling: touch;
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.cmvDayHeader
+{
+	text-align: center;
+	color: #444444;	
+	font-weight: bold;
+	font-size: 70%;
+	text-transform: uppercase;
+}
+
+.cmvMonthTableRows
+{
+	vertical-align: top;
+	min-height: 60px;
+}
+
+.cmvMonthTableRowDayHeader
+{
+	height: 30px;
+	line-height: 30px;
+}
+
+.cmvDay
+{	
+	text-align: left;
+	position: relative;
+}
+
+@media screen and (max-width: 500px) 
+{
+    .cmvDay 
+    {
+        text-align: center;
+    }
+}
+
+.cmvDayNumber
+{
+	margin-left: 2px;
+
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+
+	text-align: center;
+	
+	border-radius: 50%;
+}
+
+.cFontLarge .cmvDayNumber
+{
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+}
+
+.cFontMedium .cmvDayNumber, .cFontSmall .cmvDayNumber
+{
+	width: 15px;
+	height: 15px;
+	line-height: 15px;
+}
+
+.cmvWeekNumber
+{
+	width: 30px;
+	color: #444444;	
+	font-weight: bold;
+	
+	vertical-align: middle;
+}
+
+.cmvWeekNumber span
+{
+	margin-left: 2px;
+}
+
+.cmvWeekNumberBorderTop
+{
+	border-top-color: transparent !important;
+}
+
+.cmvWeekNumberBorderBottom
+{
+	border-bottom-color: transparent !important;
+}
+
+.cmvWeekNumberBorderLeft
+{
+	border-left-color: transparent !important;
+}
+
+.cmvCurrentMonthDay
+{
+	color: #242424;	
+	background: #FFFFFF;
+}
+
+.cmvOtherMonthDay
+{
+	color: #AAAAAA;
+	background: #EFEFEF;
+}
+
+.cmvThinBorderTop
+{
+	border-top: 1px solid #DDDDDD;
+}
+
+.cmvThinBorderRight
+{
+	border-right: 1px solid #DDDDDD;
+}
+
+.cmvThinBorderBottom
+{
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.cmvThinBorderLeft
+{
+	border-left: 1px solid #DDDDDD;
+}
+
+.cmvThinBorder
+{
+	border: 1px solid #DDDDDD;
+}
+
+/* ------------------------* Month View End *------------------------- */
+
+/* ---------------------* CalendarInnerCont Start *----------------------------- */
+
+.calendarContInner
+{
+	position: absolute;
+	background: #FFFFFF;
+}
+
+/* ---------------------* CalendarInnerCont End *----------------------------- */ 
+
+/* ---------------------* Filter Bar Start *--------------------- */
+
+.cFilterBar
+{
+	position: absolute;
+	background: #FFFFFF;
+
+	z-index: 8;
+}
+
+/* ----------------------* Filter Bar End *---------------------- */
+
+/* ---------------------* Action Bar Start *--------------------- */
+
+.cActionBar
+{
+	position: relative;
+	top: 0;
+	left: 0;
+	background: #F6EEEF;
+
+	z-index: 8;
+}
+
+/* ----------------------* Action Bar End *---------------------- */
+
+/* ---------------------* Detailed Month View Start *--------------------- */
+
+.cdmvEventCont
+{
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	overflow: hidden;
+}
+
+.cdmvEvent
+{
+	position: absolute;
+	overflow: hidden;
+
+	border-style: solid;
+	border-width: 1px;
+}
+
+.cdmvEventTitle
+{
+	margin: 0 4px 0 2px;
+	float: left;
+
+	display: inline-block;
+	width: auto;
+	height: 100%;
+
+	font-size: 90%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.cdmvEventIcon
+{
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	line-height: 12px;
+	font-size: 12px;
+	text-align: center;
+
+	float: left;
+	margin: 2px 1px 0 2px;
+	vertical-align: middle;
+}
+
+.cdmvEventIconDot
+{
+	display: inline-block;
+	height: 6px;
+	width: 6px;
+	border-radius: 50%;
+}
+
+.cdmvEventIcon .cEventLink
+{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	cursor: pointer;
+}
+
+.cdmvEventTime
+{
+	float: left;
+	margin: 0 4px 0 3px;
+	font-size: 80%;
+
+	white-space: nowrap;
+}
+
+.cdmvEventTimeRight
+{
+	float: right;
+	margin-right: 3px;
+	font-size: 80%;
+}
+
+/* ---------------------* Detailed Month View End *--------------------- */
+
+/* ---------------------* Month Events Start *--------------------- */
+
+.cmvEventCont
+{
+	position: relative;
+	top: 60%;
+	left: 0;
+
+	width: 100%;
+	text-align: center;
+}
+
+.cmvEventContSmall
+{
+	height: 25px;
+	max-height: 25px;
+	overflow: hidden;
+	line-height: 0;
+}
+
+.cmvEventContAllDay
+{
+	position: relative;
+	height: 25px;
+	max-height: 25px;
+	overflow: hidden;
+}
+
+.cmvEvent
+{
+	display: inline-block;
+	z-index: 2;
+}
+
+.cmvEventSmall
+{
+	width: 8px;
+	height: 8px;
+	margin: 2px 2px;
+}
+
+.cmvEventAllDay
+{
+	display: block;
+	height: 4px;
+	position: absolute;
+}
+
+.cmvEventAllDayFirst
+{
+	width: 80%;
+	margin: 0 0 0 20%;
+}
+
+.cmvEventAllDayLast
+{
+	width: 80%;
+	margin: 0;
+}
+
+.cmvEventAllDayMiddle
+{
+	width: 100%;
+	margin: 0;
+}
+
+.cmvEventAllDaySingle
+{
+	width: 80%;
+	margin: 0 10% 0 10%;
+}
+
+.cmvDisplayAllEvents
+{
+	float: right;
+	display: inline-block;
+	width: 25px;
+	font-weight: normal !important;
+	cursor: pointer;
+	text-align: left;
+}
+
+.cFontLarge .cmvDisplayAllEvents
+{
+	line-height: 25px;
+}
+
+.cFontMedium .cmvDisplayAllEvents, .cFontSmall .cmvDisplayAllEvents
+{
+	line-height: 17px;
+}
+
+.cmvDialogOuterCont
+{
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	width: 100%;
+	height: 100%;
+	background: transparent;
+
+	z-index: 11;
+}
+
+.cmvDialog
+{
+	position: absolute;
+	top: 100px;
+	left: 0;
+}
+
+.cmvDialogTooltip, .cmvDialogTooltip:after
+{
+	display: inline-block;
+	width: 0;
+	height: 0;
+
+	position: absolute;
+
+	border-width: 11px;
+	border-style: solid;
+
+	z-index: 1;
+}
+
+.cmvDialogTooltip:after
+{
+	content: " ";
+	border-width: 10px;
+}
+
+.cmvDialogTooltipBottom
+{
+	border-color: transparent transparent #34495E transparent;
+}
+
+.cmvDialogTooltipBottom:after
+{
+	top: -8px;
+	left: -10px;
+	border-color: transparent transparent #FFFFFF transparent;
+}
+
+.cmvDialogTooltipTop
+{
+	border-color: #34495E transparent transparent transparent;
+}
+
+.cmvDialogTooltipTop:after
+{
+	top: -12px;
+	left: -10px;
+	border-color: #FFFFFF transparent transparent transparent;
+}
+
+.br-ios .cmvDialogInnerCont
+{
+	overflow-y: scroll !important;
+
+	width: 100%;
+	height: 10px; /* required for scrolling in iOS. */
+}
+
+.cmvDialogInnerCont
+{
+	border: 1px solid #34495E;
+	background: #FFFFFF;
+
+	padding: 10px 10px 10px 10px;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+	
+	-webkit-overflow-scrolling: touch;
+
+	-webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.cmvDialogTable
+{
+	width: 100%;
+}
+
+.cmvDialogTable td
+{
+	border-color: transparent;
+	padding: 2px 4px;
+}
+
+.cmvDialogEvent
+{
+	color: #444444;
+	font-weight: normal;
+}
+
+.cmvDialogTime
+{
+	font-size: 75%;
+	margin-top: 5px;
+}
+
+.cmvDialogTimeStart
+{
+	padding: 1px 4px;
+	border-radius: 2px;
+	background: #ABB7B7;
+	color: #FFFFFF;
+}
+
+.cmvDialogTimeDuration
+{
+	margin-left: 5px;
+	color: #ABB7B7;
+}
+
+.cmvDialogIcon
+{
+	width: 20px;
+}
+
+.cmvDialogIconFont
+{
+	display: inline-block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    margin: 0;
+    color: #FFFFFF;
+
+    float: right;
+}
+
+.cmvDialogIconDot
+{
+	display: inline-block;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+}
+
+.cmvDialogEventSeparator td
+{
+	padding: 1px;
+}
+
+.cmvDialogEventSeparator hr
+{
+	border-color: #FAFAFA;
+    border-style: solid;
+}
+
+.cmvMonthTableRowIndicator
+{
+	margin: 5px 3px 0 3px;
+	height: 3px;
+	line-height: 1px;
+	font-size: 0;
+	text-align: center;	
+}
+
+.cmvMonthTableRowIndicator span
+{
+	display: inline-block;
+	height: 100%;
+	background: #242424;
+}
+
+.cmvMonthTableRowCustom
+{
+	position: absolute;
+
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+}
+
+.cHiddenEventsIndicator
+{
+	position: absolute;
+
+	color: #34495E;
+	font-size: 75%;
+	font-weight: bold;
+
+	padding-left: 10px;
+}
+
+.cHiddenEventsCont
+{
+	position: absolute;
+
+	background: #FFFFFF;
+	border: 1px solid #34495E;
+
+	padding: 5px 10px;
+
+	-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.cHiddenEventsContHeader
+{
+    padding: 5px 2px;
+    color: #242424;
+    font-size: 85%;
+    font-weight: bold;
+}
+
+.cHiddenEventsContToday
+{
+	color: #FF3B30;
+}
+
+.cHiddenEventsContClose 
+{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+
+    float: right;
+    margin-top: -2px;
+    margin-right: -2px;
+
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+
+    color: #242424;
+
+    border-radius: 50%;
+}
+
+/* ---------------------* Month Events End *--------------------- */
+
+/* --------------------------------------------------------------------------------- */
+
+/* ---------------------* Month List View Start *--------------------- */
+
+.cmlvOuterCont
+{
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+	background: transparent;
+
+	z-index: 12;
+}
+
+.cmlvPopup .cmlvCont
+{
+	position: absolute;
+	background: #FFFFFF;
+
+	width: 200px;
+	height: 200px;
+
+	margin: 0 auto;
+}
+
+.cmlvFull .cmlvCont
+{
+	position: absolute;
+	background: #FFFFFF;
+
+	width: 100%;
+	height: 100%;
+}
+
+.cmlvContTooltip, .cmlvContTooltip:after
+{
+	display: inline-block;
+	width: 0;
+	height: 0;
+
+	position: absolute;
+	border-width: 11px;
+	border-style: solid;
+}
+
+.cmlvContTooltip:after
+{
+	content: " ";
+	border-width: 10px;
+}
+
+.cmlvContTooltipBottom
+{
+	top: -22px;
+	left: 10px;
+	border-color: transparent transparent #DDDDDD transparent;
+}
+
+.cmlvContTooltipBottom:after
+{
+	top: -8px;
+	left: -10px;
+	border-color: transparent transparent #FFFFFF transparent;
+}
+
+.cmlvMonthListTable
+{
+	width: 100%;
+	height: 100%;
+}
+
+.cmlvMonth
+{
+	min-height: 40px;
+	width: 20%;
+	height: 30%;
+
+	border-color: transparent !important;
+	padding: 2%;
+
+	text-align: center;
+}
+
+.cmlvMonthCurrent
+{
+	color: #96281B;
+	font-weight: bold;
+}
+
+.cmlvMonthOther
+{
+	color: #111111;
+}
+
+.cmlvMonthOtherHover
+{
+	color: #96281B !important;
+}
+
+/* ---------------------* Month List View End *--------------------- */
+
+/* --------------------------------------------------------------------------------- */
+
+/* ---------------------* Year List View Start *--------------------- */
+
+.cylvOuterCont
+{
+	position: absolute;
+
+	width: 100%;
+	height: 100%;
+	background: transparent;
+
+	z-index: 12;
+}
+
+.cylvPopup .cylvCont
+{
+	position: absolute;
+	background: #FFFFFF;
+
+	width: 200px;
+	height: 200px;
+
+	margin: 0 auto;
+}
+
+.cylvFull .cylvCont
+{
+	position: absolute;
+	background: #FFFFFF;
+
+	width: 100%;
+	height: 100%;
+}
+
+.cylvContTooltip, .cylvContTooltip:after
+{
+	display: inline-block;
+	width: 0;
+	height: 0;
+	
+	position: absolute;
+	border-width: 11px;
+	border-style: solid;
+}
+
+.cylvContTooltip:after
+{
+	content: " ";
+	border-width: 10px;
+}
+
+.cylvContTooltipBottom
+{
+	top: -22px;
+	left: 10px;
+	border-color: transparent transparent #DDDDDD transparent;
+}
+
+.cylvContTooltipBottom:after
+{
+	top: -8px;
+	left: -10px;
+	border-color: transparent transparent #FFFFFF transparent;
+}
+
+.cylvYearListOuterTable
+{
+	position: absolute;
+	
+	width: 100%;
+	height: 100%;
+	
+	overflow: hidden;
+}
+
+.cylvTableContRow td
+{
+	border: none !important;
+}
+
+.cylvTableColumns
+{	
+	min-height: 40px;
+	width: 30%;
+	height: 20%;
+
+	border-color: transparent !important;
+	padding: 2%;
+
+	text-align: center;
+	color: #757575;
+}
+
+.cylvTableColumnsHover
+{
+	color: #96281B !important;
+}
+
+.cylvTableColumnsClick
+{
+	color: #96281B;
+}
+
+.cylvSelectedYear
+{
+	font-size: 110%;
+	color: #000000;
+}
+
+.cylvSelectedYearHover
+{
+	color: #96281B !important;
+}
+
+.cylvPrevYears, .cylvNextYears
+{
+	font-size: 200%;
+	line-height: 25px;
+}
+
+.cylvYearListTable
+{
+	width: 100%;
+	height: 100%;
+
+	background: #FFFFFF;
+}
+
+.cylvYear
+{
+	min-height: 40px;
+
+	width: 20%;
+	height: 20%;
+
+	border-color: transparent !important;
+	padding: 2%;
+
+	text-align: center;
+}
+
+.cylvYearCurrent
+{
+	color: #96281B;
+	font-weight: bold;
+}
+
+.cylvYearOther
+{
+	color: #111111;
+}
+
+.cylvYearOtherHover
+{
+	color: #96281B !important;
+}
+
+/* ---------------------* Year List View End *--------------------- */
+
+/* --------------------------------------------------------------------------------- */
+
+/*--------------------------------* Droppable Start *---------------------------- */
+
+.cActivatedCell
+{
+	background: #F9FFE5 !important;
+}
+
+/*--------------------------------* Droppable End *---------------------------- */
+
+.calendarContWeb ::-webkit-scrollbar 
+{
+	width: 5px;
+	height: 0;
+}
+
+.calendarContMobile ::-webkit-scrollbar 
+{
+	width: 2px;
+	height: 10px;
+}
+
+.calendarCont ::-webkit-scrollbar-button:start:decrement,
+.calendarCont ::-webkit-scrollbar-button:end:increment
+{
+	height: 0;
+	display: block;
+	background-color: transparent;
+}
+
+.calendarCont ::-webkit-scrollbar-track-piece  
+{
+	background-color: #FFFFFF;
+}
+
+.calendarCont ::-webkit-scrollbar-thumb:vertical 
+{
+	height: 50px;
+	background-color: #AAAAAA;
+	border: 1px solid #AAAAAA;
+}
+
+/* --------------------------------------------------------------------------------- */
+
+/*--------------------------------* DatePicker Start *---------------------------- */
+
+.cElemDatePickerBg
+{
+	position: absolute;
+	display: none;
+	z-index: 12;
+
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.cElemDatePickerCont
+{
+	position: absolute;
+
+	-webkit-box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+    -moz-box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+    box-shadow: 0 3px 10px rgba(20, 20, 20, 0.9);
+}
+
+.cElemDatePicker
+{
+	width: 320px;
+	height: 320px;
+}
+
+@media screen and (max-width: 480px) 
+{
+	.cElemDatePicker
+	{
+		width: 300px;
+		height: 320px;
+	}
+}
+
+.cElemDatePickerTooltip, .cElemDatePickerTooltip:after
+{
+	display: inline-block;
+	width: 0;
+	height: 0;
+
+	position: absolute;
+	border-width: 11px;
+	border-style: solid;
+	
+	z-index: 6;
+}
+
+.cElemDatePickerTooltip:after
+{
+	content: " ";
+	border-width: 10px;
+}
+
+.cElemDatePickerTooltipBottom
+{
+	top: -22px;
+	left: 10px;
+	border-color: transparent transparent #DDDDDD transparent;
+}
+
+.cElemDatePickerTooltipBottom:after
+{
+	top: -8px;
+	left: -10px;
+	border-color: transparent transparent #F8F8F8 transparent;
+}
+
+.cElemDatePickerBg .cmvDay
+{
+	text-align: center;
+}
+
+.cElemDatePickerBg .cmvDayNumber
+{
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	margin-top: 5px;
+
+	cursor: pointer;
+}
+
+.cElemDatePicker .cmvDayNumber:hover
+{
+	color: #96281B;
+}
+
+.cElemDatePicker .cmvDayNumber.cTodayHighlightCircle:hover
+{
+	color: #FFFFFF;
+	background: #96281B;
+}
+
+.cElemDatePickerCustom
+{
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10px;
+    line-height: 5px;
+    overflow: hidden;
+}
+
+.cElemDatePickerDot
+{
+	display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: #242424;
+    border-radius: 5px;
+}
+
+/*--------------------------------* DatePicker End *------------------------------ */
+
+.cEventLoaderBg
+{
+	position: absolute;
+	z-index: 100;
+
+	color: #FF3B30;
+	text-align: center;
+}
+
+.cEventLoaderIndicator
+{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+}
+
+.cEventLoaderIcon 
+{
+    min-width: 24px;
+    min-height: 24px;
+}
+ 
+.cEventLoaderIcon:before 
+{
+    content: 'Loading…';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+ 
+.cEventLoaderIcon:not(:required):before 
+{
+    content: '';
+    border-radius: 50%;
+    border: 1px solid #F6F;
+    border-top-color: #0E0;
+    border-right-color: #0DD;
+    border-bottom-color: #F90;
+    
+    -webkit-animation: spinner .6s linear infinite;
+    -moz-animation: spinner .6s linear infinite;
+    -o-animation: spinner .6s linear infinite;
+    animation: spinner .6s linear infinite;
+}
+
+@keyframes spinner 
+{
+    to {transform: rotate(360deg);}
+}
+ 
+@-webkit-keyframes spinner 
+{
+    to {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinner 
+{
+    to {-moz-transform: rotate(360deg);}
+}
+
+@-o-keyframes spinner 
+{
+    to {-o-transform: rotate(360deg);}
+}
+
+.cViewLoaderBg
+{
+	position: absolute;
+	z-index: 100;
+}
+
+.cViewLoaderBody
+{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
+
+	background: #FFFFFF;
+}
+
+.cViewLoaderIndicator
+{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+	filter: alpha(opacity=30);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+	opacity: 0.3;
+}
+
+.cTooltipTitle
+{
+	font-weight: bold;	
+}
+
+.cTooltipTime
+{
+	font-size: 85%;	
+}
+
+/*------------------------* Color Differentiators Start *------------------------------ */
+
+.cTodayHighlightBg
+{
+	background: #FFFFFF;
+}
+
+.cTodayHighlightTextColor
+{
+	color: #FF3B30 !important;
+}
+
+.cCurrentHighlightCircle
+{
+	background: #444444;
+	color: #FFFFFF;
+}
+
+.cTodayHighlightCircle
+{
+	background: #FF3B30;
+	color: #FFFFFF;
+}
+
+.cCurrentDateHighlightBg
+{
+	background: #FFFFFF;
+}
+
+.cCurrentDateHighlightColor
+{
+	color: #282828;
+}
+
+.cRestrictedTodayBg
+{
+	background: #F6FAFF;
+}
+
+.cNonBusinessHoursBg
+{
+	background: #ECF0F1;
+}
+
+.cRestrictedSectionBg
+{
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAO0lEQVQYV2NkIAIwElJz/vz5/3gVgRQYGhoyEjQJZBNWRTATYE7BUISuAKdJ6J6Bm4TNBBTr8CkAKQQAFYsXdiESspEAAAAASUVORK5CYII=") repeat !important;
+}
+
+.cBusinessHoursBg
+{
+	background: #FFFFFF;
+}
+
+.cDatePickerHighlightBg
+{
+	color: #96281B !important;
+}
+
+.cTimeIndicator
+{
+	position: absolute;
+	left: 0;
+
+	width: 60px;
+	height: 1px;
+
+	background: #FF0000;
+	z-index: 1;
+}
+
+.cTimeline
+{
+	position: absolute;
+
+	width: 100%;
+	height: 1px;
+
+	background: #FF0000;
+	z-index: 1;
+}
+
+/*------------------------* Color Differentiators End *------------------------------ */
+
+
+/*--------------------------------* Marked Day Start *------------------------------ */
+
+.cmvDay .cMarkedDayIndicator
+{
+	float: right;
+
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+	text-align: center;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.cMarkedDayEvent .cdmvEventIcon 
+{
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    margin: 0;
+    float: right;
+    color: #FFFFFF;
+}
+
+.cmvDialogTable .cMarkedDayEvent td
+{
+	padding: 4px 4px;
+}
+
+.cMarkedDayEvent .cmvDialogTitle
+{
+	float: left;
+}
+
+.cMarkedDayEvent .cdvEventIcon 
+{
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    margin: 0;
+    float: right;
+    color: #FFFFFF;
+}
+
+.cMarkedDayEvent .cqavEventIcon 
+{
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    margin: 0;
+    float: right;
+    color: #FFFFFF;
+}
+
+.cagvDate .cMarkedDayIndicator
+{
+	float: right;
+
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+	text-align: center;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.cagvTimeline2 .cMarkedDayEvent .cagvContDetails
+{
+	padding: 8px 3px 8px 10px;
+}
+
+.cagvTimeline2 .cMarkedDayEvent .cagvEventIcon
+{
+	display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px !important;
+    border-radius: 25px;
+
+    font-size: 12px;
+    text-align: center;
+    color: #FFFFFF;
+    
+    margin-top: -4px;
+}
+
+.cagvTimeline3 .cMarkedDayEvent .cagvEventIcon
+{
+	color: #FFFFFF;
+}
+
+.cagvTimeline3 .cMarkedDayEvent .cagvEventIconFont
+{
+	border-radius: 0;
+}
+
+.cMarkedDayLineIndicator span
+{
+	background: #D91E18;
+}
+
+.cwpvDate .cMarkedDayIndicator
+{
+	float: right;
+
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+
+	text-align: center;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+
+/*--------------------------------* Marked Day End *------------------------------ */

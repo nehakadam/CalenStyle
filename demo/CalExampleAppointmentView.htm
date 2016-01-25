@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Appointment View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuterParent
+			{
+				width: 100%;
+				height: 600px;
+				margin: 0px auto;
+			}
+		
+			.calendarContOuter
+			{
+            	width: 1000px;
+				height: 500px;
+				margin: 0px auto;
+            
+				font-size: 16px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{			
+				$(".calendarContOuter").CalenStyle(
+				{
+					visibleView: "AppointmentView",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oSlotAvailabilityResponse = generateJsonSlotAvailability(fetchStartDate, fetchEndDate);
+								console.log(oSlotAvailabilityResponse);
+								if(oSlotAvailabilityResponse != undefined)
+								{
+									if(oSlotAvailabilityResponse[0])
+									{
+										calObj1.parseDataSource("slotAvailabilitySource", oSlotAvailabilityResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+				
+					clickedAppointmentSlot: function(oSlot, oSlotElement)
+					{
+						console.log("Appointment Slot Clicked ");
+						console.log(oSlot);
+						console.log(oSlot["count"]);
+					
+						if(oSlot["count"] > 0)
+							oSlot["count"] == oSlot["count"] - 1;
+						else
+					
+						if(oSlot["status"] === "Free" && (oSlot["count"] === 0 || oSlot["count"] === undefined))
+						{
+							oSlot["status"] = "Booked";
+							$(oSlotElement).removeClass("cavStatusFree cTimeSlotTooltip").addClass("cavStatusBusy");
+							$(oSlotElement).tooltip("destroy");
+							$(oSlotElement).attr("title", "");
+						}
+					},
+				
+					datePickerCalDataSource: 
+					[
+						{
+							config:
+							{
+								sourceCountType: "FreeTimeSlot"
+							}
+						}
+					]
+				});
+			});
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuterParent">
+			<div class="calendarContOuter"></div>
+		</div>
+	
+	</body>
+	
+</html>

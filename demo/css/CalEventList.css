@@ -1,0 +1,236 @@
+.cagvCalendarCont .cListTable
+{
+	table-layout: initial !important;
+}
+
+.cListTable
+{
+	margin-top: 8px;
+	width: 100%;
+}
+
+.cListTable *
+{
+	vertical-align: top;
+}
+
+.cListTable td
+{
+	border: none;
+}
+
+.cListDate
+{
+	padding-left: 4px;
+	font-size: 90%;
+	line-height: 40px;
+	color: #9E9E9E;
+	background: #F5F5F5;
+    border: 1px solid #E0E0E0;
+}
+
+.cListTable .cListEvent td
+{
+	padding-top: 10px;
+	padding-bottom: 10px; 
+	max-height: 50px;
+	vertical-align: middle;
+}
+
+.cListEvent
+{
+	height: 40px;
+	cursor: pointer;
+}
+
+.cListEventSeparator hr
+{
+	border-color: #FAFAFA;
+	border-style: solid;
+}
+
+.cListEventColor
+{
+	width: 16px;
+	min-width: 16px;
+}
+
+.cListEventColor span
+{
+	display: inline-block;
+	height: 100%;
+	width: 4px;
+	
+	margin: 0px 6px;
+	vertical-align: middle;
+}
+
+.cListEventTime
+{
+	padding: 0 4px;
+	width: 70px;
+}
+
+.cListEventTime span
+{
+	display: inline-block;
+	font-size: 85%;
+	color: #000000;
+}
+
+.cListEventTimeDuration
+{
+	color: #ABB7B7 !important;
+}
+
+.cListEventTimeLabel
+{
+	color: #000000 !important;
+}
+
+.cListEventTimeBottom
+{
+	margin-top: 5px;
+	color: #ABB7B7 !important;
+}
+
+.cListEventIcon
+{
+	padding: 0 4px;
+	width: 45px;
+
+	vertical-align: middle;
+	text-align: center;
+}
+
+.cListEventIconFont
+{
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+
+	line-height: 25px !important;
+	font-size: 15px;
+
+	background: #D1D1D1;
+	color: #FFFFFF;
+	border-radius: 50%;
+	text-align: center;
+}
+
+.cListEventIconFontStatus
+{
+	box-sizing: content-box;
+
+	border-width: 3px;
+	border-style: solid;
+}
+
+.cListEventIconFontStatus:after
+{
+	box-sizing: content-box;
+
+    position: relative;
+    top: -27px;
+    left: -2px;
+
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    content: "";
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: #FFFFFF;
+}
+
+.cMarkedDayEvent .cListEventIconFont
+{
+	border-radius: 0;
+}
+
+.cMarkedDayEvent .cListEventIconFontStatus:after 
+{
+    border-radius: 0;
+}
+
+.cListEventIconDot
+{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+}
+
+.cListEventIconDotStatus
+{
+	box-sizing: content-box;
+
+	border-width: 3px;
+	border-style: solid;
+}
+
+.cListEventIconDotStatus:after
+{
+	box-sizing: content-box;
+	
+    position: relative;
+    top: -2px;
+    left: -2px;
+
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    content: "";
+
+    border-width: 2px;
+    border-style: solid;
+    border-color: #FFFFFF;
+}
+
+.cListEventContent
+{
+	padding: 0 4px;
+}
+
+.cListEventTitle
+{
+	font-size: 100%;
+	color: #000000;
+
+	max-height: 50px;
+	overflow: hidden;
+}
+
+.cListEventDesc
+{
+	font-size: 85%;
+	color: #ABB7B7;
+
+	max-height: 80px;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+.cEmptyList
+{
+	color: #ABB7B7;
+	line-height: 25px;
+    font-size: 70%;
+    padding-left: 25px;
+    text-align: center;
+}
+
+@media(max-width: 400px)
+{
+	.cListEventTime
+	{
+		min-width: 45px;
+	}
+}

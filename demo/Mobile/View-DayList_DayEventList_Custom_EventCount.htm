@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>DayEventList View with Custom EventCount View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+        <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-custom-1.11.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-custom-1.11.2.min.css" />
+    
+        <script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="../js/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/fastclick.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-jquery-ui-override.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-iconfont.css" />
+        <script type="text/javascript" src="../../src/calenstyle.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../css/CalEventList.css" />
+        <script type="text/javascript" src="../js/CalJsonGenerator.js"></script>
+    
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+            
+				font-size: 14px;
+				text-shadow: none;
+			}
+
+            .cElemDatePicker
+            {
+                font-size: 13px;
+            }
+		        
+            .backButton
+            {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                
+                background: #F62459;
+                color: #FDE3A7;
+                
+                font-size: 200%;
+                text-align: center;
+                line-height: 50px;
+                text-decoration: none;
+                
+                z-index: 9999;
+            }
+
+			.cdlvDaysTableRowCustom
+			{
+				text-align: center;
+				margin-left: 10px;
+				margin-right: 10px;
+			}
+
+			.custLabel
+			{
+                display: inline-block;
+                min-width: 15px;
+                padding: 2px 2px;
+            
+                color: #FFFFFF;
+                background: #666666;
+            
+                font-size: 10px;
+			}
+        
+            .cmvOtherMonthDay .custLabel
+            {
+                opacity: 0.3;
+            }
+		
+		</style>
+	
+		<script type="text/javascript">
+			$(function() 
+			{              
+                var cal1Obj;
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+                    initialize: function()
+					{
+						cal1Obj = this;
+					},
+                
+					sectionsList: ["Header", "Calendar", "EventList"],
+				
+                    headerSectionsList: 
+					{
+						left: ["HeaderLabelWithDropdownMenuArrow"],
+						center: [],
+						right: ["PreviousButton", "NextButton"]
+					},
+				
+					visibleView: "DayEventListView",
+				
+					daysInDayListView: 3,
+
+					eventIndicatorInDayListView: "Custom",
+                
+                    dropdownMenuElements: ["DatePicker"],
+				
+					displayEventsForPeriodInList: function(listStartDate, listEndDate)
+					{
+						return displayEventsInList(this, listStartDate, listEndDate);
+					},
+				
+					eventListAppended: function()
+					{
+						adjustList();
+					},
+				
+					calDataSource: 
+					[
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								console.log("Response " + fetchStartDate + " " + fetchEndDate);
+								console.log(oEventResponse);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+					modifyCustomView: function(dArrViewDates)
+					{
+						var calObj1 = this;
+
+						for(var iTempIndex = 0; iTempIndex < dArrViewDates.length; iTempIndex++)
+						{
+							var dThisDate = dArrViewDates[iTempIndex],
+							sDayId = "#cdlvRowDay"+iTempIndex,
+							oArrDayDetails = calObj1.getEventCountAndIsMarkedDay(dThisDate, dThisDate),
+							iNoOfEvents = oArrDayDetails[0],
+							bIsMarked = oArrDayDetails[1],
+							sMarkColor = oArrDayDetails[2],
+							sTempStr = "",
+							sMarkedStyle = "";
+
+							if(bIsMarked)
+								sMarkedStyle = "background : " + sMarkColor + ";";
+                        
+                            if(iNoOfEvents !== 0)
+                            {
+                                sTempStr += "<span class='custLabel' style='" + sMarkedStyle + "'>"+iNoOfEvents+"</span>";
+                                $(calObj1.elem).find(sDayId + " .cdlvDaysTableRowCustom").html(sTempStr);
+                            }
+						}
+
+						calObj1.addRemoveViewLoader(false, "cEventLoaderBg");
+						calObj1.addRemoveLoaderIndicators(false, "cEventLoaderIndicator");
+					},
+                
+                    useHammerjsAsGestureLibrary: true,
+
+                    //hideEventIcon: {Default: false},
+
+					hideEventTime: {Default: true}
+				
+				});
+			
+				adjustList();
+				$(window).resize(function()
+				{
+					adjustList();
+				});
+			
+				function adjustList()
+				{
+                    var oCal3 = $(".calendarContOuter").CalenStyle();
+					var iEventWidth = $(oCal3.elem).width(),
+                    iEventColorWidth = $(".cListEventColor").outerWidth(true),
+                    iEventIconWidth = $(".cListEventIcon span").outerWidth(true),
+                    oElems = $(".cListEventTime span");
+                    var iMaxWidth = Math.max.apply(null, $(oElems).map(function()
+                    {
+                        return $(this).outerWidth(true);
+                    }).get());
+                    iMaxWidth += 5;
+                    $(".cListEventTime").css({"width": iMaxWidth});
+              
+                    var iEventTitleWidth = iEventWidth - (iEventColorWidth + iMaxWidth + iEventIconWidth) - 25;
+                    $(".cListEventTitle").css({"width": iEventTitleWidth});
+				}
+			
+			});
+		</script>
+	
+	</head>
+	
+	<body>
+	
+		<div class="calendarContOuter"></div>
+    
+	</body>
+	
+</html>

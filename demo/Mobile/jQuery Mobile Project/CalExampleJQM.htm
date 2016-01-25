@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>CalenStyle with JQM</title>
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="../../js/jquery-ui-custom-1.11.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../css/jquery-ui-custom-1.11.2.min.css" />
+    
+        <script type="text/javascript" src="../../js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="../../js/hammer.min.js"></script>
+        <script type="text/javascript" src="../../js/fastclick.js"></script>
+	
+        <script type="text/javascript" src="../../js/jquery.mobile-1.4.4.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../../css/jquery.mobile-1.4.4.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/jquery.mobile.structure-1.4.4.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/jquery.mobile.theme-1.4.4.min.css"/>
+
+		<link rel="stylesheet" type="text/css" href="../../../src/calenstyle.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/calenstyle-jquery-ui-override.css" />
+        <link rel="stylesheet" type="text/css" href="../../../src/calenstyle-iconfont.css" />
+        <script type="text/javascript" src="../../../src/calenstyle.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../css/CalEventList.css" />
+        <script type="text/javascript" src="../../js/CalJsonGenerator.js"></script>
+
+		<style type="text/css">
+
+			#page1
+			{
+				height: 100%;
+			}
+
+			.ui-content 
+			{
+      			background: #BDE4E9;
+      		
+      			position: absolute;
+				left: 0px;
+				right: 0px;
+				top: 44px;
+				bottom: 44px;
+				padding: 0;
+    		}
+
+    		.calendarContOuter
+    		{
+    			position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+            
+				font-size: 12px;
+				text-shadow: none;
+    		}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(document).ready(function()
+			{
+				// DOM Element Insertion and Plugin Initialisation on loading of first page if you are using CalenStyle on first page
+				initializeCalenStyle(); // Plugin Initialization
+			
+				// Otherwise, DOM Element Insertion and Plugin Initialisation can be done on pageshow
+				$("#page1").on("pageshow", function(event) 
+				{
+					initializeCalenStyle();
+				});
+			
+				// DOM Element Removal on pagehide method
+				$("#page1").on("pagehide", function(event) 
+				{
+					destroyCalenStyle(); // Destroy Element From DOM
+				});
+			
+			});
+
+			function initializeCalenStyle()
+			{
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					visibleView: "AgendaView",
+
+					headerSectionsList: 
+					{
+						left: ["HeaderLabelWithDropdownMenuArrow"],
+						center: [],
+						right: ["PreviousButton", "NextButton"]
+					},
+
+					dropdownMenuElements: ["ViewsToDisplay", "DatePicker"],
+				
+					isTooltipInMonthView: false,
+
+					isTooltipInDetailView: false,					
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+					addEventHandlersInHeader: function()
+                    {
+                        var oCal1 = $(".calendarContOuter").CalenStyle();
+                    
+                        var oHammer1 = new Hammer(oCal1.elem);
+                   
+                        oHammer1.on("swiperight", function(ev)
+                        {
+                            oCal1.navigateToPrevView();
+                        });
+                   
+                        oHammer1.on("swipeleft", function(ev)
+                        {
+                           oCal1.navigateToNextView();
+                        });
+                   
+                        var oCal2 =oCal1.setting.datePickerObject;
+                        var oHammer2 = new Hammer(oCal2.elem, {
+                            threshold: 0,
+                            velocity: 0
+                        });
+                   
+                        oHammer2.on("swiperight", function(ev)
+                        {
+                            oCal2.navigateToPrevView();
+                        });
+                   
+                        oHammer2.on("swipeleft", function(ev)
+                        {
+                            oCal2.navigateToNextView();
+                        });
+                    },
+				});
+			}
+
+			function destroyCalenStyle()
+			{
+				$(".calendarContOuter").CalenStyle("destroy");
+			}
+		
+		</script>
+		
+	</head>
+	
+	<body>
+	
+		<!-- Start of first page -->
+		<div data-role="page" id="page1">
+		
+			<div data-role="header" class="ui-header-fixed">
+				<h1>Page 1</h1>
+				<a href="#page2" class="ui-btn-right">Page 2</a>
+			</div><!-- /header -->
+		
+			<div role="main" class="ui-content">
+			
+				<div class="calendarContOuter"></div>
+
+				<a href="#popupBasic2" data-rel="popup">Open Popup</a>
+
+				<div data-role="popup" id="popupBasic2">
+					<p>This is a completely basic popup, no options set.<p>
+				</div>
+			
+			</div><!-- /content -->
+		
+			<div data-role="footer" class="ui-footer-fixed">
+				<h4>Page Footer</h4>
+			</div><!-- /footer -->
+
+		</div><!-- /page -->
+	
+		<!-- Start of second page -->
+		<div data-role="page" id="page2">
+		
+			<div data-role="header" class="ui-header-fixed">
+				<h1>Page 2</h1>
+				<a href="#page1" class="ui-btn-right">Page 1</a>
+			</div><!-- /header -->
+		
+			<div role="main" class="ui-content">
+			
+				<a href="#popupBasic1" data-rel="popup">Open Popup</a>
+
+				<div data-role="popup" id="popupBasic1">
+					<p>This is a completely basic popup, no options set.<p>
+				</div>
+			
+			</div><!-- /content -->
+		
+			<div data-role="footer" class="ui-footer-fixed">
+				<h4>Page Footer</h4>
+			</div><!-- /footer -->
+		
+		</div><!-- /page -->
+	
+	</body>
+	
+</html>
+	

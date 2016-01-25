@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Non-CalenStyle Header</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+
+			body
+			{
+				padding: 0;
+				margin: 0;
+			}
+		
+			.calendarContOuter
+			{
+            	width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.contHeader
+			{
+				height: 45px;
+
+				position: relative;
+				top: 0;
+				left: 0;
+
+				z-index: 12;
+
+				border-bottom: 1px solid #DDD;
+				color: #FF3B30;
+				background: #F8F8F8;
+
+				padding: 0px 10px;
+			}
+		
+			.contHeaderSections
+			{
+				height: 45px;
+				line-height: 45px;
+
+				text-align: center;
+				vertical-align: top;
+			}
+
+			.contHeaderSectionLeft
+			{
+				display: inline-block;
+				float: left;
+			}
+
+			.contHeaderSectionCenter
+			{
+				margin: 0px auto;
+				width: 50%;
+			}
+
+			.contHeaderSectionRight
+			{
+				display: inline-block;
+				float: right;
+			}
+
+			.contHeaderSections *
+			{
+				display: inline-block;
+			}
+
+			.contHeaderDatePickerArrow
+			{
+				width: 10px;
+				height: 10px;
+
+				z-index: 13;
+				cursor: pointer;
+			}
+
+			.contHeaderDatePickerArrow:before 
+			{
+				border: solid rgba(0, 0, 0, 0);
+				content: " ";
+				height: 0;
+				width: 0;
+
+				border-bottom-color: #FF3B30;
+				border-width: 10px;
+			}
+
+			.contHeaderDatePickerArrowHover:before
+			{
+				border-bottom-color: #F22D15;
+			}
+
+			.contHeaderNavButton
+			{
+				width: 30px;
+				font-size: 160%;
+			}
+
+			.contHeaderLabelMonth
+			{
+				padding: 0 6px 0 0;
+			}
+
+			.contHeaderLabelYear
+			{
+				padding: 0 0 0 6px;
+			}
+
+			.contHeaderLabelUnderline
+			{
+				display: inline;
+				border-bottom: 1px dotted #FF3B30;
+			}
+
+			.contHeaderLabelHover
+			{
+				color: #F22D15 !important;
+			}
+
+			.contHeaderDatePickerIcon
+			{
+				margin: 0 2px 0 2px;
+
+				display: inline-block;
+			 	width: 30px;
+				height: 45px;
+
+				font-size: 160%;
+			}
+
+			.contHeaderFullscreen
+			{
+				margin: 0 2px 0 2px;
+
+				display: inline-block;
+			 	width: 30px;
+				height: 45px;
+
+				font-size: 110%;
+			}
+
+			.contHeaderMenuButton
+			{
+			 	width: 30px;
+
+				font-weight: bold;
+				font-size: 160%;
+			}
+
+			.contHeaderMenuSections
+			{
+				display: inline-block;
+
+				-webkit-margin-before: 0;
+				-webkit-margin-after: 0;
+				-webkit-margin-start: 0;
+				-webkit-margin-end: 0;
+				-webkit-padding-start: 0;
+
+				margin: 0px;
+			}
+
+			.contHeaderMenuSections li
+			{
+				list-style: none;
+				background: #FFF;
+				font-size: 100%;	
+			}
+
+			.contHeaderMenuSegmentedTab .contHeaderMenuSections li
+			{
+				line-height: 25px;
+				margin-top: 8px;
+				float: left; /* to remove inline-block or white-space bug */
+
+				padding: 0px 10px;
+				border: 1px solid #FF3B30;
+
+				display: inline-block;
+				text-align: center;
+
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+
+			.contHeaderMenuSegmentedTab .contHeaderMenuSections li:hover
+			{
+				background: #FF3B30;
+				color: #FFFFFF;
+			}
+
+			.calendarDatePickerBg
+			{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				z-index: 100;
+				display: none;
+			}
+
+			.calendarDatePicker
+			{
+				position: absolute;
+				top: 50px;
+				left: 10px;
+			
+				display: inline-block;
+            	width: 250px;
+				height: 250px;
+            
+				font-size: 14px;
+				
+			}
+			
+			.calendarDatePicker .contHeader
+			{
+				padding: 0px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+
+			$(function() 
+			{
+				var oCal1, oCal2;
+				var dCal2Selected, dCal2Highlight;
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+
+					initialize: function()
+					{
+						oCal1 = this;
+					},
+				
+					sectionsList: ["Calendar"],
+
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+					modifyHeaderViewLabels: function(dViewStartDate, dViewEndDate, dSelectedDate, sHeaderLabel, sVisibleView)
+					{
+						$(".contHeaderLabel").html(sHeaderLabel);
+					},
+
+					viewLoaded: function(selectedDate, highlightDates)
+					{
+						dCal2Selected = selectedDate,
+						dCal2Highlight = highlightDates;
+					},
+				
+					visibleViewChanged: function(visibleView, selectedDate, highlightDates)
+					{
+						oCal2.setting.selectedDate = selectedDate;
+						oCal2.reloadData();
+					
+						oCal2.highlightDatesInDatePicker(highlightDates);
+
+						setCurrentViewColor(oCal1.setting.visibleView);
+					},
+				
+					previousButtonClicked: function(selectedDate, highlightDates)
+					{
+						oCal2.setting.selectedDate = selectedDate;
+						oCal2.reloadData();
+					
+						oCal2.highlightDatesInDatePicker(highlightDates);
+					},
+				
+					nextButtonClicked: function(selectedDate, highlightDates)
+					{
+						oCal2.setting.selectedDate = selectedDate;
+						oCal2.reloadData();
+					
+						oCal2.highlightDatesInDatePicker(highlightDates);
+					}
+				
+				});
+
+				$(".calendarDatePicker").CalenStyle(
+				{
+				
+					visibleView: "DatePicker",
+				
+					headerSectionsList: 
+					{
+						left: ["TodayButton"],
+						center: ["HeaderLabel"],
+						right: ["PreviousButton", "NextButton"]
+					},
+				
+					selectedDate: dCal2Selected,
+				
+					shortDayNames: ["S", "M", "T", "W", "T", "F", "S"],
+				
+					fullMonthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+					parentObject: oCal1,
+				
+					initialize: function()
+					{
+						oCal2 = this;
+						oCal1.datePickerObject = oCal2;
+					},
+				
+					viewLoaded: function(selectedDate, highlightDates)
+					{
+						oCal2.highlightDatesInDatePicker(dCal2Highlight);
+					},
+				
+					cellClicked: function(sView, dSelectedDateTime, bIsAllDay, pClickedAt)
+					{
+						oCal1.setting.selectedDate = dSelectedDateTime;
+						oCal1.reloadData();
+						oCal2.highlightDatesInDatePicker(oCal1.getVisibleDates());
+
+						console.log("Selected Date : " + oCal1.setting.selectedDate);
+					}
+				
+				});
+			
+				adjustHeaderView();
+				$(window).resize(function()
+				{
+					adjustHeaderView();
+				});
+
+				function adjustHeaderView()
+				{
+					var $occCalendarContInner = $(oCal1.elem).find(".calendarContInner"),
+					iCalendarContWidth = $occCalendarContInner.outerWidth(),
+					iCalendarContHeight = $occCalendarContInner.outerHeight();
+
+					if(iCalendarContWidth > 410 || iCalendarContHeight > 410)
+						$(".contHeader, .contHeaderSections, .contHeaderDatePickerIcon, .contHeaderFullscreen").css({"height": 45, "line-height": 45+"px"});
+					else
+						$(".contHeader, .contHeaderSections, .contHeaderDatePickerIcon, .contHeaderFullscreen").css({"height": 30, "line-height": 30+"px"});
+				}
+			
+				$(".contHeaderPrevButton").click(function()
+				{
+					oCal1.navigateToPrevView();
+				});
+
+				$(".contHeaderNextButton").click(function()
+				{
+					oCal1.navigateToNextView();
+				});
+			
+				$(".contHeaderMenuSections li").click(function()
+				{
+					var sViewName = $(this).attr("name");
+					oCal1.setCurrentView(sViewName, false);
+					setCurrentViewColor(sViewName);
+				});
+
+				$(".contHeaderDatePickerIcon").click(function()
+				{
+					showOrHideDatePickerView();
+				});
+
+				$(".calendarDatePickerBg").click(function()
+				{
+					showOrHideDatePickerView();
+				});
+
+				function showOrHideDatePickerView()
+				{
+					if($(".calendarDatePickerBg").css("display") === "none")
+						$(".calendarDatePickerBg").show();
+					else
+						$(".calendarDatePickerBg").hide();
+				}
+
+				setCurrentViewColor(oCal1.setting.visibleView);
+				function setCurrentViewColor(sViewName)
+				{
+					$(".contHeaderMenuSections li").css({"background": "#FFF", "color": "#FF3B30"});
+					$(".contHeaderMenuSections #contHeaderMenu"+sViewName).css({"background": "#FF3B30", "color": "#FFF"});
+				}
+			
+			});
+		</script>
+		
+	</head>
+	
+	<body>
+
+		<div class="contHeader">
+			<div class="contHeaderSections contHeaderSectionLeft">
+				<span class="contHeaderDatePickerIcon clickableLink cs-icon-Calendar"></span>
+				<span class="contHeaderButton contHeaderNavButton contHeaderPrevButton clickableLink cs-icon-Prev"></span>
+				<span class="contHeaderButton contHeaderNavButton contHeaderNextButton clickableLink cs-icon-Next"></span>
+			</div>
+			<div class="contHeaderSections contHeaderSectionRight">
+				<span class="contHeaderMenuSegmentedTab">
+					<ul class="contHeaderMenuSections">
+						<li id="contHeaderMenuDetailedMonthView" name="DetailedMonthView" class="clickableLink cSelectedMenu">Month</li>
+						<li id="contHeaderMenuWeekView" name="WeekView" class="clickableLink">Week</li>
+						<li id="contHeaderMenuDayView" name="DayView" class="clickableLink">Day</li>
+						<li id="contHeaderMenuAgendaView" name="AgendaView" class="clickableLink">Agenda</li>
+					</ul>
+				</span>
+			</div>
+			<div class="contHeaderSections contHeaderSectionCenter">
+				<span class="contHeaderLabelOuter">
+					<span class="contHeaderLabel">
+						<span class="contHeaderLabelMonth">
+							<span class=""><b>March</b></span>
+						</span>
+						<span class="contHeaderLabelYear ">
+							<span class="">2015</span>
+						</span>
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="calendarContOuter"></div>
+
+		<div class="calendarDatePickerBg">
+
+			<div class="calendarDatePicker"></div>
+
+		</div>
+	
+	</body>
+	
+</html>

@@ -1,0 +1,571 @@
+/*------------------------------- Common Start ------------------------------------------ */
+
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+html
+{
+	height: 100%;
+	overflow-x: hidden;
+}
+
+body
+{
+	font-family: "Roboto", sans-serif;
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media (max-width: 480px)
+{
+	body
+	{
+		font-size: 12px;
+	}
+}
+
+a
+{
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active
+{
+	outline: none;
+	text-decoration: none;
+}
+
+section 
+{
+    display: table;
+    width: 100%;
+    height: auto;
+    background: #FFF;
+}
+
+h1
+{
+	text-align: center;
+}
+
+.bg-image
+{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	z-index: -1;
+}
+
+.row
+{
+	padding: 10px 0px;
+}
+
+/*------------------------------- Common End ------------------------------------------ */
+
+
+/*------------------------------- Navbar Start ------------------------------------------ */
+
+.navbar.navbar-dynamic, 
+.navbar.navbar-static 
+{
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #FFF;
+
+    font-size: 1.3em;
+}
+
+.navbar-calenstyle 
+{
+    font-size: 1.5em;
+    display: inline-block;
+    padding-top: 5px;
+}
+
+@media (max-width: 480px)
+{
+	.navbar-calenstyle 
+	{
+	    padding-top: 10px;
+	}
+}
+
+.navbar-header a
+{
+	color: #000000;
+	margin-left: 16px;
+}
+
+.navbar-custom li a
+{
+	color: #000000;
+}
+
+@media (min-width: 768px)
+{
+	.navbar-header a
+	{
+		margin-left: 0px;
+	}
+
+	.navbar-custom li a
+	{
+		font-size: 0.8em;
+	}
+
+	.navbar-custom li a:hover,
+	.navbar-custom li a:focus,
+	.navbar-custom li.active a
+	{
+		background: #FFFFFF;
+	}
+
+	.top-nav-collapse li a:hover,
+	.top-nav-collapse li a:focus,
+	.top-nav-collapse li.active a
+	{
+		background: #ECECEC;
+	}
+}
+
+@media (max-width: 767px)
+{
+	.navbar-custom li a, 
+	.top-nav-collapse li a
+	{
+	    color: #444444;
+	    background: #F7F5F2;
+	    margin-top: -1px;
+	}
+
+	.navbar-custom li a:hover,
+	.top-nav-collapse li a:hover,
+	.navbar-custom li a:focus,
+	.top-nav-collapse li a:focus,
+	.navbar-custom li.active a,
+	.top-nav-collapse li.active a
+	{
+	    color: #000000;
+	}
+}
+
+.navbar-toggle .icon-bar
+{
+	height: 3px;
+	background: #000000;
+}
+
+.top-nav-collapse 
+{
+	padding: 0;
+	background: #FFFFFF;
+}
+
+.navbar-custom.top-nav-collapse
+{
+	background: #FFFFFF;
+	-webkit-box-shadow: 0 3px 3px -1px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 3px 3px -1px rgba(0,0,0,0.2);  	
+	box-shadow: 0 3px 3px -1px rgba(0, 0, 0, 0.2); 	
+}
+
+@media(min-width:768px)
+{
+    .navbar.navbar-dynamic
+    {
+        padding: 20px 0;
+        border-bottom: 0;
+        background: 0 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+    
+    .navbar-dynamic.top-nav-collapse 
+	{
+		padding: 0;
+		background: #FFFFFF;
+	}
+
+	.navbar-custom.top-nav-collapse
+	{
+		background: #FCFCFB;
+	}
+    
+    .navbar-static
+    {
+    	padding: 0;
+    }
+}
+
+.navbar-nav
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+@media (min-width: 768px)
+{
+	.navbar-nav>li.collapse-footerlink
+	{
+		display: none;
+	}
+}
+
+/*------------------------------- Navbar End ------------------------------------------ */
+
+/*------------------------------- Home Section End ------------------------------------ */
+
+#home
+{
+	padding: 70px 0px 20px 0px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200) and (orientation: landscape)
+{
+	#home
+	{
+		height: 100%;
+		padding: 70px 0px 20px 0px;
+	}
+}
+
+.jumbotron
+{
+	background: transparent;
+	padding-top: 0px;
+}
+
+@media screen and (max-width: 768px)
+{
+	.jumbotron
+	{
+		padding-bottom: 0px;
+	}
+}
+
+.doc-desc
+{
+	color: #000000;
+	margin-top: 70px;
+	font-size: 2.5em;
+	font-weight: 300;
+}
+
+@media screen and (max-width: 480px)
+{
+	.doc-desc
+	{
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-width: 320px)
+{
+	.jumbotron
+	{
+		padding: 0px;
+	}
+
+	#home .container
+	{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.col-xs-12
+	{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+
+
+/*------------------------------- Home Section End ------------------------------------------ */
+
+/*------------------------------- Buttons Start ------------------------------------ */
+
+.button-rounded
+{
+	display: inline-block;
+
+	padding: 6px 15px;
+	border-radius: 25px;
+
+	font-size: 0.8em;
+	line-height: 18px;
+	text-align: center;
+
+	text-transform: uppercase;
+}
+
+.button-rounded i 
+{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+    margin-right: 10px;
+    vertical-align: middle;
+    color: inherit;
+}
+
+.bordered-black
+{
+	color: #000000;
+	border: 1px solid #000000;
+}
+
+a.bordered-black:hover,
+a.bordered-black:active,
+a.bordered-black:focus
+{
+	color: #000000;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.bordered-black-thick
+{
+	border-width: 2px;
+}
+
+.bordered-green
+{
+	color: #11C5AC;
+	border: 1px solid #11C5AC;
+}
+
+a.bordered-green:hover,
+a.bordered-green:active,
+a.bordered-green:focus
+{
+	color: #11C5AC;
+	background: rgba(17, 197, 172, 0.05);
+}
+
+.filled-green
+{
+	color: #FFFFFF;
+	background: #11C5AC;
+	line-height: 22px;
+}
+
+a.filled-green:hover,
+a.filled-green:active,
+a.filled-green:focus
+{
+	color: #FFFFFF;
+	background: #11B7A1;
+}
+
+#button-buynow
+{
+	margin-top: 40px;
+	margin-bottom: 30px;
+
+	line-height: 30px;
+	font-size: 1.3em;
+	text-transform: capitalize;
+}
+
+/*------------------------------- Buttons End ------------------------------------ */
+
+/*----------------------- SocialNetwork Section Start --------------------- */
+
+#socialnetwork
+{
+	margin-bottom: 15px;
+}
+
+/*----------------------- SocialNetwork Section End --------------------- */
+
+/*----------------------- FooterLinks Section Start --------------------- */
+
+#footerlinks
+{
+	position: relative;
+	z-index: 3;
+
+	padding: 75px 0px;
+	text-align: center;
+	text-decoration: none;
+
+	background: #F7F5F2;
+}
+
+#footerlinks a
+{
+	font-size: 1.4em;
+	margin: 0px 25px;
+
+	color: #7D7D7D;
+}
+
+#footerlinks a:hover,
+#footerlinks a:active
+{
+	color: #000000;
+}
+
+@media (max-width: 767px)
+{
+	#footerlinks
+	{
+		display: none;
+	}
+}
+
+/*----------------------- FooterLinks Section End --------------------- */
+
+/*----------------------- Footer Section Start --------------------- */
+
+.footer
+{
+	position: relative;
+	z-index: 3;
+
+	padding: 25px 0;
+	clear: both;
+	color: #7D7D7D;
+	background: #F7F5F2;
+
+	font-size: 1.2em;
+}
+
+.footer-copyright
+{
+	text-align: left;
+	line-height: 35px;
+}
+
+.footer-content-links
+{
+	text-align: right;
+}
+
+@media screen and (max-width: 991px)
+{
+	.footer-copyright, .footer-content-links
+	{
+		text-align: center;
+	}
+}
+
+.footer a
+{
+	color: #7D7D7D;
+}
+
+.footer a:hover
+{
+	color: #000000;
+}
+
+.footer-content-links span 
+{
+  	display: inline-block;
+  	padding: 0 5px;
+}
+
+.footer-content-links a 
+{
+  	color: #7D7D7D;
+  	font-size: 0.8em;
+}
+
+.social-list a
+{
+	color: #7D7D7D;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+}
+
+.social-list i 
+{
+	line-height: 35px;
+}
+
+a.facebook:hover
+{
+	background: #3B5998;
+	color: #FFFFFF;
+}
+
+a.twitter:hover
+{
+	background: #55ACEE;
+	color: #FFFFFF;
+}
+
+a.google:hover
+{
+	background: #DD4B39;
+	color: #FFFFFF;
+}
+
+a.linkedin:hover
+{
+	background: #0976B4;
+	color: #FFFFFF;
+}
+
+a.youtube:hover
+{
+	background: #CC181E;
+	color: #FFFFFF;
+}
+
+a.github:hover
+{
+	background: #333333;
+	color: #FFFFFF;
+}
+
+/*----------------------- Footer Section End --------------------- */
+
+/* -------------------------- Scrollbar Start ---------------------- */
+
+::-webkit-scrollbar 
+{
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment
+{
+	height: 0px;
+	display: block;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece  
+{
+	background-color: #FFF;
+}
+
+::-webkit-scrollbar-thumb:vertical 
+{
+	height: 50px;
+	background-color: #AAA;
+	border: 1px solid #AAA;
+}
+
+/* -------------------------- Scrollbar End ---------------------- */

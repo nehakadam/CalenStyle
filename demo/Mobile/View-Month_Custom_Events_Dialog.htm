@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>MonthView with Custom EventView</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-custom-1.11.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-custom-1.11.2.min.css" />
+    
+        <script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="../js/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/fastclick.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-jquery-ui-override.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-iconfont.css" />
+        <script type="text/javascript" src="../../src/calenstyle.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../css/CalEventList.css" />
+        <script type="text/javascript" src="../js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+				position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+                        
+				font-size: 14px;
+			}
+		
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+			.cmvMonthTableRowCustom
+			{
+				padding: 4px;
+				-webkit-transform: scaleY(-1);
+				transform: scaleY(-1);
+				text-align: center;
+			}
+
+			.custEvent
+			{
+				font-size: 0;
+				float: left;
+				margin: 2px 0px 2px 3px;
+
+				display: inline-block;
+				width: 5px;
+				height: 5px;
+				line-height: 5px;
+			}
+
+			@media screen and (max-width: 500px), (max-height: 400px)
+			{
+				.custEvent
+				{
+					width: 5px;
+					height: 5px;
+					line-height: 5px;
+				
+					margin-left: 4px;
+				}
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(document).ready(function()
+			{
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+					visibleView: "MonthView",
+				
+					actionOnDayClickInMonthView: "DisplayEventListDialog",
+				
+					eventIndicatorInMonthView: "Custom",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+				
+					saveChangesOnEventDrop: function(oDraggedEvent, startDateBeforeDrop, endDateBeforeDrop, startDateAfterDrop, endDateAfterDrop)
+					{
+						var calObj1 = this;
+					
+						console.log(oDraggedEvent);
+						console.log(startDateAfterDrop);
+						console.log(endDateAfterDrop);
+					
+						calObj1.revertToOriginalEvent(oDraggedEvent, startDateBeforeDrop, endDateBeforeDrop);
+					},
+
+					modifyCustomView: function(dArrViewDates)
+					{
+						var calObj1 = this;
+						var iRowCustomHeight =  $(".cmvMonthTableRowCustom").css("max-height"),
+						iRowWidth = $(".cmvMonthTableRowCustom").width() - 8,
+	                    iWinHeight = $("body").height(),
+	                    iWinWidth = $("body").width(),
+	                    iEventHeight = (iWinHeight < 400 || iWinWidth < 500) ? 6 : 9,
+	                    iEventWidth = (iWinHeight < 400 || iWinWidth < 500) ? 8 : 11,
+	                    iNumOfEventsInRow = parseInt(iRowWidth / iEventWidth),
+	                    iNumOfRows, iNumOfEvents;
+
+	                    iRowCustomHeight = parseInt(iRowCustomHeight.replace("px", ""));
+	                    iNumOfRows = parseInt(iRowCustomHeight / iEventHeight);
+	                    iNumOfEvents = iNumOfRows * iNumOfEventsInRow,
+	                    iEventCount = 0;
+
+						for(var iTempIndex = 0; iTempIndex < dArrViewDates.length; iTempIndex++)
+						{
+							var dThisDate = dArrViewDates[iTempIndex],
+							sDayId = "#cmvDay-"+dThisDate.getDate()+"-"+dThisDate.getMonth()+"-"+dThisDate.getFullYear(),
+							oArrEvents = calObj1.getArrayOfEventsForView(dThisDate, dThisDate),
+							sTempStr1 = "", sTempStr2 = "", sTempStr3 = "",
+							iTempIndex2;
+							iEventCount = 0,
+							sBgColor = "", bIsMarkedG = false;
+
+							for(iTempIndex2 = 0; iTempIndex2 < oArrEvents.length; iTempIndex2++)
+							{
+								var oEvent = oArrEvents[iTempIndex2],
+								sEventColor = oEvent.fromSingleColor ? oEvent.textColor : oEvent.backgroundColor,
+								bIsMarked = ($.cf.isValid(oEvent.isMarked) && oEvent.isMarked);
+								if(bIsMarked)
+								{
+									bIsMarkedG = true;
+									sBgColor = oEvent.fromSingleColor ? oEvent.backgroundColor : $.cf.addHashToHexcode(oEvent.backgroundColor, 0.1);
+								}
+
+								if(iEventCount < iNumOfEvents)
+								{
+									sTempStr1 += "<span class='custEvent' style='background: "+sEventColor+";'></span>";
+									iEventCount++;
+								}
+								else
+									break;
+							}
+
+							var sTemp = sTempStr1 + sTempStr2 + sTempStr3;
+							/*
+							if(iTempIndex % 5 == 0)
+							{
+								for(iTempIndex3 = 0; iTempIndex3 < 3; iTempIndex3++)
+								{
+									if(iEventCount < iNumOfEvents)
+									{
+										sTemp += sTempStr;
+										iEventCount++;
+									}
+								}
+							}
+							*/
+
+							if(bIsMarkedG)
+								$(calObj1.elem).find(sDayId).css({"background": sBgColor});
+
+							$(calObj1.elem).find(sDayId + " .cmvMonthTableRowCustom").html(sTemp);
+							//console.log($(calObj1.elem).find(sDayId + " .cmvMonthTableRowCustom"));
+							//console.log(sTempStr);
+						}
+
+						calObj1.addRemoveViewLoader(false, "cEventLoaderBg");
+						calObj1.addRemoveLoaderIndicators(false, "cEventLoaderIndicator");
+					}
+				
+				});
+			
+			});
+			
+		</script>
+		
+	</head>
+	
+	<body>
+    
+		<div class="calendarContOuter"></div>
+    
+	</body>
+	
+</html>

@@ -1,0 +1,156 @@
+
+/*------------------------------- Theme Start ------------------------------------------ */
+
+article i
+{
+	color: #000000;
+}
+
+article h3
+{
+	color: #000000;
+}
+
+/*------------------------------- Theme End ------------------------------------------ */
+
+#home
+{
+	background: #C5EFF7;
+}
+
+.doc-desc
+{
+	color: #000000;
+}
+
+/*------------------------------- Features and Demo ------------------------------------------ */
+
+#submitButton
+{
+	margin-top: 20px;
+}
+
+.modal-body
+{
+	font-size: 110%;
+	padding: 20px;
+	text-align: center;
+}
+
+.paypal-button
+{
+	display: none;
+}
+
+/*------------------------------- BuyNow Section Start ------------------------------------------ */
+
+#buynow .row
+{
+	font-size: 1.2em;
+	text-align: center;
+
+	color: #7D7D7D;
+}
+
+.panel-developer
+{
+	border: 3px solid #59ABE3;
+}
+
+.panel-developer .panel-heading
+{
+	background: #59ABE3;
+	color: #FFFFFF;
+}
+
+.panel-organization
+{
+	border: 3px solid #336E7B;
+}
+
+.panel-organization .panel-heading
+{
+	background: #336E7B;
+	color: #FFFFFF;
+}
+
+.panel
+{
+	margin-bottom: 0px;
+}
+
+.panel-heading
+{
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
+.panel-body
+{
+	font-size: 0.9em;
+	padding: 0px;
+}
+
+.panel-body .table
+{
+	margin-bottom: 0px;
+	min-height: 250px;
+}
+
+.panel-developer .table
+{
+	color: #446CB3;
+}
+
+.panel-organization .table
+{
+	color: #336E7B;
+}
+
+.panel-body .table>tbody>tr>td
+{
+	padding: 12px 16px;
+}
+
+.panel-note
+{
+	margin-top: 20px;
+	font-size: 0.7em;
+}
+
+.buynow-note
+{
+	font-size: 0.7em;
+}
+
+.price-dollar
+{
+	font-size: 0.5em;
+	vertical-align: super;
+}
+
+/*------------------------------- BuyNow Section End ------------------------------------------ */
+
+#footerlinks
+{
+	background: #C5EFF7;
+}
+
+#footerlinks a
+{
+	color: #000000;
+}
+
+#footerlinks a:hover,
+#footerlinks a:active,
+#footerlinks a:focus
+{
+	color: #000000;
+}
+
+.BackToTop:hover,
+.BackToTop:focus
+{
+	background: #C5EFF7;
+	color: #000000;
+}

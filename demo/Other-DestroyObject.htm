@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Destroy/Teardown/Cleanup function for Single-Page WebApps</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	width: 1000px;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.btnDestroy
+			{
+				padding: 0.3em 0.6em;
+				border-radius: 2px;
+				border-width: 1px;				
+				cursor: pointer;
+				text-align: center;
+				background: #257166;
+				color: #FFF;
+			}
+
+			.btnDestroy:hover
+			{
+				background: #FFF;
+				color: #257166;
+				border: 2px solid #257166;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() {
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					visibleView: "WeekView",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					]
+				
+				});
+
+				$(".btnDestroy").click(function()
+				{
+					console.log("CalenStyle Object : ");
+					console.log($(".calendarContOuter").CalenStyle());
+
+					$(".calendarContOuter").CalenStyle("destroy");
+				});
+			
+			});
+			
+		</script>
+	
+	</head>
+
+	<body>
+
+		<span class="btnDestroy">Destroy</span>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>

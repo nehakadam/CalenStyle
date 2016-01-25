@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Agenda View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+        <script type="text/javascript" src="../js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="../js/jquery-ui-custom-1.11.2.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/jquery-ui-custom-1.11.2.min.css" />
+    
+        <script type="text/javascript" src="../js/jquery.ui.touch-punch.js"></script>
+        <script type="text/javascript" src="../js/hammer.min.js"></script>
+        <script type="text/javascript" src="../js/fastclick.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-jquery-ui-override.css" />
+        <link rel="stylesheet" type="text/css" href="../../src/calenstyle-iconfont.css" />
+        <script type="text/javascript" src="../../src/calenstyle.js"></script>
+    
+        <link rel="stylesheet" type="text/css" href="../css/CalEventList.css" />
+        <script type="text/javascript" src="../js/CalJsonGenerator.js"></script>
+    
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	position: absolute;
+                left: 0px;
+                right: 0px;
+                top: 0px;
+                bottom: 0px;
+            
+				font-size: 14px;
+				text-shadow: none;
+			}
+        
+            .cElemDatePicker
+            {
+                font-size: 13px;
+            }
+        		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function()
+			{
+                FastClick.attach(document.body);
+
+				$(".calendarContOuter").CalenStyle(
+				{
+					visibleView: "AgendaView",
+
+					agendaViewDuration: "Week",
+                
+                    agendaViewTheme: "Timeline1",
+                
+					headerSectionsList: 
+					{
+						left: ["HeaderLabelWithDropdownMenuArrow"],
+						center: [],
+						right: ["PreviousButton", "NextButton"]
+					},
+				
+					dropdownMenuElements: ["DatePicker"],
+                
+					isTooltipInMonthView: false,
+                
+					isTooltipInDetailView: false,					
+				
+					calDataSource: 
+					[
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								console.log("Response " + fetchStartDate + " " + fetchEndDate);
+								console.log(oEventResponse);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+                    eventClicked: function()
+                    {
+                        console.log("Event Clicked");
+                    },
+
+                    useHammerjsAsGestureLibrary: true
+
+                    //hideEventIcon: {Default: true},
+
+					//hideEventTime: {Default: true}
+
+				});
+			
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+
+    	<div class="calendarContOuter"></div>
+    
+	</body>
+
+</html>

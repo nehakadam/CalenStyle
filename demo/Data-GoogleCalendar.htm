@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Google Calendar API</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    	    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.cActionBar
+			{
+				line-height: 30px;
+				background: #F5F5F5;
+			}
+		
+			.reload
+			{
+				margin-left: 10px;
+				padding: 3px 5px;
+				border-radius: 2px;
+				background: #444444;
+                font-size: 80%;
+                color: #FFFFFF;
+
+				cursor: pointer;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+
+			/*
+		
+			To view Events From your Google Calendar in CalenStyle
+		
+			1. Make your calendar public
+			
+				a. Open "Google Calendar" on a computer.
+				b. On the left, find  "My Calendars". You may need to click to expand it.
+				c. Find the calendar you want to share with the public and click the arrow next to it.
+				d. Select "Share this calendar".
+				e. Check the box for "Make this calendar public".
+				f. If you don't want others to view the details of your events, select See only free/busy (hide details).
+			
+			2. To create URL for API Access 
+				BaseURL = "https://www.googleapis.com/calendar/v3/calendars/"
+				CalendarID = ID of your calendar specified in Calendar Address
+			
+				Find Calendar ID -
+				a. Open "Google Calendar" on a computer.
+				b. On the left, find  "My Calendars". You may need to click to expand it.
+				c. Find the calendar you want to share with the public and click the arrow next to it.
+				c. Select "Calendar Settings" from dropdown menu, to navigate to "Calendar Details". 
+				d. In "Calendar Address" section you will get Calendar ID specified as
+				(Calendar ID: 1a2b3c4d@group.calendar.google.com)
+			
+			3. Get Google Calendar API Key
+			
+				a. Go to the Google Developers Console.
+				b. Select a project, or create a new one.
+				c. In the sidebar on the left, expand APIs & auth. Next, click APIs. In the list of APIs, make sure the status is ON for the Google Calendar API.
+				d. In the sidebar on the left, select Credentials.
+				e. Click Create new Key and select the key type as Browser Key. o prevent your key from being used on unauthorized sites, only allow referrals from domains you administer. For testing you can keep it blank(Any referer allowed) so that you can access it form localhost.
+			
+			*/
+		
+			$(function() 
+			{
+                
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "ActionBar", "Calendar"],
+				
+					visibleView: "DetailedMonthView",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "URL",
+							source: "https://www.googleapis.com/calendar/v3/calendars/8hks0lhlpoo6qmh0bvl7p0031o@group.calendar.google.com",
+                            config:{
+								changeColorBasedOn: "EventSource",
+								singleColor: "52B3D9",
+								googleCalendarApiKey: "AIzaSyDr6k_qSNNSQpN81DUelfjFV_yo0AtdrU8"
+							}
+						}
+					],
+				
+					modifyActionBarView: function(actionBar, visibleViewName)
+					{
+						var thisObj = this;
+					
+						$(actionBar).empty();
+						$(actionBar).append("<span class='reload'>Reload</span>");
+						$(".reload").click(function()
+						{
+							thisObj.reloadData();
+						});
+					}
+				
+				});
+				
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Config Preview - CalenStyle</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="../demo/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="../demo/js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../demo/css/jquery-ui-custom-1.11.2.min.css" />
+	
+		<script type="text/javascript" src="../demo/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../demo/css/bootstrap.min.css">
+	
+		<script type="text/javascript" src="bootstrap-multiselect.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap-multiselect.css">
+	
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="ConfigPreview.css" />
+		<script type="text/javascript" src="ConfigPreview.js"></script>
+	
+		<link rel="stylesheet" type="text/css" href="../demo/css/CalEventList.css" />
+		<script type="text/javascript" src="../demo/js/CalJsonGenerator.js"></script>
+
+	</head>
+
+	<body class="small-scroll">
+	
+		<div class="pluginSettingsBg"></div>
+	
+		<div class="pluginSettings">
+		
+			<a class="pluginSettingsSwitch"><img src="settings.png"/></a>
+		
+			<table class="pluginSettingsCont small-scroll">
+			
+				<tr>
+					<td class= "pluginSettingsHeader" colspan="2">
+						CalenStyle Settings
+						<hr>
+					</td>
+				</tr>
+			
+				<tr class="row-devices">
+					<td>
+						<div class="title">View on Device</div>
+					</td>
+					<td>
+						<select class="devices">
+							<option value="Web" selected>Web</option>
+							<option value="Tablet">Tablet</option>
+							<option value="Phone">Phone</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-visibleView">
+					<td>
+						<div class="title">Display View</div>
+						<div class="variableName"><code>visibleView</code></div>
+					</td>
+					<td>
+						<select class="visibleView">
+							<option value="DetailedMonthView" selected>DetailedMonthView</option>
+							<option value="MonthView">MonthView</option>
+							<option value="WeekView">WeekView</option>
+							<option value="DayView">DayView</option>
+							<option value="AgendaView">AgendaView</option>
+							<option value="QuickAgendaView">QuickAgendaView</option>
+							<option value="TaskPlannerView">TaskPlannerView</option>
+							<option value="CustomView">CustomView</option>
+							<option value="DatePicker">DatePicker</option>
+							<option value="DayEventListView">DayEventListView</option>
+							<option value="DayEventDetailView">DayEventDetailView</option>
+							<option value="AppointmentView">AppointmentView</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-sectionsList">
+					<td>
+						<div class="title">Add Sections</div>
+						<div class="variableName"><code>sectionsList</code></div>
+					</td>
+					<td>
+						<select class="sectionsList" multiple="multiple">
+							<option value="Header" selected>Header</option>
+							<option value="Calendar" selected>Calendar</option>
+							<option value="EventList">EventList</option>
+							<option value="ActionBar">ActionBar</option>
+							<option value="FilterBar">FilterBar</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-viewsToDisplay">
+					<td>
+						<div class="title">Views Switch</div>
+						<div class="variableName"><code>viewsToDisplay</code></div>
+					</td>
+					<td>
+						<select class="viewsToDisplay" multiple="multiple">
+							<option value="DetailedMonthView" selected>DetailedMonthView</option>
+							<option value="MonthView">MonthView</option>
+							<option value="WeekView" selected>WeekView</option>
+							<option value="DayView" selected>DayView</option>
+							<option value="AgendaView" selected>AgendaView</option>
+							<option value="QuickAgendaView">QuickAgendaView</option>
+							<option value="TaskPlannerView">TaskPlannerView</option>
+							<option value="CustomView">CustomView</option>
+							<option value="DatePicker">DatePicker</option>
+							<option value="DayEventListView">DayEventListView</option>
+							<option value="DayEventDetailView">DayEventDetailView</option>
+							<option value="AppointmentView">AppointmentView</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-headerSectionsListLeft">
+					<td>
+						<div class="title">Components in Left Header Section</div>
+						<div class="variableName"><code>headerSectionsList.left</code></div>
+					</td>
+					<td>
+						<select class="headerSectionsListLeft" multiple="multiple">
+							<option value="DatePickerIcon" selected>DatePickerIcon</option>
+							<option value="FullscreenButton">FullscreenButton</option>
+							<option value="PreviousButton" selected>PreviousButton</option>
+							<option value="NextButton" selected>NextButton</option>
+							<option value="TodayButton">TodayButton</option>
+							<option value="HeaderLabel">HeaderLabel</option>
+							<option value="HeaderLabelWithDropdownMenuArrow">HeaderLabelWithDropdownMenuArrow</option>
+							<option value="MenuSegmentedTab">MenuSegmentedTab</option>
+							<option value="MenuDropdownIcon">MenuDropdownIcon</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-headerSectionsListCenter">
+					<td>
+						<div class="title">Components in Center Header Section</div>
+						<div class="variableName"><code>headerSectionsList.center</code></div>
+					</td>
+					<td>
+						<select class="headerSectionsListCenter" multiple="multiple">
+							<option value="DatePickerIcon">DatePickerIcon</option>
+							<option value="FullscreenButton">FullscreenButton</option>
+							<option value="PreviousButton">PreviousButton</option>
+							<option value="NextButton">NextButton</option>
+							<option value="TodayButton">TodayButton</option>
+							<option value="HeaderLabel" selected>HeaderLabel</option>
+							<option value="HeaderLabelWithDropdownMenuArrow">HeaderLabelWithDropdownMenuArrow</option>
+							<option value="MenuSegmentedTab">MenuSegmentedTab</option>
+							<option value="MenuDropdownIcon">MenuDropdownIcon</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-headerSectionsListRight">
+					<td>
+						<div class="title">Components in Right Header Section</div>
+						<div class="variableName"><code>headerSectionsList.right</code></div>
+					</td>
+					<td>
+						<select class="headerSectionsListRight" multiple="multiple">
+							<option value="DatePickerIcon">DatePickerIcon</option>
+							<option value="FullscreenButton">FullscreenButton</option>
+							<option value="PreviousButton">PreviousButton</option>
+							<option value="NextButton">NextButton</option>
+							<option value="TodayButton">TodayButton</option>
+							<option value="HeaderLabel">HeaderLabel</option>
+							<option value="HeaderLabelWithDropdownMenuArrow">HeaderLabelWithDropdownMenuArrow</option>
+							<option value="MenuSegmentedTab" selected>MenuSegmentedTab</option>
+							<option value="MenuDropdownIcon">MenuDropdownIcon</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-dropdownMenuElements">
+					<td>
+						<div class="title">Elements in Header Dropdown Menu</div>
+						<div class="variableName"><code>dropdownMenuElements</code></div>
+					</td>
+					<td>
+						<select class="dropdownMenuElements" multiple="multiple">
+							<option value="ViewsToDisplay" selected>ViewsToDisplay</option>
+							<option value="DatePicker">DatePicker</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-hideEventIcon">
+					<td>
+						<div class="title">Hide Event Icon</div>
+						<div class="variableName"><code>hideEventIcon</code></div>				
+					</td>
+					<td>
+						<select class="hideEventIcon">
+							<option value="true">true</option>
+							<option value="false" selected>false</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-hideEventTime">
+					<td>
+						<div class="title">Hide Event Time</div>
+						<div class="variableName"><code>hideEventTime</code></div>				
+					</td>
+					<td>
+						<select class="hideEventTime">
+							<option value="true">true</option>
+							<option value="false" selected>false</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-hideExtraEvents">
+					<td>
+						<div class="title">Hide Extra Events In DetailedMonthView</div>
+						<div class="variableName"><code>hideExtraEvents</code></div>						
+					</td>
+					<td>
+						<select class="hideExtraEvents">
+							<option value="true" selected>true</option>
+							<option value="false">false</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-cmvEventIndicator">
+					<td>
+						<div class="title">Event Indicator in Month View</div>
+						<div class="variableName"><code>eventIndicatorInMonthView</code></div>						
+					</td>
+					<td>
+						<select class="cmvEventIndicator">
+							<option value="DayHighlight">DayHighlight</option>
+							<option value="Events" selected>Events</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-averageEventsPerDay">
+					<td>
+						<div class="title">Average Events Per Day For Day Highlight View</div>
+						<div class="variableName"><code>averageEventsPerDayForDayHighlightView</code></div>						
+					</td>
+					<td>
+						<input type="text" class="form-control small-textbox averageEvents" placeholder="5">
+					</td>
+				</tr>
+				
+				<tr class="row-actionOnDayClickInMonthView">
+					<td>
+						<div class="title">Event Indicator in Month View</div>
+						<div class="variableName"><code>actionOnDayClickInMonthView</code></div>						
+					</td>
+					<td>
+						<select class="actionOnDayClickInMonthView">
+							<option value="ModifyEventList">ModifyEventList</option>
+							<option value="DisplayEventListDialog" selected>DisplayEventListDialog</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-cvDays">
+					<td>
+						<div class="title">Number of Days in Custom View</div>
+						<div class="variableName"><code>daysInCustomView</code></div>
+					</td>
+					<td>
+						<select class="cvDays">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4" selected>4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-dlvDays">
+					<td>
+						<div class="title">Number of Days in Day List View</div>
+						<div class="variableName"><code>daysInDayListView</code></div>
+					</td>
+					<td>
+						<select class="dlvDays">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7" selected>7</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-cavDays">
+					<td>
+						<div class="title">Number of Days in Appointment View</div>
+						<div class="variableName"><code>daysInAppointmentView</code></div>
+					</td>
+					<td>
+						<select class="cavDays">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4" selected>4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+						</select>
+					</td>				
+				</tr>
+			
+				<tr class="row-cagvDuration">
+					<td>
+						<div class="title">Duration of Agenda View</div>
+						<div class="variableName"><code>agendaViewDuration</code></div>
+					</td>
+					<td>
+						<select class="cagvDuration">
+							<option value="Month" selected>Month</option>
+							<option value="Week">Week</option>
+							<option value="CustomDays">CustomDays</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-cagvDays">
+					<td>
+						<div class="title">Number of Days in Agenda View</div>
+						<div class="variableName"><code>daysInAgendaView</code></div>
+					</td>
+					<td>
+						<input type="text" class="form-control small-textbox cagvDays" placeholder="15">
+					</td>
+				</tr>
+
+				<tr class="row-cqavDuration">
+					<td>
+						<div class="title">Duration of Quick Agenda View</div>
+						<div class="variableName"><code>quickAgendaViewDuration</code></div>
+					</td>
+					<td>
+						<select class="cqavDuration">
+							<option value="Week" selected>Week</option>
+							<option value="CustomDays">CustomDays</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-cqavDays">
+					<td>
+						<div class="title">Number of Days in Quick Agenda View</div>
+						<div class="variableName"><code>daysInQuickAgendaView</code></div>
+					</td>
+					<td>
+						<select class="cqavDays">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4" selected>4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-ctpvDuration">
+					<td>
+						<div class="title">Duration of Task Planner View</div>
+						<div class="variableName"><code>taskPlannerViewDuration</code></div>
+					</td>
+					<td>
+						<select class="ctpvDuration">
+							<option value="Week" selected>Week</option>
+							<option value="CustomDays">CustomDays</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-ctpvDays">
+					<td>
+						<div class="title">Number of Days in Task Planner View</div>
+						<div class="variableName"><code>daysInTaskPlannerView</code></div>
+					</td>
+					<td>
+						<select class="ctpvDays">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5" selected>5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-weekNumber">
+					<td>
+						<div class="title">Display WeekNumber Column in Month View?</div>
+						<div class="variableName"><code>displayWeekNumInMonthView</code></div>
+					</td>
+					<td>
+						<select class="weekNumber">
+							<option value="true">true</option>
+							<option value="false" selected>false</option>
+						</select>
+					</td>				
+				</tr>
+						
+				<tr class="row-restrictedSection">
+					<td>
+						<div class="title">Add restrictedSectionSource</div>
+						<div class="variableName"><code>restrictedSectionSource</code></div>
+					</td>
+					<td>
+						<select class="restrictedSection">
+							<option value="empty">Empty</option>
+							<option value="nonempty" selected>Non-Empty</option>
+						</select>
+					</td>				
+				</tr>
+
+				<tr class="row-isRestrictedSectionDroppable">
+					<td>
+						<div class="title">Allow to Drop Events In Restricted Section</div>
+						<div class="variableName"><code>isRestrictedSectionDroppable</code></div>						
+					</td>
+					<td>
+						<select class="isRestrictedSectionDroppable">
+							<option value="true" selected>true</option>
+							<option value="false">false</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr class="row-isNonBusinessHoursDroppable">
+					<td>
+						<div class="title">Allow to Drop Events In Non-Business Hours</div>
+						<div class="variableName"><code>isNonBusinessHoursDroppable</code></div>						
+					</td>
+					<td>
+						<select class="isNonBusinessHoursDroppable">
+							<option value="true" selected>true</option>
+							<option value="false">false</option>
+						</select>
+					</td>
+				</tr>
+			
+				<tr class="row-filterBarPosition">
+					<td>
+						<div class="title">Set FilterBar Position</div>
+						<div class="variableName"><code>filterBarPosition</code></div>
+					</td>
+					<td>
+						<select class="filterBarPosition">
+							<option value="Top" selected>Top</option>
+							<option value="Right">Right</option>
+							<option value="Bottom">Bottom</option>
+							<option value="Left">Left</option>
+						</select>
+					</td>				
+				</tr>
+			
+			</table>
+		
+		</div>
+	
+		<div class="calendarContOuterParent">
+			<div class="calendarContOuter"></div>
+		</div>
+	
+	</body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Dynamic View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    	
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+		
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/CalEventList.css" />
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+				width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+				var oCalenStyle = null;
+			
+				var sArrViewsToDisplayDMV = [
+								{ 
+									"viewName": "DetailedMonthView",
+									"viewDisplayName": "Month"
+								}];
+			
+				var sArrViewsToDisplayMV = [
+								{ 
+									"viewName": "MonthView",
+									"viewDisplayName": "Month"
+								}];
+			
+				var oCalDataSource = [					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+									
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}];
+			
+				var oInitialize = function()
+									{
+										oCalenStyle = this;
+									};
+
+				var oDisplayEventList = function(listStartDate, listEndDate)
+													{
+														return displayEventsInList(this, listStartDate, listEndDate);
+													};
+			
+				var oAdjustList = function()
+                {
+                    var oCal3 = $(".calendarContOuter").CalenStyle();
+                    var iEventWidth = $(oCal3.elem).width(),
+                    iEventColorWidth = $(".cListEventColor").outerWidth(true),
+                    iEventIconWidth = $(".cListEventIcon span").outerWidth(true),
+                    oElems = $(".cListEventTime span");
+                    var iMaxWidth = Math.max.apply(null, $(oElems).map(function()
+                    {
+                        return $(this).outerWidth(true);
+                    }).get());
+                    iMaxWidth += 5;
+                    $(".cListEventTime").css({"width": iMaxWidth});
+              
+                    var iEventTitleWidth = iEventWidth - (iEventColorWidth + iMaxWidth + iEventIconWidth) - 25;
+                    $(".cListEventTitle").css({"width": iEventTitleWidth});
+                };
+
+				displayCalendarBasedOnWidth();
+				oAdjustList();
+			
+				$(window).resize(function()
+				{
+					displayCalendarBasedOnWidth();
+					oAdjustList();
+				});
+			
+				function displayCalendarBasedOnWidth()
+				{
+					var  iCalendarContWidth = $(".calendarContOuter").width();
+					if(iCalendarContWidth > 600)
+					{
+						if(oCalenStyle == null)
+						{
+							$(".calendarContOuter").CalenStyle(
+							{
+							
+								visibleView: "DetailedMonthView",
+							
+								viewsToDisplay: sArrViewsToDisplayDMV,
+							
+								sectionsList: ["Header", "Calendar"],
+							
+								calDataSource: oCalDataSource,
+							
+								initialize: oInitialize
+							
+							});
+						}
+						else
+						{
+							if($.cf.compareStrings(oCalenStyle.setting.visibleView, "MonthView"))
+							{
+								var options = new Object();
+								options.visibleView = "DetailedMonthView";
+								options.viewsToDisplay = sArrViewsToDisplayDMV;
+								options.calDataSource = oCalDataSource;
+								options.initialize = oInitialize;
+								oCalenStyle.modifySettings(options);
+								oCalenStyle.loadView();
+							}
+						}
+					}
+					else
+					{
+						if(oCalenStyle == null)
+						{
+							$(".calendarContOuter").CalenStyle(
+							{
+			
+								visibleView: "MonthView",
+								
+								viewsToDisplay: sArrViewsToDisplayMV,
+			
+								sectionsList: ["Header", "Calendar", "EventList"],
+			
+								calDataSource: oCalDataSource,
+			
+								initialize: oInitialize,
+			
+								displayEventsForPeriodInList: oDisplayEventList,
+
+								eventListAppended: oAdjustList
+			
+							});
+						}
+						else
+						{
+							if(!$.cf.compareStrings(oCalenStyle.setting.visibleView, "MonthView"))
+							{
+								var options = new Object();
+								options.visibleView = "MonthView";
+								options.viewsToDisplay = sArrViewsToDisplayMV;
+								options.sectionsList = ["Header", "Calendar", "EventList"];
+								options.displayEventsForPeriodInList = oDisplayEventList;
+								options.calDataSource = oCalDataSource;
+								options.initialize = oInitialize;
+								options.eventListAppended = oAdjustList;
+								oCalenStyle.modifySettings(options);
+								oCalenStyle.loadView();
+							}
+						}
+					}
+				}
+			
+				setTimeout(function()
+				{
+					oAdjustList();
+				}, 0);
+						
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>

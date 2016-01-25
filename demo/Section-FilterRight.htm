@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		
+		<title>Calendar Events Filter at Right</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			*
+			{
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				-ms-box-sizing: border-box;
+			}
+		
+			.calendarContOuter
+			{
+               position: absolute;
+				top: 0px;
+				right: 0px;
+				bottom: 0px;
+				left: 0px;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+			.cFilterBar
+			{
+				text-align: center;
+			}
+			
+			.cFilterBarHeader
+			{
+				margin-top: 12px;
+			
+				text-align: center;
+				color: #FF3B30;
+				font-weight: bold;
+				font-size: 110%;
+				
+				height: 30px;
+				line-height: 30px;
+				width: 100%;
+			}
+		
+			.filterBox
+			{
+				width: 180px;
+				margin: 10px;
+			
+				border: 1px solid #DDD;
+			}
+		
+			input[type='checkbox']
+			{
+				margin: 6px 0px 0px 6px;
+			}
+		
+			.filterBoxTitle
+			{			
+				display: inline-block;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+			
+				color: #444;
+				text-align: center;
+				font-size: 80%;
+				font-weight: bold;
+			
+				border-bottom: 1px solid #DDD;
+				background: #F8F8F8;
+			}
+		
+			.filterBoxContent
+			{
+				width: 100%;
+				min-height: 40px;
+				max-height: 160px;
+			
+				overflow: auto;
+				text-align: left;
+				font-size: 80%;
+			
+				margin: 10px 0px;
+			}
+			
+			.filterBoxContent div
+			{
+				height: 20px;
+			}
+				
+		</style>
+		
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+			
+				var dToday = new Date();
+				var dStartDate = new Date();
+				dStartDate.setFullYear(dToday.getFullYear() - 1);
+				var dEndDate = new Date();
+				dEndDate.setFullYear(dToday.getFullYear() + 1);
+			
+				function getFilterCriteriaSource()
+				{
+					var oJsonFilter = setEventFilterCriteriaArray(false);
+					if(typeof oJsonFilter == "string")
+						return JSON.parse(oJsonFilter);
+					else if(typeof oJsonFilter == "object")
+						return oJsonFilter;
+				}
+			
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "Calendar", "FilterBar"],
+				
+					filterBarPosition: "Left",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",
+						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(2);
+							
+								var oEventCalendarResponse = getEventCalendarList(fetchStartDate, fetchEndDate);
+								if(oEventCalendarResponse != undefined)
+								{
+									if(oEventCalendarResponse[0])
+									{
+										calObj1.parseDataSource("eventCalendarSource", oEventCalendarResponse[1], durationStartDate, durationEndDate, loadViewCallback, null, false);
+									}
+								}
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+				
+					extraMonthsForEventLoading: 2,
+				
+					eventFilterCriteria: getFilterCriteriaSource(),
+				
+					modifyFilterBarView: function(oFilterBarElement, oArrEventFilterCriteria, oArrEventFilterCount)
+					{
+						var thisObj = this;
+					
+						var bFilterCount = (oArrTempFilterCount != null) ? ((oArrTempFilterCount.length > 0) ? true : false) : false;
+						$(oFilterBarElement).html("<div class='cFilterBarHeader'>Filters</div>");
+						for(var iTempIndex = 0; iTempIndex < oArrEventFilterCriteria.length; iTempIndex++)
+						{
+							var oArrTempFilter = oArrEventFilterCriteria[iTempIndex];
+							var sTempKeyName = oArrTempFilter["keyName"];
+							var sTempKeyDisplayName = oArrTempFilter["keyDisplayName"] || sTempKeyName;
+							var oArrTempDataType = oArrTempFilter["dataType"];
+							var oArrTempValues = oArrTempFilter["values"];
+							var oArrTempSelectedValues = oArrTempFilter["selectedValues"];
+						
+							var oArrTempFilterCount;
+							for(var iTempIndex2 = 0; iTempIndex2 < oArrEventFilterCount.length; iTempIndex2++)
+							{
+								var oTempFilterCount = oArrEventFilterCount[iTempIndex2];
+								if(oTempFilterCount["keyName"] == sTempKeyName)
+								{
+									oArrTempFilterCount = oTempFilterCount;
+									break;
+								}
+							}
+						
+							var sTempStr = "";
+						
+							sTempStr += "<div class='filterBox'>";
+						
+							sTempStr += "<div class='filterBoxTitle' data-filterkey='"+sTempKeyName+"'>" + sTempKeyDisplayName + "</div>";
+						
+							sTempStr += "<div class='filterBoxContent'>";
+						
+							for(var iTempIndex2 = 0; iTempIndex2 < oArrTempValues.length; iTempIndex2++)
+							{
+								var sTempValue = oArrTempValues[iTempIndex2];
+								var iTempValueCount = bFilterCount ? oArrTempFilterCount[sTempValue] : 0;
+							
+								var sChecked = "";
+								for(iTempIndex3 = 0; iTempIndex3 < oArrTempSelectedValues.length; iTempIndex3++)
+								{
+									if(sTempValue == oArrTempSelectedValues[iTempIndex3])
+									{
+										sChecked = "checked";
+										break;
+									}
+								}
+							
+								sTempStr += "<div>";
+							
+								sTempStr += "<input type='checkbox' value='" + sTempValue + "' "+ sChecked +">";
+							
+								sTempStr += "  " + sTempValue;
+							
+								if(bFilterCount)
+									sTempStr += "(" + iTempValueCount + ")";
+							
+								sTempStr += "</div>";
+							}
+						
+							sTempStr += "</div>";
+						
+							sTempStr += "</div>";
+						
+							$(oFilterBarElement).append(sTempStr);
+						}
+					
+						$("input[type='checkbox']").change(function() 
+						{
+							var $this = $(this)
+							var bInputStatus = $this.is(':checked');
+							var sInputValue = $this.val();
+						
+							var $parent = $this.parent().parent().parent();
+							var childCheckbox = $parent.find("input[type='checkbox']");
+							var sKeyName = $parent.find('.filterBoxTitle').data("filterkey");
+						
+							for(var iTempIndex1 = 0; iTempIndex1 < oArrEventFilterCriteria.length; iTempIndex1++)
+							{
+								var oTempFilter = oArrEventFilterCriteria[iTempIndex1];
+								if($.cf.compareStrings(oTempFilter["keyName"], sKeyName))
+								{
+									var oArrSelected = new Array();
+									for(var iTempIndex2 = 0; iTempIndex2 < childCheckbox.length; iTempIndex2++)
+									{
+										var $checkbox = $(childCheckbox[iTempIndex2]);
+										if($checkbox.is(':checked'))
+											oArrSelected.push($checkbox.val());
+									}
+								
+									oArrEventFilterCriteria[iTempIndex1]["selectedValues"] = oArrSelected;
+									thisObj.applyFilter(oArrEventFilterCriteria);
+									break;
+								}
+							}
+						});
+					}
+				
+				});
+			
+			});
+		
+		</script>
+		
+	</head>
+	
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>

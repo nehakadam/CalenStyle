@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Customized Event UI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+
+			/* --------------- Required --------------- */
+			.calendarContOuter
+			{
+				width: 1000px;
+				height: 600px;
+				margin: 0px auto;
+
+            	font-size: 14px;
+			}
+
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.cdmvEvent, 
+			.cdvEventAllDay, 
+			.cqavEvent
+			{
+				height: 30px;
+				text-align: left;
+				overflow: hidden;
+
+				border-width: 0px;
+				border-left-width: 3px;
+			}
+
+			.cdvEvent
+			{
+				text-align: left;
+
+				border-width: 0px;
+				border-left-width: 3px;
+			}
+
+			.ce_Title
+			{
+				font-size: 15px;
+				padding: 2px 3px;
+			}
+
+			.cdmvEvent .ce_Title, 
+			.cdvEventAllDay .ce_Title, 
+			.cqavEvent .ce_Title
+			{
+				line-height: 30px;
+			}
+
+			.ce_check
+			{
+				margin-top: 10px;
+				margin-left: 4px;
+				float: left;
+			}
+
+			.cdvEvent .ce_check
+			{
+				margin-top: 5px;
+				margin-left: 2px;
+				margin-right: 2px;
+			}
+
+			.ctpvEvent .ce_Title
+			{
+				color: #444444;
+			}
+
+			.ctpvEvent .ce_check
+			{
+				margin-top: 3px;
+				margin-left: 2px;
+				margin-right: 2px;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+				var oCS;
+
+				$(".calendarContOuter").CalenStyle(
+				{
+					/* --------------- Required --------------- */
+				
+					visibleView: "WeekView",
+
+					viewsToDisplay: [
+						{ 
+							"viewName": "DetailedMonthView",
+							"viewDisplayName": "Month"
+						},
+						{ 
+							"viewName": "WeekView",
+							"viewDisplayName": "Week"
+						},
+						{ 
+							"viewName": "QuickAgendaView",
+							"viewDisplayName": "QuickAgenda"
+						},
+						{ 
+							"viewName": "TaskPlannerView",
+							"viewDisplayName": "Task Planner"
+						}
+					],
+
+					calDataSource: 
+					[
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "FUNCTION",						
+							source: function(fetchStartDate, fetchEndDate, durationStartDate, durationEndDate, oConfig, loadViewCallback)
+							{
+								var calObj1 = this;
+								calObj1.incrementDataLoadingCount(1);
+							
+								var oEventResponse = generateJsonEvents(fetchStartDate, fetchEndDate);
+								console.log("Response " + fetchStartDate + " " + fetchEndDate);
+								console.log(oEventResponse);
+								if(oEventResponse != undefined)
+								{
+									if(oEventResponse[0])
+									{
+										calObj1.parseDataSource("eventSource", oEventResponse[1], durationStartDate, durationEndDate, loadViewCallback, oConfig, false);
+									}
+								}
+							}
+						}
+					],
+
+					eventRendered: function(oEvent, $oSeg, $oSegContent, sView, bEventsInDMVDialog)
+					{
+						oCS = this;
+						var sEventTemplate = "";
+						//console.log("eventRendered : " + oEvent.title);
+						//console.log(oEvent);
+
+						if(oEvent.title === "Meeting")
+						{
+							if(!$.cf.isValid(oEvent.completed) || $.cf.isValid(oEvent.completed) && !oEvent.completed)
+							{
+								sEventTemplate += "<input class='ce_check' type='checkbox' />";
+							}
+							else
+							{
+								sEventTemplate += "<input class='ce_check' type='checkbox' checked />";
+							}
+						}
+
+						if(sView === "DetailedMonthView")
+						{
+							sEventTemplate += "<span class='ce_Title'>" + oEvent.title + "</span>";
+						}
+						else if(sView === "WeekView")
+						{
+							if($oSeg.hasClass("cdvEventAllDay"))
+								sEventTemplate += "<span class='ce_Title'>" + oEvent.title + "</span>";
+							else
+								sEventTemplate += "<div class='ce_Title'>" + oEvent.title + "</div>";
+						}
+						else if(sView === "QuickAgendaView")
+						{
+							sEventTemplate += "<span class='ce_Title'>" + oEvent.title + "</span>";
+						}
+						else if(sView === "TaskPlannerView")
+						{
+							sEventTemplate += "<span class='ce_Title'>" + oEvent.title + "</span>";
+						}
+						$oSegContent.html(sEventTemplate);
+
+						$oSeg.find(".ce_check").on("change", function(e)
+						{
+							//console.log("change Event Fired");
+							e.stopPropagation();
+
+							var sEventId = $(this).parent().parent().data("id"),
+							oEvent = oCS.getEventWithId(sEventId);
+
+							if($.cf.isValid(oEvent.completed))
+							{
+								if(oEvent.completed)
+									oEvent.completed = false;
+								else
+									oEvent.completed = true;
+							}
+							else
+								oEvent.completed = true;
+
+							//console.log(sEventId + " Changing completed : " + oEvent.completed);
+
+							/*
+
+							There are two ways of you can menstion rules to replace events
+
+								1. replaceId
+									Specify event to replace using "event" attribute
+
+								2. replaceRule: function(event object){ return boolean }
+								Specify events to replace using "events" attribute
+
+							Use it sparingly! only for matching events based on criteria other than id as the loop does not break when match is found it traverses entire array.
+
+							*/
+
+							var oEventToReplace = {};
+							
+
+							// 1. replaceId
+							oEventToReplace.replaceId = oEvent.id;
+							oEventToReplace.event = [oEvent];
+
+							// 2. replaceRule
+							/*
+							oEventToReplace.replaceRule = function(oEv)
+							{
+								if(oEv.id === oEvent.id)
+									return true;
+								else
+									return false;
+							};
+							oEventToReplace.events = [oEvent];
+							*/
+
+							oCS.replaceEvents([oEventToReplace]);
+						});
+
+						$(".ce_check").on("click", function(e)
+						{
+							//console.log("click Event Fired");
+							e.stopPropagation();
+						});
+					}
+				
+				});
+			});
+			
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<!-- --------------- Required --------------- -->
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>
