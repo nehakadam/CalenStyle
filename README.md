@@ -52,6 +52,7 @@ Files - Latest
 ```
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.calenstyle/latest/calenstyle.min.css" />
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/latest/calenstyle.min.js"></script>
+<!-- For i18n -->
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/latest/i18n/calenstyle-i18n.js"></script>
 ```
 
@@ -60,7 +61,8 @@ Files - Particular Version
 ```
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle.min.css" />
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle-i18n.js"></script>
+<!-- For i18n -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/<version>/i18n/calenstyle-i18n.js"></script>
 ```
 
 ## Author
