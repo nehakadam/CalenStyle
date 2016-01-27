@@ -34,6 +34,34 @@ CalenStyle includes many design themes for representing events in colorful & inf
 - [Download](https://curioussolutions.in/libraries/calenstyle/ "Download CalenStyle")
 - [Report issues, Ask questions](https://github.com/CuriousSolutions/CalenStyle/issues "Report Issues")
 
+##Installations
+
+- npm
+
+  `npm install calenstyle`
+
+- bower
+
+  `bower install calenstyle`
+
+##CDN
+[CalenStyle is hosted on jsDelivr](http://www.jsdelivr.com/projects/jquery.calenstyle).
+
+Files - Latest
+
+```
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.calenstyle/latest/calenstyle.min.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/latest/calenstyle.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/latest/i18n/calenstyle-i18n.js"></script>
+```
+
+Files - Particular Version
+
+```
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle.min.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.calenstyle/<version>/calenstyle-i18n.js"></script>
+```
 
 ## Author
 [Neha Kadam](https://github.com/nehakadam): Principle Developer & Designer <br/> 
