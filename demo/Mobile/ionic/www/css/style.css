@@ -1,0 +1,63 @@
+/* ------------------ CalenStyle CSS Start --------------- */
+
+.calendarContOuter
+{
+	position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+
+	font-size: 14px;
+	text-shadow: none;
+}
+
+.cElemDatePicker
+{
+    font-size: 13px;
+}
+
+.cdlvDaysTableRowCustom
+{
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-direction: row; /* Safari 6.1+ */
+    -webkit-flex-wrap: wrap-reverse;
+    -webkit-justify-content: center;
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+    align-content: flex-start;
+    
+    padding: 2px;
+}
+
+.custEvent
+{
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    line-height: 5px;
+    
+    margin: 1px 2px;
+    
+    text-align: center;
+}
+
+@media screen and (max-width: 500px), (max-height: 400px)
+{
+	.custEvent
+	{
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        line-height: 4px;
+        
+        margin: 1px 2px;
+        
+        text-align: center;
+	}
+}
+
+/* ------------------ CalenStyle CSS End --------------- */
