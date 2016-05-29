@@ -350,4 +350,5 @@ module.exports = function(grunt)
 	}
 
 	grunt.registerTask('lint', ['jshint:Main', 'csslint']);
+
 };

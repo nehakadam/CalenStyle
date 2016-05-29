@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>JSON Data</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    	    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.cActionBar
+			{
+				line-height: 30px;
+				background: #F5F5F5;
+			}
+		
+			.reload
+			{
+				margin-left: 10px;
+				padding: 3px 5px;
+				border-radius: 2px;
+				background: #444444;
+                font-size: 80%;
+                color: #FFFFFF;
+
+				cursor: pointer;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+                
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "ActionBar", "Calendar"],
+				
+					visibleView: "DetailedMonthView",
+
+					calDataSource: 
+					[
+					    {
+					        sourceFetchType: "DATERANGE",
+					        sourceType: "JSON",						
+					        source: {
+
+						        eventSource: [
+						        	{
+						              "identifier": "1", 
+						              "isAllDay": false, 
+						              "start": "22-05-2016 09:00",
+						              "end": "22-05-2016 10:00",
+						              "calendar": "Meeting", 
+						              "tag": "Work",
+						              "title": "Meeting with Ana", 
+						              "description": "", 
+						              "url": "", 
+
+						              "icon": "icon-Meeting", 
+						              "color": "20DAEC", 
+						              "borderColor": "000000", 
+						              "textColor": "000000",
+						              "nonAllDayEventsTextColor": "000000",
+
+						              "isDragNDropInMonthView": true, 
+						              "isDragNDropInDetailView": true, 
+						              "isResizeInDetailView": true 
+						            }
+						        ]
+						    }
+					        
+					    }
+					],
+				
+					modifyActionBarView: function(actionBar, visibleViewName)
+					{
+						var thisObj = this;
+					
+						$(actionBar).empty();
+						$(actionBar).append("<span class='reload'>Reload</span>");
+						$(".reload").click(function()
+						{
+							thisObj.reloadData();
+						});
+					}
+				
+				});
+				
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>
