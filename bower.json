@@ -1,7 +1,7 @@
 {
     "name": "calenstyle",
 
-    "version": "2.0.2",
+    "version": "2.0.3",
 
     "license" : "See License Information in LICENSE file",
   
@@ -26,7 +26,7 @@
   
     "homepage": "https://curioussolutions.in/libraries/calenstyle",
   
-    "main": ["dist/calenstyle.min.js", "dist/calenstyle.min.css"],
+    "main": "dist/calenstyle.min.js",
 
     "authors": [
       "Neha Kadam <nehakadam9@gmail.com> (https://github.com/nehakadam)",

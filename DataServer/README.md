@@ -1,28 +1,30 @@
 
 
-# CalenStyleJsonGenerator
+# DataServer
 
 In distribution folder, CalJsonGenerator.js file contains code to generate data needed to supply to CalenStyle.
-Sometimes, this process of generating data on frontend itself may result in degraded performance of Calenstyle View. To tackle this problem CalenStyleJsonGenerator is provided.
-CalenStyleJsonGenerator can be used to generate data(events, appointments) needed to supply to CalenStyle.
+Sometimes, this process of generating data on frontend itself may result in degraded performance of Calenstyle View. To tackle this problem DataServer is provided.
+DataServer can be used to generate data(events, appointments) needed to supply to CalenStyle.
 
 ## Usage
 
-# Start Node Server "CalenStyleJsonGenerator"
+# Start Node Server "DataServer"
 
-1. Make sure that node.js is installed.
-2. Change directory to path of CalenStyleJsonGenerator 
-	(for example, cd "/Volumes/MyVolume1/CalenStyleJsonGenerator")
-3. Run command "node app.js"
+1. Make sure that node.js is installed. If not install it from https://nodejs.org/en/download/
+2. Change directory to path of DataServer 
+	(for example, cd "/Volumes/MyVolume1/DataServer")
+3. Run command "npm install"
+4. Run command "npm start"
 
 After running this, you can see "Express server listening on port 3000"
 
-# Use Request Data on "CalenStyleJsonGenerator"
+# Use Request Data on "DataServer"
 
 1. 	Find your IP address/ Localhost IP address 
 	For example,  http://192.168.1.4
 
 	Mac : http://osxdaily.com/2010/11/21/find-ip-address-mac/
+	Windows : http://windows.microsoft.com/en-in/windows/find-computers-ip-address
 
 
 2. 	Append port number on which node server is listening to localhost address 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Data URL</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    	    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.cActionBar
+			{
+				line-height: 30px;
+				background: #F5F5F5;
+			}
+		
+			.reload
+			{
+				margin-left: 10px;
+				padding: 3px 5px;
+				border-radius: 2px;
+				background: #444444;
+                font-size: 80%;
+                color: #FFFFFF;
+
+				cursor: pointer;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+                
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "ActionBar", "Calendar"],
+				
+					visibleView: "DetailedMonthView",
+				
+					calDataSource: 
+					[					
+						{
+							sourceFetchType: "DateRange",
+							sourceType: "URL",
+							source: "http://localhost:3000/events"
+						}
+					]
+				
+				});
+				
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>
