@@ -12,6 +12,14 @@ app.get('/slotavailability', routes.slotavailability);
 app.get('/filtercriteria', routes.filtercriteria);
 app.get('/misc', routes.misc);
 
+app.all('*', function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");// restrict it to the required domain
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	 // Set custom headers for CORS
+	res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+	next();
+});
+
 app.listen(3000, function()
 {
   console.log("Express server listening on port 3000");

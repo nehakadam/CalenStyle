@@ -1531,7 +1531,7 @@ var documentation = {
         },
         {
             "version": "2.0.3",
-            "date": "May 30, 2016",
+            "date": "May 31, 2016",
             "description": "Added Documentation for DataServer and examples of loading Data from URL. demo/Data-URL.htm and demo/Mobile/Data-URL.htm"
         }
     ]
