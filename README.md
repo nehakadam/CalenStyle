@@ -60,5 +60,5 @@ Files - Particular Version
 [Neha Kadam](https://github.com/nehakadam): Developer<br/> 
 [Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
 <br/> <br/> 
-You can reach us at [calenstyle@curioussolutions.in](mailto:calenstyle@curioussolutions.in) <br/> <br/> 
+
 Copyright 2016 [Curious Solutions LLP](https://github.com/CuriousSolutions)
