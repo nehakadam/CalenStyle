@@ -410,9 +410,6 @@
 
 .cContHeaderSections
 {
-	height: 45px;
-	line-height: 45px;
-
 	text-align: center;
 	vertical-align: top;
 }
@@ -564,6 +561,7 @@
 .cContHeaderMenuSections
 {
 	display: inline-block;
+	padding-bottom:10px;
 }
 
 .cContHeaderMenuSections li
