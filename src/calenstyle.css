@@ -59,7 +59,7 @@
 	left: 0;
 	background: #FFFFFF;
 
-	overflow: auto;
+	overflow: visible;
 
 	-webkit-overflow-scrolling: touch;
 
