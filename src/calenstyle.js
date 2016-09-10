@@ -2469,9 +2469,9 @@ CalenStyle.prototype = {
 		iCalendarContHeight = $occCalendarContInner.outerHeight();
 	
 		if(iCalendarContWidth > 410 || iCalendarContHeight > 410)
-			$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+			$(to.elem).find(".cContHeader, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
 		else
-			$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+			$(to.elem).find(".cContHeader, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
 	},
 
 	//--------------------------------- Header Related Functions End ---------------------------------
