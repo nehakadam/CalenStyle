@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.3
+  Version 2.0.4
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/content/license.htm
   See License Information in LICENSE file.
@@ -57,9 +57,13 @@
 	position: relative;
 	top: 0;
 	left: 0;
+
+	width: 100%;
+
 	background: #FFFFFF;
 
-	overflow: visible;
+	overflow: auto;
+	/*overflow: visible;*/
 
 	-webkit-overflow-scrolling: touch;
 
@@ -410,6 +414,9 @@
 
 .cContHeaderSections
 {
+	/*height: 45px;
+	line-height: 45px;*/
+
 	text-align: center;
 	vertical-align: top;
 }
@@ -561,7 +568,6 @@
 .cContHeaderMenuSections
 {
 	display: inline-block;
-	padding-bottom:10px;
 }
 
 .cContHeaderMenuSections li

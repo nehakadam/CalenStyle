@@ -130,10 +130,10 @@
 						//calObj1.revertToOriginalEvent(oDraggedEvent, startDateBeforeDrop, endDateBeforeDrop);
 					},
 				
-					dayClicked: function(selectedDate, pClickedAt)
+					cellClicked: function(sView, dSelectedDate, bIsAllDay, pClickedAt)
 					{
-						console.log("Day Clicked : " + selectedDate);
-						showModal(true, selectedDate);						
+						console.log("Cell Clicked : " + dSelectedDate);
+						showModal(true, dSelectedDate);						
 					},
 				
 					cellClicked: function(selectedDateTime, pClickedAt)

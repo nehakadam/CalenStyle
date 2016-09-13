@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.3
+  Version 2.0.4
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/content/license.htm
   See License Information in LICENSE file.
@@ -2541,6 +2541,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
+				if(iCMVTableRowHeight < 60)
+				{
+					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
+				}
 			
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{
@@ -2649,6 +2653,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
+				if(iCMVTableRowHeight < 60)
+				{
+					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
+				}
 			
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{

@@ -253,14 +253,14 @@
 						oCal2.highlightDatesInDatePicker(dCal2Highlight);
 					},
 				
-					dayClicked: function(selectedDate, pClickedAt)
+					cellClicked: function(sView, dSelectedDate, bIsAllDay, pClickedAt)
 					{
-						oCal1.setting.selectedDate = selectedDate;
+						oCal1.setting.selectedDate = dSelectedDate;
 						oCal1.reloadData();
 						oCal2.reloadData();
 						//oCal2.highlightDatesInDatePicker(oCal1.getVisibleDates());
 					
-						oCal3.setting.selectedDate = selectedDate;
+						oCal3.setting.selectedDate = dSelectedDate;
 						oCal3.tv.oAEvents = oCal1.tv.oAEvents;
 						oCal3.setting.selectedDate = oCal1.tv.dVSDt;
 						oCal3.setting.daysInAgendaView = oCal1.tv.iNoVDay;

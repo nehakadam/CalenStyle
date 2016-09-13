@@ -27,7 +27,14 @@ module.exports = function(grunt)
 
 	], 
 
-	sAJSCustom = [], 
+	sAJSCustom = [
+		'src/calenstyle-core.js', 
+      	'src/calenstyle-monthview.js', 
+      	'src/calenstyle-detailview.js',
+      	'src/calenstyle-agendaview.js',
+      	'src/calenstyle-quickagendaview.js',
+      	'src/calenstyle-pickers.js'
+	], 
 
 	sACSS = [
 

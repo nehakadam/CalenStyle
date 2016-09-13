@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.3
+  Version 2.0.4
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/content/license.htm
   See License Information in LICENSE file.
@@ -2468,10 +2468,15 @@ CalenStyle.prototype = {
 		iCalendarContWidth = $occCalendarContInner.outerWidth(),
 		iCalendarContHeight = $occCalendarContInner.outerHeight();
 	
+		// if(iCalendarContWidth > 410 || iCalendarContHeight > 410)
+		// 	$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+		// else
+		// 	$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+
 		if(iCalendarContWidth > 410 || iCalendarContHeight > 410)
-			$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+			$(to.elem).find(".cContHeader, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
 		else
-			$(to.elem).find(".cContHeader, .cContHeaderSections, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
+			$(to.elem).find(".cContHeader, .cContHeaderDatePickerIcon, .cContHeaderFullscreen, .cContHeaderNavButton").css({"height": 45, "line-height": 45+"px"});
 	},
 
 	//--------------------------------- Header Related Functions End ---------------------------------
@@ -3163,7 +3168,10 @@ CalenStyle.prototype = {
 		if(sDateType === "[object Date]")
 			dTempDate = (bIsAllDay ? to.convertToUTC(sDate, sIpTZOffset) : to.normalizeDateTimeWithOffset(sDate, sIpTZOffset, to.setting.outputTZOffset));
 		else if(sDateType === "[object Number]")
-			dTempDate = (bIsAllDay ? to.convertToUTC(new Date(sDate), sIpTZOffset) : to.normalizeDateTimeWithOffset(new Date(sDate), sIpTZOffset, to.setting.outputTZOffset));
+		{
+			// dTempDate = (bIsAllDay ? to.convertToUTC(new Date(sDate), sIpTZOffset) : to.normalizeDateTimeWithOffset(new Date(sDate), sIpTZOffset, to.setting.outputTZOffset));
+			dTempDate = (bIsAllDay ? to.convertToUTC(new Date(sDate), "+00:00") : to.normalizeDateTimeWithOffset(new Date(sDate), "+00:00", to.setting.outputTZOffset));
+		}
 		else
 		{
 			var iDay = 0, iMonth = 0, iYear = 0, iHours = 0, iMinutes = 0, iSeconds = 0;
@@ -3371,14 +3379,19 @@ CalenStyle.prototype = {
 			
 				to.tv.dVSDt = to.setDateInFormat({"date": to._getWeekForDate(dMonthStartDate, false)[0]}, "START");
 				if(!to.setting.fixedNumOfWeeksInMonthView)
-					to.tv.iWkInMonth = ((to._getWeekForDate(dMonthEndDate, false)[0].getTime() - to.tv.dVSDt.getTime())/$.CalenStyle.extra.iMS.w) + 1;
+					to.tv.iWkInMonth = Math.round((to._getWeekForDate(dMonthEndDate, false)[0].getTime() - to.tv.dVSDt.getTime())/$.CalenStyle.extra.iMS.w) + 1;
 			
 				to.tv.iNoVDay = 0;
 				var iDateMS = to.tv.dVSDt.getTime(),
 				iNumMonthDays = (to.setting.excludeNonBusinessHours) ? (to.tv.iBsDays * to.tv.iWkInMonth) : (7 * to.tv.iWkInMonth);
+				var iStartTZOffset = to.tv.dVSDt.getTimezoneOffset();
 				for(var iTempIndex = 0; iTempIndex < (7 * to.tv.iWkInMonth); iTempIndex++)
 				{
 					var dTempDate = new Date(iDateMS);
+					var iThisTZOffset = dTempDate.getTimezoneOffset();
+					if(iStartTZOffset !== iThisTZOffset)
+						dTempDate = new Date(iDateMS + ((iThisTZOffset - iStartTZOffset) * $.CalenStyle.extra.iMS.m));
+
 					if(!to.setting.excludeNonBusinessHours)
 					{
 						to.tv.dAVDt.push(dTempDate);
@@ -3608,9 +3621,15 @@ CalenStyle.prototype = {
 		var to = this;
 		var iDVDateMS = dStartDate.getTime(),
 		oArrDates = [];
+
+		var iStartTZOffset = dStartDate.getTimezoneOffset();
 		for(var iDateIndex = 0; iDateIndex < iNoOfDays; iDateIndex++)
 		{
 			var dTempDate = new Date(iDVDateMS);
+			var iThisTZOffset = dTempDate.getTimezoneOffset();
+			if(iStartTZOffset !== iThisTZOffset)
+				dTempDate = new Date(iDVDateMS + ((iThisTZOffset - iStartTZOffset) * $.CalenStyle.extra.iMS.m));
+			
 			//if(dEndDate !== null && to.compareDates(dTempDate, dEndDate) === 0)
 			//	break;
 
@@ -8441,6 +8460,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
+				if(iCMVTableRowHeight < 60)
+				{
+					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
+				}
 			
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{
@@ -8549,6 +8572,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
+				if(iCMVTableRowHeight < 60)
+				{
+					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
+				}
 			
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{

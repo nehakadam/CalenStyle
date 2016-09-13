@@ -357,9 +357,9 @@
 						oCal2.highlightDatesInDatePicker(dCal2Highlight);
 					},
 				
-					dayClicked: function(selectedDate, pClickedAt)
+					cellClicked: function(sView, dSelectedDateTime, bIsAllDay, pClickedAt)
 					{
-						oCal1.setting.selectedDate = selectedDate;
+						oCal1.setting.selectedDate = dSelectedDateTime;
 						oCal1.reloadData();
 						oCal2.highlightDatesInDatePicker(oCal1.getVisibleDates());
 
