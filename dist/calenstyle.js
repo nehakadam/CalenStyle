@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.4
+  Version 2.0.5
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/content/license.htm
   See License Information in LICENSE file.
@@ -14728,6 +14728,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 		var iTempIndex, iEventIndex,
 		dTempViewDate, dTempViewStartDate, dTempViewEndDate, oAEventsForView, 
+		iNumOfDays = to.tv.dAVDt.length,
 		bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
 		bHideEventTime = $.cf.isValid(to.setting.hideEventTime[to.setting.visibleView]) ? to.setting.hideEventTime[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventTime.Default) ? to.setting.hideEventTime.Default : false;
 
@@ -14735,7 +14736,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if($.cf.compareStrings(to.tv.sLoadType, "Prev"))
 			to.tv.dLoadDt = to.tv.dAVDt[0];
 		else if($.cf.compareStrings(to.tv.sLoadType, "Next"))
-			to.tv.dLoadDt = to.tv.dAVDt[(to.tv.dAVDt.length - 1)];
+			to.tv.dLoadDt = to.tv.dAVDt[(iNumOfDays - 1)];
 
 		to._setDateStringsInHeaderOfAgendaView();
 	
@@ -14760,7 +14761,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			
 				var iEventCount = 0;
 				var oDateList = [];
-				for(iTempIndex = 0; iTempIndex < to.tv.dAVDt.length; iTempIndex++)
+				for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
 				{
 					dTempViewDate = to.tv.dAVDt[iTempIndex];
 					dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START");
@@ -14788,6 +14789,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 			else
 			{
+				if(iNumOfDays > 0)
+				{
+					if(to.compareDates(to.setting.selectedDate, to.tv.dAVDt[0]) >= 0 || to.compareDates(to.setting.selectedDate, to.tv.dAVDt[iNumOfDays - 1]) <= 0)
+						sSelectedDateElemId = "#Date-" + to.getDateInFormat({"date": to.setting.selectedDate}, "dd-MM-yyyy", false, true);
+				}
+
 				if($.cf.compareStrings(to.setting.agendaViewTheme, "Timeline1"))
 				{
 					$(to.elem).find(".cListOuterCont").html("<table class='cagvTable'></table>");
@@ -14798,7 +14805,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					if(bHideEventTime)
 						iColspan--;
 
-					for(iTempIndex = 0; iTempIndex < to.tv.dAVDt.length; iTempIndex++)
+					for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
 					{
 						dTempViewDate = to.tv.dAVDt[iTempIndex];
 						dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START");
@@ -14807,17 +14814,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						bIsToday = (to.compareDates(dTempViewDate, $.CalenStyle.extra.dToday) === 0);
 
 						sFullDate = to.getDateInFormat({"date": dTempViewStartDate}, "dd-MM-yyyy", false, true);
-						sDateId = "Date-" +  sFullDate;
+						sDateId = "Date-" + sFullDate;
 						sDateClass = bIsToday ? "cagvDate cagvDateToday" : "cagvDate";
+
+						if(iTempIndex === 0 && sSelectedDateElemId === undefined)
+							sSelectedDateElemId = "#" + sDateId;
 
 						if(oAEventsForView.length !== 0)
 						{
 							$(to.elem).find(".cagvTable").append("<tr><td colspan='"+iColspan+"'><div id='" + sDateId + "' class='" + sDateClass + "'>" + to.getDateInFormat({"date": dTempViewStartDate}, "DDDD MMMM dd yyyy", false, true) + "</div></td></tr>");
-
-							if(to.compareDates(dTempViewStartDate, to.setting.selectedDate) === 0)
-								sSelectedDateElemId = "#"+sDateId;
-							if(sSelectedDateElemId === undefined)
-								sSelectedDateElemId = "#"+sDateId;
 
 							for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 							{
@@ -14951,7 +14956,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				{
 					$(to.elem).find(".cListOuterCont").html("<table class='cagvTable'></table>");
 				
-					for(iTempIndex = 0; iTempIndex < to.tv.dAVDt.length; iTempIndex++)
+					for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
 					{
 						dTempViewDate = to.tv.dAVDt[iTempIndex];
 						dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START");
@@ -14960,8 +14965,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						bIsToday = (to.compareDates(dTempViewDate, $.CalenStyle.extra.dToday) === 0);
 						var bAddedDate = false;
 
+						sFullDate = to.getDateInFormat({"date": dTempViewStartDate}, "dd-MM-yyyy", false, true);
+						sDateId = "Date-" + sFullDate;
+
 						sDateClass = bIsToday ? "cagvDate cagvDateToday" : "cagvDate";
 						sDayClass = bIsToday ? "cagvDay cagvDateToday" : "cagvDay";
+
+						if(iTempIndex === 0 && sSelectedDateElemId === undefined)
+							sSelectedDateElemId = "#" + sDateId;
 
 						if(oAEventsForView.length !== 0)
 						{
@@ -15035,7 +15046,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sTemplate = "";
 								sTemplate += "<tr id='" + sId + "'>";
 							
-								sTemplate += "<td class='cagvContDate'>";
+								sTemplate += "<td id='" + sDateId + "' class='cagvContDate'>";
 								if(!bAddedDate)
 								{
 									sTemplate += "<div class='"+sDateClass+"'>" + to.getDateInFormat({"date": dTempViewDate}, "d", false, true) + "</div>";
@@ -15110,7 +15121,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sTemplate = "";
 							sTemplate += "<tr>";
 						
-							sTemplate += "<td class='cagvContDate'>";
+							sTemplate += "<td id='" + sDateId + "' class='cagvContDate'>";
 							if(!bAddedDate)
 							{
 								sTemplate += "<div class='cagvDate'>" + to.getDateInFormat({"date": dTempViewDate}, "d", false, true) + "</div>";
@@ -15137,7 +15148,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					if(bHideEventTime)
 						iColspan--;
 
-					for(iTempIndex = 0; iTempIndex < to.tv.dAVDt.length; iTempIndex++)
+					for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
 					{
 						dTempViewDate = to.tv.dAVDt[iTempIndex];
 						dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START");
@@ -15148,15 +15159,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sFullDate = to.getDateInFormat({"date": dTempViewStartDate}, "dd-MM-yyyy", false, true);
 						sDateId = "Date-" +  sFullDate;
 						sDateClass = bIsToday ? "cagvDate cagvDateToday" : "cagvDate";
+
+						if(iTempIndex === 0 && sSelectedDateElemId === undefined)
+							sSelectedDateElemId = "#" + sDateId;
 					
 						if(oAEventsForView.length !== 0)
 						{
 							$(to.elem).find(".cagvTable").append("<tr><td colspan='"+iColspan+"'><div id='" + sDateId + "' class='" + sDateClass + "'>" + to.getDateInFormat({"date": dTempViewStartDate}, "DDDD MMMM dd yyyy", false, true) + "</div></td></tr>");
-
-							if(to.compareDates(dTempViewStartDate, to.setting.selectedDate) === 0)
-								sSelectedDateElemId = "#"+sDateId;
-							if(sSelectedDateElemId === undefined)
-								sSelectedDateElemId = "#"+sDateId;
 
 							for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 							{
@@ -15271,12 +15280,19 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							$(to.elem).find(".cagvTable").append(sTemplate);
 						}
 					}
-					
-					$(to.elem).find(".cListOuterCont").animate(
-					{
-						scrollTop: $(to.elem).find(sSelectedDateElemId).position().top
-					}, 300);
 				}
+
+				setTimeout(function()
+				{
+					$(to.elem).find(".cListOuterCont").scrollTop(0);
+					if(sSelectedDateElemId !== undefined)
+					{
+						$(to.elem).find(".cListOuterCont").animate(
+						{
+							scrollTop: $(to.elem).find(sSelectedDateElemId).position().top
+						}, 300);
+					}
+				}, 0);
 			}
 
 			to.addRemoveViewLoader(false, "cEventLoaderBg");

@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.4
+  Version 2.0.5
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/
   This file is licensed under terms set for CalenStyle(https://curioussolutions.in/libraries/calenstyle/content/license.htm)
@@ -1533,6 +1533,16 @@ var documentation = {
             "version": "2.0.3",
             "date": "May 31, 2016",
             "description": "Added Documentation for DataServer and examples of loading Data from URL. demo/Data-URL.htm and demo/Mobile/Data-URL.htm"
+        },
+        {
+            "version": "2.0.4",
+            "date": "Sep 13, 2016",
+            "description": "Fixed DST issue - because of DST, some days were appearing twice/ month appring twice or month skipped entirely. Fixed issue of Month View height on IE. Removed fixed heights from cContHeaderSections. Added some bottom padding to cContHeaderMenuSections. Changed sourceFetchType to ALL, to prevent duplicating events on previous and next button click and changed icon classname, so icon is now visible."
+        },
+        {
+            "version": "2.0.5",
+            "date": "Oct 02, 2016",
+            "description": "Added scroll to selectedDate option in Agenda View."
         }
     ]
 };
