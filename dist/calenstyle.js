@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.5
+  Version 2.0.6
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/content/license.htm
   See License Information in LICENSE file.
@@ -8178,7 +8178,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 				else
 				{
-					var oEventRecord = to.getEventWithId($(this).attr("id"));
+					var oEventRecord = to.getEventWithId($(this).attr("data-id"));
 					sTooltipText = to.setting.eventTooltipContent.call(to, oEventRecord);
 				}
 				return sTooltipText;

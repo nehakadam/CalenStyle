@@ -1,7 +1,7 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.5
+  Version 2.0.6
   Copyright (c)2016 Curious Solutions LLP
   https://curioussolutions.in/libraries/calenstyle/
   This file is licensed under terms set for CalenStyle(https://curioussolutions.in/libraries/calenstyle/content/license.htm)
@@ -1543,6 +1543,11 @@ var documentation = {
             "version": "2.0.5",
             "date": "Oct 02, 2016",
             "description": "Added scroll to selectedDate option in Agenda View."
+        },
+        {
+            "version": "2.0.6",
+            "date": "Oct 11, 2016",
+            "description": "Fixed a bug in eventTooltipContent callback function parameter. This bug caused oEventRecord parameter to be undefined."
         }
     ]
 };

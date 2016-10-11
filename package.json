@@ -1,7 +1,7 @@
 {
 	"name": "calenstyle",
 
-	"version": "2.0.5",
+	"version": "2.0.6",
 
     "license" : "See License Information in LICENSE file",
 
@@ -24,7 +24,7 @@
         "Week Calendar"
 	],
 
-	"homepage": "https://curioussolutions.in/libraries/calenstyle",
+	"homepage": "https://github.com/CuriousSolutions/CalenStyle",
 
     "main": "dist/calenstyle.min.js",
 
