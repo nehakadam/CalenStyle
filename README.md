@@ -65,4 +65,4 @@ Files - Particular Version
 [Lajpat Shah](https://github.com/lajpatshah): Concept & Design Contributor
 <br/> <br/> 
 
-Copyright 2016 [Lajpat Shah](https://github.com/lajpatshah)
+Copyright 2017 [Lajpat Shah](https://github.com/lajpatshah)
