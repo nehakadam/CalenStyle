@@ -16,7 +16,7 @@ You can use CalenStyle in your
 ## Design Themes 
 CalenStyle includes many design themes for representing events in colorful & informative manner. Themes were designed keeping in mind a need to show event calendar on small screens like mobile devices & in a small viewing section on a web page. But they work equally well on large screens like desktop browsers. Few theme examples are shown below:<br/>
 ### Full Calendar (Drag & Drop)
-![](https://raw.github.com/nehakadam/CalenStyle/gh-pages/content/images/full_calendar.png)
+![](https://raw.github.com/nehakadam/CalenStyle/gh-pages/content/images/full_calendar.jpg)
 ### Timeline View (Agenda)
 ![](https://raw.github.com/nehakadam/CalenStyle/gh-pages/content/images/timeline.png)
 ### Planner View (Agenda)
@@ -38,6 +38,10 @@ CalenStyle includes many design themes for representing events in colorful & inf
 - bower
 
   `bower install calenstyle`
+  
+- composer
+
+  `composer require nehakadam/calenstyle`
 
 ##CDN
 [CalenStyle is hosted on jsDelivr](http://www.jsdelivr.com/projects/jquery.calenstyle).
