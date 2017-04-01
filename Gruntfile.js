@@ -3,9 +3,10 @@ module.exports = function(grunt)
 	var sBanner = '/* ----------------------------------------------------------------------------- ' +
 	'\n\n  CalenStyle - Responsive Event Calendar' +
 	'\n  Version <%= pkg.version %>' + 
-	'\n  Copyright (c)<%= grunt.template.today("yyyy") %> Curious Solutions LLP' +
-	'\n  https://curioussolutions.in/libraries/calenstyle/content/license.htm' +
-	'\n  See License Information in LICENSE file.' +
+	'\n  Copyright (c)<%= grunt.template.today("yyyy") %> Lajpat Shah' +
+	'\n  Contributors : https://github.com/nehakadam/CalenStyle/contributors' +
+	'\n  Repository : https://github.com/nehakadam/CalenStyle' +
+	'\n  Homepage : https://nehakadam.github.io/CalenStyle' +
 	'\n\n ----------------------------------------------------------------------------- */\n\n';
 	
 	var sJSHeader = sBanner + "(function () {\n\n    \"use strict\";\n\n",

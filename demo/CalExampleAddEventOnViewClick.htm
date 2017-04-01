@@ -132,14 +132,8 @@
 				
 					cellClicked: function(sView, dSelectedDate, bIsAllDay, pClickedAt)
 					{
-						console.log("Cell Clicked : " + dSelectedDate);
+						console.log("Cell Clicked 1 : " + dSelectedDate);
 						showModal(true, dSelectedDate);						
-					},
-				
-					cellClicked: function(selectedDateTime, pClickedAt)
-					{
-						console.log("Cell Clicked : " + selectedDateTime);
-						showModal(false, selectedDateTime);	
 					},
 				
 					eventsAddedInView: function(visibleView, eventClass)

@@ -1,9 +1,9 @@
 {
     "name": "calenstyle",
 
-    "version": "2.0.6",
+    "version": "2.0.7",
 
-    "license" : "See License Information in LICENSE file",
+    "license" : "MIT",
   
     "description": "CalenStyle is a Responsive Drag-and-Drop Event Calendar for Web, iOS, Android & Windows. CalenStyle is customizable plugin having multiple, clean-designed event calendar templates specially designed for web & mobile applications.",
   
@@ -24,7 +24,7 @@
     	"Week Calendar"
     ],
   
-    "homepage": "https://github.com/CuriousSolutions/CalenStyle",
+    "homepage": "https://github.com/nehakadam/CalenStyle",
   
     "main": "dist/calenstyle.min.js",
 
@@ -35,7 +35,7 @@
 
     "repository": {
       "type": "git",
-      "url": "git://github.com:CuriousSolutions/CalenStyle.git"
+      "url": "git://github.com:nehakadam/CalenStyle.git"
     },
 
     "dependencies": {

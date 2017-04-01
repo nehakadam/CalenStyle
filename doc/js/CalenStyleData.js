@@ -1,10 +1,11 @@
 /* ----------------------------------------------------------------------------- 
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.6
-  Copyright (c)2016 Curious Solutions LLP
-  https://curioussolutions.in/libraries/calenstyle/
-  This file is licensed under terms set for CalenStyle(https://curioussolutions.in/libraries/calenstyle/content/license.htm)
+  Version 2.0.7
+  Copyright (c)2017 Lajpat Shah
+  Contributors : https://github.com/nehakadam/CalenStyle/contributors
+  Repository : https://github.com/nehakadam/CalenStyle
+  Homepage : https://nehakadam.github.io/CalenStyle
 
  ----------------------------------------------------------------------------- */
 
@@ -1548,6 +1549,11 @@ var documentation = {
             "version": "2.0.6",
             "date": "Oct 11, 2016",
             "description": "Fixed a bug in eventTooltipContent callback function parameter. This bug caused oEventRecord parameter to be undefined."
+        },
+        {
+            "version": "2.0.7",
+            "date": "Apr 1, 2017",
+            "description": "Changed Copyright Text and Repository URLs."
         }
     ]
 };

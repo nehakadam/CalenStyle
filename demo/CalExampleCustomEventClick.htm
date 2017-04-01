@@ -131,6 +131,14 @@
 						{
 							$(".popover").remove();
 						});
+					},
+
+					cellClicked: function(sView, dSelectedDate, bIsAllDay, pClickedAt)
+					{
+						console.log("Cell Clicked 1 : " + dSelectedDate);
+						// showModal(true, dSelectedDate);
+
+						$(".popover").remove();			
 					}
 				
 				});
