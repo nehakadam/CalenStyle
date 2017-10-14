@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -155,7 +155,7 @@
 {
 	display: inline-block;
 	height: 100%;
-	
+
 	width: 0;
 	border: 1px solid #000000;
 }
@@ -183,7 +183,7 @@
 .cEditingEvent
 {
 	z-index: 10;
-	opacity: 1 !important;	
+	opacity: 1 !important;
 }
 
 .cEventOnlyText.cEditingEvent
@@ -223,7 +223,7 @@
 	height: 10px;
 	margin: -4px auto 0 auto;
 }
- 
+
 .cDragNDrop
 {
  	cursor: pointer;
@@ -482,7 +482,7 @@
 }
 
 .cContHeaderDropdownMenuArrow:active,
-.cContHeaderDropdownMenuArrow:hover, 
+.cContHeaderDropdownMenuArrow:hover,
 .cContHeaderLabelOuter.clickableLink:hover .cContHeaderDropdownMenuArrow
 {
 	border-bottom-color: #96281B;
@@ -1486,11 +1486,11 @@
 	text-align: center;
 	color: #FFFFFF;
 
-	height: 16px;	
-	line-height: 16px;	
+	height: 16px;
+	line-height: 16px;
 
 	padding-left: 5px;
-	padding-right: 5px;		
+	padding-right: 5px;
 }
 
 /* ---------------------* DayList View End *--------------------- */
@@ -1701,7 +1701,7 @@
 	margin-right: 6px;
 }
 
-@media screen and (max-width: 400px) 
+@media screen and (max-width: 400px)
 {
 	.cdvMultiColumn .cdvCellDayLeft, .cdvMultiColumn .cdvCellDayRight
 	{
@@ -2028,7 +2028,7 @@
 	margin-right: 6px;
 }
 
-@media screen and (max-width: 400px) 
+@media screen and (max-width: 400px)
 {
 	.cqavMultiColumn .cqavDayColumnLeft, .cqavMultiColumn .cqavDayColumnRight
 	{
@@ -2195,7 +2195,7 @@
 	margin-right: 6px;
 }
 
-@media screen and (max-width: 400px) 
+@media screen and (max-width: 400px)
 {
 	.ctpvMultiColumn .ctpvDayColumnLeft, .ctpvMultiColumn .ctpvDayColumnRight
 	{
@@ -2343,11 +2343,11 @@
 {
 	width: 100%;
 	height: 100%;
-	
+
 	position: relative;
 	top: 0;
 	left: 0;
-	
+
 	background: #FFFFFF;
 	overflow: auto;
 
@@ -2362,7 +2362,7 @@
 .cmvDayHeader
 {
 	text-align: center;
-	color: #444444;	
+	color: #444444;
 	font-weight: bold;
 	font-size: 70%;
 	text-transform: uppercase;
@@ -2381,14 +2381,14 @@
 }
 
 .cmvDay
-{	
+{
 	text-align: left;
 	position: relative;
 }
 
-@media screen and (max-width: 500px) 
+@media screen and (max-width: 500px)
 {
-    .cmvDay 
+    .cmvDay
     {
         text-align: center;
     }
@@ -2404,7 +2404,7 @@
 	line-height: 25px;
 
 	text-align: center;
-	
+
 	border-radius: 50%;
 }
 
@@ -2425,9 +2425,9 @@
 .cmvWeekNumber
 {
 	width: 30px;
-	color: #444444;	
+	color: #444444;
 	font-weight: bold;
-	
+
 	vertical-align: middle;
 }
 
@@ -2453,7 +2453,7 @@
 
 .cmvCurrentMonthDay
 {
-	color: #242424;	
+	color: #242424;
 	background: #FFFFFF;
 }
 
@@ -2498,7 +2498,7 @@
 	background: #FFFFFF;
 }
 
-/* ---------------------* CalendarInnerCont End *----------------------------- */ 
+/* ---------------------* CalendarInnerCont End *----------------------------- */
 
 /* ---------------------* Filter Bar Start *--------------------- */
 
@@ -2790,7 +2790,7 @@
 	-webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-	
+
 	-webkit-overflow-scrolling: touch;
 
 	-webkit-transform: translateZ(0);
@@ -2879,7 +2879,7 @@
 	height: 3px;
 	line-height: 1px;
 	font-size: 0;
-	text-align: center;	
+	text-align: center;
 }
 
 .cmvMonthTableRowIndicator span
@@ -2936,7 +2936,7 @@
 	color: #FF3B30;
 }
 
-.cHiddenEventsContClose 
+.cHiddenEventsContClose
 {
     display: inline-block;
     width: 15px;
@@ -3100,7 +3100,7 @@
 	display: inline-block;
 	width: 0;
 	height: 0;
-	
+
 	position: absolute;
 	border-width: 11px;
 	border-style: solid;
@@ -3129,10 +3129,10 @@
 .cylvYearListOuterTable
 {
 	position: absolute;
-	
+
 	width: 100%;
 	height: 100%;
-	
+
 	overflow: hidden;
 }
 
@@ -3142,7 +3142,7 @@
 }
 
 .cylvTableColumns
-{	
+{
 	min-height: 40px;
 	width: 30%;
 	height: 20%;
@@ -3231,13 +3231,13 @@
 
 /*--------------------------------* Droppable End *---------------------------- */
 
-.calendarContWeb ::-webkit-scrollbar 
+.calendarContWeb ::-webkit-scrollbar
 {
 	width: 5px;
 	height: 0;
 }
 
-.calendarContMobile ::-webkit-scrollbar 
+.calendarContMobile ::-webkit-scrollbar
 {
 	width: 2px;
 	height: 10px;
@@ -3251,12 +3251,12 @@
 	background-color: transparent;
 }
 
-.calendarCont ::-webkit-scrollbar-track-piece  
+.calendarCont ::-webkit-scrollbar-track-piece
 {
 	background-color: #FFFFFF;
 }
 
-.calendarCont ::-webkit-scrollbar-thumb:vertical 
+.calendarCont ::-webkit-scrollbar-thumb:vertical
 {
 	height: 50px;
 	background-color: #AAAAAA;
@@ -3291,7 +3291,7 @@
 	height: 320px;
 }
 
-@media screen and (max-width: 480px) 
+@media screen and (max-width: 480px)
 {
 	.cElemDatePicker
 	{
@@ -3309,7 +3309,7 @@
 	position: absolute;
 	border-width: 11px;
 	border-style: solid;
-	
+
 	z-index: 6;
 }
 
@@ -3398,13 +3398,13 @@
 	opacity: 0.3;
 }
 
-.cEventLoaderIcon 
+.cEventLoaderIcon
 {
     min-width: 24px;
     min-height: 24px;
 }
- 
-.cEventLoaderIcon:before 
+
+.cEventLoaderIcon:before
 {
     content: 'Loading…';
     position: absolute;
@@ -3415,8 +3415,8 @@
     margin-top: -10px;
     margin-left: -10px;
 }
- 
-.cEventLoaderIcon:not(:required):before 
+
+.cEventLoaderIcon:not(:required):before
 {
     content: '';
     border-radius: 50%;
@@ -3424,29 +3424,29 @@
     border-top-color: #0E0;
     border-right-color: #0DD;
     border-bottom-color: #F90;
-    
+
     -webkit-animation: spinner .6s linear infinite;
     -moz-animation: spinner .6s linear infinite;
     -o-animation: spinner .6s linear infinite;
     animation: spinner .6s linear infinite;
 }
 
-@keyframes spinner 
+@keyframes spinner
 {
     to {transform: rotate(360deg);}
 }
- 
-@-webkit-keyframes spinner 
+
+@-webkit-keyframes spinner
 {
     to {-webkit-transform: rotate(360deg);}
 }
 
-@-moz-keyframes spinner 
+@-moz-keyframes spinner
 {
     to {-moz-transform: rotate(360deg);}
 }
 
-@-o-keyframes spinner 
+@-o-keyframes spinner
 {
     to {-o-transform: rotate(360deg);}
 }
@@ -3479,12 +3479,12 @@
 
 .cTooltipTitle
 {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .cTooltipTime
 {
-	font-size: 85%;	
+	font-size: 85%;
 }
 
 /*------------------------* Color Differentiators Start *------------------------------ */
@@ -3587,7 +3587,7 @@
     margin-top: 2px;
 }
 
-.cMarkedDayEvent .cdmvEventIcon 
+.cMarkedDayEvent .cdmvEventIcon
 {
     display: inline-block;
     height: 16px;
@@ -3608,7 +3608,7 @@
 	float: left;
 }
 
-.cMarkedDayEvent .cdvEventIcon 
+.cMarkedDayEvent .cdvEventIcon
 {
     display: inline-block;
     height: 16px;
@@ -3619,7 +3619,7 @@
     color: #FFFFFF;
 }
 
-.cMarkedDayEvent .cqavEventIcon 
+.cMarkedDayEvent .cqavEventIcon
 {
     display: inline-block;
     height: 16px;
@@ -3659,7 +3659,7 @@
     font-size: 12px;
     text-align: center;
     color: #FFFFFF;
-    
+
     margin-top: -4px;
 }
 

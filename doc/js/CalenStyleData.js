@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -29,13 +29,13 @@ var documentation = {
         "TaskPlannerView",
         "DayListView",
         "AppointmentView",
-        "EventList", 
+        "EventList",
         "FilterBar",
         "Data",
         "DatePicker"
     ],
 
-    parameters: 
+    parameters:
     [
         {
             "name": "sectionsList",
@@ -121,7 +121,7 @@ var documentation = {
             "description": "<p>\n  <code>formatDates</code> can be used to apply a custom datetime format.\n</p>\n<p>\n  It can be specified as an object with callback functions returning formatted datetime string named as format specifier. \n</p>",
             "examples": ["../demo/Callback-CellClicked_AddEvent.htm"]
         },
-        {  
+        {
            "name": "slotTooltipContent",
            "tags": ["i18n"],
            "default": "function(oSlotAvailability)\n{\n  if(oSlotAvailability.status === \"Busy\")\n    return \"\";\n  else if(oSlotAvailability.status === \"Free\")\n  {\n    if(oSlotAvailability.count === undefined || oSlotAvailability.count === null)\n      return \"<div class=cavTooltipBookNow>Book Now</div>\";\n    else\n      return \"<div class=cavTooltipSlotCount>\" + oSlotAvailability.count + \" slots available</div><div class=cavTooltipBookNow>Book Now</div>\";\n  }\t\t\t\n}",
@@ -620,7 +620,7 @@ var documentation = {
            "options": "",
            "description": "<p>\n  Enable or disable Resizing of Event in Detail View.\n</p>\n<p><code>isResizeInDetailView</code> can be specified in -  </p>\n\t<ul>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-calDataSource\"><code>\"config\" in calDataSource</code></a> - if its value for the calDataSource is different than one specified in other places.</li>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-eventCalendarSource-IA\"><code>eventCalendarSource</code></a> - if its value for the Calendar in eventCalendarSource is different than one specified in other places.</li>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-eventSource-IA\"><code>Events</code></a> - if its value for the Event in eventSource is different than one specified in other places.</li>\n\t</ul>\n<p>\n  Also read, <a class=\"parameter-link icon-link\" href=\"#link-isResizeInDetailView\"><code>isResizeInDetailView Property Preferences</code></a> to decide where to set a value of the property.\n</p>"
         },
-        {  
+        {
            "name": "isTooltipInDetailView",
            "tags": ["UI", "DetailView"],
            "default": "true",
@@ -663,7 +663,7 @@ var documentation = {
            "description": "<p>\n  Show or hide Event Tooltip in Task Planner View.\n</p>\n<p><code>isTooltipInTaskPlannerView</code> can be specified in -  </p>\n    <ul>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-calDataSource\"><code>\"config\" in calDataSource</code></a> - if its value for the calDataSource is different than one specified in other places.</li>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-eventCalendarSource-IA\"><code>eventCalendarSource</code></a> - if its value for the Calendar in eventCalendarSource is different than one specified in other places.</li>\n      <li><a class=\"parameter-link icon-link\" href=\"#link-eventSource-IA\"><code>Events</code></a> - if its value for the Event in eventSource is different than one specified in other places.</li>\n    </ul>\n<p>\n  Also read, <a class=\"parameter-link icon-link\" href=\"#link-isTooltipInTaskPlannerView\"><code>isTooltipInTaskPlannerView Property Preferences</code></a> to decide where to set a value of the property.\n</p>",
             "examples": ["../demo/Mobile/View-TaskPlanner.htm"]
         },
-        {  
+        {
            "name": "isTooltipInAppointmentView",
            "tags": ["UI", "AppointmentView"],
            "default": "true",
@@ -671,8 +671,8 @@ var documentation = {
            "options": "",
            "description": "<p><code>isTooltipInAppointmentView</code> specifies whether to show or hide tooltip in AppointmentView.</p>",
             "examples": ["../demo/Mobile/View-Appointment.htm"]
-        },            
-        {  
+        },
+        {
            "name": "actionBarHeight",
            "tags": ["UI", "FilterBar"],
            "default": "30",
@@ -680,7 +680,7 @@ var documentation = {
            "options": "",
            "description": "<p>Set Height Of Action Bar.</p>"
         },
-        {  
+        {
            "name": "filterBarPosition",
            "tags": ["UI", "FilterBar"],
            "default": "\"Top\"",
@@ -689,7 +689,7 @@ var documentation = {
            "description": "<p>Set Position of Filter Bar in the View.</p>",
             "examples": ["../demo/Section-FilterRight.htm"]
         },
-        {  
+        {
            "name": "filterBarHeight",
            "tags": ["UI", "FilterBar"],
            "default": "100",
@@ -697,7 +697,7 @@ var documentation = {
            "options": "",
            "description": "<p>Set Height Of Filter Bar.</p>"
         },
-        {  
+        {
            "name": "filterBarWidth",
            "tags": ["UI", "FilterBar"],
            "default": "200",
@@ -705,7 +705,7 @@ var documentation = {
            "options": "",
            "description": "<p>Set Width Of Filter Bar.</p>"
         },
-        {  
+        {
            "name": "eventFilterCriteria",
            "tags": ["UI", "FilterBar"],
            "default": "[]",
@@ -714,7 +714,7 @@ var documentation = {
            "description": "<p><code>eventFilterCriteria</code> is an array used to set parameters of Filter to be applied on Events Array. </p>\n<p>See Sample Structure of <a class=\"parameter-link icon-link\" href=\"#link-eventFilterCriteria-IA\"><code>eventFilterCriteria</code></a></p>",
             "examples": ["../demo/Section-Filter.htm"]
         },
-        {  
+        {
            "name": "noneSelectedFilterAction",
            "tags": ["UI", "FilterBar"],
            "default": "\"SelectNone\"",
@@ -739,7 +739,7 @@ var documentation = {
            "options": "",
            "description": "<p>\n  If <code>changeCalendarBorderColorInJS</code> is set to true then, <a class=\"parameter-link icon-link\" href=\"#link-calendarBorderColor\"><code>calendarBorderColor</code></a> value will be set as a border-color of all calendar structure borders. \n  Else, border-color specified in CSS will be rendered.\n</p>"
         },
-        {  
+        {
            "name": "extraMonthsForDataLoading",
            "tags": ["Basic", "Data"],
            "default": "1",
@@ -747,7 +747,7 @@ var documentation = {
            "options": "",
            "description": "<p>\n  <code>extraMonthsForDataLoading</code> defines a number of months for which data needs to be loaded. \n</p>\n<p>\n  Total Months for which data is loaded is (<code>extraMonthsForDataLoading</code> * 2) + 1.\n</p>\n<p>\n  The default value of 1 indicate that, load data for one extra month before and after.\n</p>\n<p>\n  For example, if Current Month is June(6), then data for May(6-1), June(6) and July(6+1) is loaded.\n</p>"
         },
-        {  
+        {
            "name": "deleteOldDataWhileNavigating",
            "tags": ["Basic", "Data"],
            "default": "true",
@@ -755,7 +755,7 @@ var documentation = {
            "options": "",
            "description": "<p>\n  When <a class=\"parameter-link icon-link\" href=\"#link-extraMonthsForDataLoading\"><code>extraMonthsForDataLoading</code></a> is set to a value other than 0, data for specified number of extra months is loaded.\n</p>\n<p>\n  If <a class=\"parameter-link icon-link\" href=\"#link-extraMonthsForDataLoading\"><code>extraMonthsForDataLoading</code></a> is set to 1 and Current Month is June(6), then data for May(6-1), June(6) and July(6+1) is loaded.\n</p>\n<p>\n  If \"Previous\" button is clicked, then Current Month is May(5), Previous Month is April(5-1) and next Month is June(5+1). But data for May, June and July is already present so data for April is requested and the data for July is deleted.\n</p>\n<p>\n  If you don't want to delete existing data while navigating then set <a class=\"parameter-link icon-link\" href=\"#link-deleteOldDataWhileNavigating\"><code>deleteOldDataWhileNavigating</code></a> to false.\n</p>\n<p>\n  If you set <a class=\"parameter-link icon-link\" href=\"#link-datasetModificationRule\"><code>datasetModificationRule</code></a> as \"ReplaceSpecified\", then you need to set <a class=\"parameter-link icon-link\" href=\"#link-deleteOldDataWhileNavigating\"><code>deleteOldDataWhileNavigating</code></a> to false.\n</p>"
         },
-        {  
+        {
            "name": "datasetModificationRule",
            "tags": ["Basic", "Data"],
            "default": "\"Default\"",
@@ -763,7 +763,7 @@ var documentation = {
            "options": "<ul>\n  <li>\"Default\"</li>\n  <li>\"ReplaceAll\"</li>\n  <li>\"ReplaceSpecified\"</li>\n</ul>",
            "description": "<ul>\n  <li>\n    <p><b>\"Default\"</b> -</p>\n    <p>\n      When <a class=\"parameter-link icon-link\" href=\"#link-extraMonthsForDataLoading\"><code>extraMonthsForDataLoading</code></a> is set to a value other than 0, data for specified number of extra months is loaded.\n    </p>\n    <p>\n      If <a class=\"parameter-link icon-link\" href=\"#link-extraMonthsForDataLoading\"><code>extraMonthsForDataLoading</code></a> is 1 and Current Month is June(6), then data for May(6-1), June(6) and July(6+1) is loaded.\n    </p>\n    <p>\n      If \"Previous\" button is clicked, then Current Month is May(5), Previous Month is April(5-1) and next Month is June(5+1).\n    </p>\n    <p>\n    \tBut data for May, June and July is already present so data for April is requested and the data for July is deleted.\n    </p>\n    <p>\n      If \"Next\" button is clicked, then Current Month is July(7), Previous Month is June(7-1) and next Month is august(7+1).\n    </p>\n    <p>\n      But data for May, June and July is already present so data for August is requested and the data for May is deleted.\n  \t</p>\n  </li>\n  <li>\n    <p><b>\"ReplaceAll\"</b> -</p>\n    <p>Every time data is requested, old data is replaced. </p>\n  </li>\n  <li>\n    <p><b>\"ReplaceSpecified\"</b> -</p>\n    <p>\n      Events - Records for which \"id\" field matches with the Events in the existing dataset, are replaced. Otherwise, Events are added to the Events dataset.\n    </p>\n    <p>\n      SlotAvailability - Records for which \"start\" and \"end\" fields match with existing records, are replaced. Other records are appended to SlotAvailability dataset.\n    </p>\n    <p>\n      If you set <a class=\"parameter-link icon-link\" href=\"#link-datasetModificationRule\"><code>datasetModificationRule</code></a> as \"ReplaceSpecified\", then you need to set <a class=\"parameter-link icon-link\" href=\"#link-deleteOldDataWhileNavigating\"><code>deleteOldDataWhileNavigating</code></a> to false.\n    </p>\n  </li>\n</ul>"
         },
-        {  
+        {
            "name": "changeColorBasedOn",
            "tags": ["UI", "Events"],
            "default": "\"EventType\"",

@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -20,13 +20,13 @@
     border: 1px solid #34495E;
 }
 
-.tooltip-arrow:after 
+.tooltip-arrow:after
 {
     background: #FFF;
     border: 2px solid #34495E;
 }
 
-.ui-tooltip 
+.ui-tooltip
 {
     padding: 8px;
     color: #000000;
@@ -42,7 +42,7 @@
 	word-wrap: break-word;
 }
 
-.tooltip-arrow 
+.tooltip-arrow
 {
     width: 70px;
     height: 16px;
@@ -56,18 +56,18 @@
     margin-left: -34px;
 }
 
-.tooltip-arrow.top 
+.tooltip-arrow.top
 {
     top: -16px;
     bottom: auto;
 }
 
-.tooltip-arrow.left 
+.tooltip-arrow.left
 {
     left: 20%;
 }
 
-.tooltip-arrow:after 
+.tooltip-arrow:after
 {
     content: "";
 
@@ -86,7 +86,7 @@
 	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
-.tooltip-arrow.top:after 
+.tooltip-arrow.top:after
 {
     bottom: -23px;
     top: auto;

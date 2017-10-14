@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -19,10 +19,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	updateWeekPlannerView: function(bLoadAllData)
 	{
 		var to = this;
-	
+
 		var iTempIndex, iEventIndex, sTemplate = "",
 		sArrViewDates = [], sFullDate = "",
-		dTempViewDate, dTempViewStartDate, dTempViewEndDate, oAEventsForView, 
+		dTempViewDate, dTempViewStartDate, dTempViewEndDate, oAEventsForView,
 		bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
 		bHideEventTime = $.cf.isValid(to.setting.hideEventTime[to.setting.visibleView]) ? to.setting.hideEventTime[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventTime.Default) ? to.setting.hideEventTime.Default : false;
 
@@ -58,14 +58,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cwpvTableMain").html(sTemplate);
 
 		to.adjustWeekPlannerView();
-		
+
 		to.__parseData(bLoadAllData, function()
 		{
-			var iEventId = 0, 
+			var iEventId = 0,
 			sFullDate = "", sDateId = "", sTemplate = "", bIsToday = false, sDateClass = "", sDayClass = "",
 			oEvent = null, dStartDateTime = null, dEndDateTime = null,
 			bIsAllDay = 0, sTitle = "",  sURL = "", sDesc = "", bIsMarked = false,
-			sArrEventDateTime = null, sEventDateTime = null, 
+			sArrEventDateTime = null, sEventDateTime = null,
 			sEventColor = "", sEventBorderColor = "", sEventTextColor = "",
 			sStyle = "", sStyleColorHeight = "", sIcon = "", sEventDetailsStyle = "", sEventIconStyle = "",
 			sId = "", sIdElem = "", sClass = "",
@@ -77,12 +77,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START");
 				dTempViewEndDate = to.setDateInFormat({"date": dTempViewDate}, "END");
 				oAEventsForView = to.getArrayOfEventsForView(dTempViewStartDate, dTempViewEndDate);
-			
+
 				sFullDate = to.getDateInFormat({"date": dTempViewStartDate}, "dd-MM-yyyy", false, true);
 				bIsToday = (to.compareDates(dTempViewDate, $.CalenStyle.extra.dToday) === 0);
 				sDateId = "cwpvDate-" +  sFullDate;
 				$oDateCell = $(to.elem).find("#"+sDateId);
-			
+
 				if(iTempIndex === (to.tv.dAVDt.length - 1))
 				{
 					sDateClass = bIsToday ? "cwpvDate cwpvDateToday" : "cwpvDate";
@@ -97,7 +97,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					sDateClass = bIsToday ? "cwpvDate cwpvDateToday" : "cwpvDate";
 					$oDateCell.append("<div class='"+sDateClass+"'>" + to.getDateInFormat({"date": dTempViewStartDate}, "DDD, MMM dd", false, true) + "</div>");
 				}
-			
+
 				if(oAEventsForView.length > 0)
 				{
 					$oDateCell.append("<div class='cwpvEventCont'></div>");
@@ -105,29 +105,29 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 					{
 						oEvent = oAEventsForView[iEventIndex];
-					
+
 						dStartDateTime = null; dEndDateTime = null;
 						bIsAllDay = 0; sTitle = "";  sURL = ""; sEventColor = ""; sDesc = ""; bIsMarked = false;
 						sId = ""; sIdElem = "";
 						sEventColor = ""; sEventBorderColor = ""; sEventTextColor = "";
 						sStyle = ""; sStyleColorHeight = ""; sIcon = ""; sEventDetailsStyle = ""; sEventIconStyle = "";
 						bIsMarked = false;
-					
+
 						if(oEvent.start !== null)
 							dStartDateTime = oEvent.start;
-					
+
 						if(oEvent.end !== null)
 							dEndDateTime = oEvent.end;
-					
+
 						if(oEvent.isAllDay !== null)
 							bIsAllDay = oEvent.isAllDay;
-					
+
 						if(oEvent.title !== null)
 							sTitle = oEvent.title;
 
 						if(oEvent.desc !== null)
 							sDesc = oEvent.desc;
-					
+
 						if(oEvent.url !== null)
 							sURL = oEvent.url;
 
@@ -136,12 +136,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 						if(bIsMarked)
 							bIsAllDay = true;
-					
+
 						sArrEventDateTime = to.getEventDateTimeDataForWeekPlannerView(dStartDateTime, dEndDateTime, bIsAllDay, dTempViewStartDate);
 						sEventDateTime = sArrEventDateTime;
 						if(sEventDateTime === "")
 							sEventDateTime = to.setting.miscStrings.allDay;
-					
+
 						sEventColor = oEvent.backgroundColor;
 						sEventColor = ($.cf.compareStrings(sEventColor, "") || $.cf.compareStrings(sEventColor, "transparent")) ? "transparent" : sEventColor;
 						sEventBorderColor = oEvent.borderColor || $.cf.addHashToHexcode(to.setting.borderColor);
@@ -158,7 +158,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						{
 							sClass += " cMarkedDayEvent";
 							sIcon = ($.cf.isValid(oEvent.icon) && oEvent.icon !== "Dot") ? oEvent.icon : "cs-icon-Mark";
-						
+
 							if(oEvent.fromSingleColor)
 							{
 								sStyle += "background: " + sEventColor + "; ";
@@ -174,7 +174,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						{
 							sIcon = $.cf.isValid(oEvent.icon) ? oEvent.icon : to.setting.eventIcon;
 						}
-					
+
 						sTemplate = "";
 						sTemplate += "<div id='" + sId + "' class='" + sClass + "' style='" + sStyle + "'>";
 
@@ -207,10 +207,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sTemplate += "<div class='cwpvEventContent'>";
 
 							sTemplate += "<div class='cwpvEventTitle'>" + sTitle + "</div>";
-					
+
 							if(!bHideEventTime)
 							sTemplate += "<div class='cwpvEventTime'>" + sEventDateTime + "</div>";
-					
+
 							sTemplate += "</div>";
 						}
 
@@ -226,7 +226,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						}
 
 						sTemplate = "";
-					
+
 						sIdElem = "#"+sId;
 						if($.cf.isValid(sURL) || to.setting.eventClicked)
 						{
@@ -239,7 +239,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$oDateCell.append("<div class='cwpvNoEvents'>No Events</div>");
 				}
 			}
-		
+
 			to.addRemoveViewLoader(false, "cEventLoaderBg");
 			to.addRemoveLoaderIndicators(false, "cEventLoaderIndicator");
 
@@ -254,12 +254,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var sHeaderViewLabel = "";
 		var oAGVStart = to.getDateInFormat({"date": to.tv.dVSDt}, "object", false, true),
 		oAGVEnd = to.getDateInFormat({"date": to.tv.dVEDt}, "object", false, true);
-	
+
 		if(oAGVStart.y === oAGVEnd.y)
 			sHeaderViewLabel = to.getDateInFormat({"iDate": oAGVStart}, "MMM", false, true) + " " + to.getNumberStringInFormat(oAGVStart.d, 0, true) + "  -  " + to.getDateInFormat({"iDate": oAGVEnd}, "MMM", false, true) + " " + to.getNumberStringInFormat(oAGVEnd.d, 0, true) + ",  " + to.getNumberStringInFormat(oAGVEnd.y, 0, true);
 		else
 			sHeaderViewLabel = to.getDateInFormat({"iDate": oAGVStart}, "MMM", false, true) + " " + to.getNumberStringInFormat(oAGVStart.d, 0, true) + ",  " + to.getNumberStringInFormat(oAGVStart.y, 0, true) + "  -  " + to.getDateInFormat({"iDate": oAGVEnd}, "MMM", false, true) + " " + to.getNumberStringInFormat(oAGVEnd.d, 0, true) + ",  " + to.getNumberStringInFormat(oAGVEnd.y, 0, true);
-	
+
 		if(to.setting.modifyHeaderViewLabels)
 			to.setting.modifyHeaderViewLabels.call(to, to.tv.dVSDt, to.tv.dVEDt, to.setting.selectedDate, sHeaderViewLabel, to.setting.visibleView);
 
@@ -301,10 +301,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 		var iCurrentDateMS = to.tv.dVSDt.getTime();
 		iCurrentDateMS -= (to.tv.iNoVDay * $.CalenStyle.extra.iMS.d);
-	
+
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Prev";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -319,10 +319,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 		var iCurrentDateMS = to.tv.dVEDt.getTime();
 		iCurrentDateMS += $.CalenStyle.extra.iMS.d;
-	
+
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Next";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -335,32 +335,32 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	adjustWeekPlannerView: function()
 	{
 		var to = this;
-	
+
 		var icwpvCalendarContMaxHeight = $(to.elem).find(".cwpvCalendarCont").css("max-height");
 		icwpvCalendarContMaxHeight = parseInt(icwpvCalendarContMaxHeight.replace("px", "")) || 0;
 		var icwpvCalendarContMinHeight = $(to.elem).find(".cwpvCalendarCont").css("min-height");
 		icwpvCalendarContMinHeight = parseInt(icwpvCalendarContMinHeight.replace("px", "")) || 0;
-	
+
 		if(icwpvCalendarContMaxHeight > 0 && $(to.elem).height() > icwpvCalendarContMaxHeight)
 			$(to.elem).css({"height": icwpvCalendarContMaxHeight});
 		else if(icwpvCalendarContMinHeight > 0 && $(to.elem).height() < icwpvCalendarContMinHeight)
 			$(to.elem).css({"height": icwpvCalendarContMinHeight});
 		if(to.tv.iCalHeight !== 0)
 			$(to.elem).css({"height": to.tv.iCalHeight});
-	
+
 		var iCalendarContWidth = $(to.elem).find(".calendarCont").parent().outerWidth(),
 		iCalendarContHeight = $(to.elem).find(".calendarCont").outerHeight();
-	
+
 		if($.cf.compareStrings(to.setting.filterBarPosition, "Left") || $.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 			iCalendarContWidth -= to.setting.filterBarWidth;
-	
+
 		if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 		{
 			$(to.elem).find(".cFilterBar").css({"width": iCalendarContWidth});
 			iCalendarContHeight -= $(to.elem).find(".cFilterBar").height();
 		}
 		$(to.elem).find(".calendarContInner").css({"width": iCalendarContWidth, "height": iCalendarContHeight});
-		
+
 		if(!to.setting.fixedHeightOfWeekPlannerViewCells)
 			$(to.elem).find(".cwpvTableOuterCont").css({"width": iCalendarContWidth});
 
@@ -369,30 +369,30 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			$(to.elem).find(".cwpvTableMain").css({"width": iCalendarContWidth});
 		else
 			$(to.elem).find(".cwpvTableMain").css({"width": iCalendarContWidth});
-	
+
 		$(to.elem).find(".cwpvRowTwoColumn .cwpvColumn").css({"width": (iCalendarContWidth / 2)});
-	
+
 		to.__adjustHeader();
-	
+
 		if(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 			$(to.elem).find(".cFilterBar").css({"left": iCalendarContWidth});
-	
+
 		iCalendarContHeight -= (($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").outerHeight() : 0);
 		if(to.tv.bDisABar)
 			iCalendarContHeight -= $(to.elem).find(".cActionBar").outerHeight();
-	
+
 		if(to.setting.fixedHeightOfWeekPlannerViewCells)
 			$(to.elem).find(".cwpvTableMain").css({"height": iCalendarContHeight});
 		else
 			$(to.elem).find(".cwpvTableOuterCont").css({"height": iCalendarContHeight});
-	
+
 		var iTwoColumnWidth = $(to.elem).find(".cwpvRowTwoColumn .cwpvColumn").width(),
 		iOneColumnWidth = $(to.elem).find(".cwpvRowOneColumn .cwpvColumn").width(),
 		iOneColumnDateWidth = $(to.elem).find(".cwpvRowOneColumn .cwpvDate").width();
 		$(to.elem).find(".cwpvRowTwoColumn .cwpvEventContent").css({"width": (iTwoColumnWidth - 35)});
 		$(to.elem).find(".cwpvRowOneColumn .cwpvEventContent").css({"width": (iOneColumnWidth - (iOneColumnDateWidth + 50))});
 		$(to.elem).find(".cwpvRowOneColumn .cwpvEventCont").css({"width": (iOneColumnWidth - (iOneColumnDateWidth + 17))});
-	
+
 		if(to.setting.fixedHeightOfWeekPlannerViewCells)
 		{
 			var iTwoColumnCellsAvHeight = 0.8 * iCalendarContHeight,
@@ -402,10 +402,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			$oOneColumn = $(to.elem).find(".cwpvRowOneColumn"),
 			iTwoColumnDateHeight = $oOneColumn.find(".cwpvDate").height(),
 			iTwoColumnEventContHeight = iTwoColumnCellsHeight - iTwoColumnDateHeight;
-		
+
 			$oTwoColumn.css({"height": iTwoColumnCellsHeight});
 			$oOneColumn.css({"height": iOneColumnCellsHeight});
-		
+
 			$oTwoColumn.find(".cwpvEventCont").css({"height": iTwoColumnEventContHeight});
 			$oOneColumn.find(".cwpvEventCont").css({"height": (iOneColumnCellsHeight - 25)});
 		}

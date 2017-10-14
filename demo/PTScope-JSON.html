@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>JSON Data</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    	    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+		
+			.calendarContOuter
+			{
+            	width: 90%;
+				height: 600px;
+				margin: 0px auto;
+            
+				font-size: 14px;
+			}
+			
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+
+			.cActionBar
+			{
+				line-height: 30px;
+				background: #F5F5F5;
+			}
+		
+			.reload
+			{
+				margin-left: 10px;
+				padding: 3px 5px;
+				border-radius: 2px;
+				background: #444444;
+                font-size: 80%;
+                color: #FFFFFF;
+
+				cursor: pointer;
+			}
+		
+		</style>
+	
+		<script type="text/javascript">
+		
+			$(function() 
+			{
+                
+				$(".calendarContOuter").CalenStyle(
+				{
+				
+					sectionsList: ["Header", "ActionBar", "Calendar"],
+				
+					visibleView: "DetailedMonthView",
+
+					//inputDateTimeFormat: "YYYY-MM-dd HH:mm:ss",
+
+					calDataSource: 
+					[
+					    {
+					        sourceFetchType: "ALL",
+					        sourceType: "JSON",						
+					        source: { "eventSource": [  {
+                              "identifier": 1,
+                              "isAllDay": false,
+                              "start": "16-06-2017 13:30",
+                              "end": "16-06-2017 14:00",
+                              "calendar": "Session",
+                              "calendarid": "Session",
+                              "parent": "parent",
+                              "parentenddate": "2017-09-15",
+                              "tag": "Session Steve Fisher",
+                              "title": "Session Steve Fisher",
+                              "desc": "",
+                              "people": ["Steve Fisher"],
+                              "clientfirstname": ["Steve"],
+                              "clientfullname": ["Steve Fisher"],
+                              "clientid": ["14"],
+                              "workout": "",
+                              "backgroundColor": "#16A085",
+                              "url": "", "type": "p1",
+                              "icon": "fa fa-user-circle-o",
+                              "totalpaid": "2",
+                              "totalused": "2",
+                               "isDragNDropInMonthView": true,
+                               "isDragNDropInDetailView": true,
+                               "isResizeInDetailView": true
+                             }, {
+                              "identifier": 2,
+                              "isAllDay": false,
+                              "start": "18-06-2017 13:30",
+                              "end": "18-06-2017 14:00",
+                              "calendar": "Session",
+                              "calendarid": "Session",
+                              "parent": "1",
+                              "parentenddate": "2017-09-15",
+                              "tag": "Session Steve Fisher",
+                              "title": "Session Steve Fisher",
+                              "desc": "",
+                              "people": ["Steve Fisher"],
+                              "clientfirstname": ["Steve"],
+                              "clientfullname": ["Steve Fisher"],
+                              "clientid": ["14"],
+                              "workout": "",
+                              "backgroundColor": "#16A085",
+                              "url": "", "type": "p1",
+                              "icon": "fa fa-user-circle-o",
+                              "totalpaid": "2",
+                              "totalused": "2",
+                               "isDragNDropInMonthView": true,
+                               "isDragNDropInDetailView": true,
+                               "isResizeInDetailView": true
+                             }, {
+                              "identifier": 3,
+                              "isAllDay": false,
+                              "start": "17-06-2017 11:30",
+                              "end": "17-06-2017 12:00",
+                              "calendar": "Personal",
+                              "calendarid": "Personal",
+                              "parent": "0",
+                              "parentenddate": "",
+                              "tag": "Personal",
+                              "title": "Personal Test 1  Test 2  Test 3",
+                              "desc": "Test 1  Test 2  Test 3",
+                              "people": [""],
+                              "clientfirstname": [""],
+                              "clientfullname": [""],
+                              "clientid": [""],
+                              "workout": "",
+                              "backgroundColor": "#D2527F",
+                              "url": "", "type": "p4",
+                              "icon": "fa fa-home",
+                              "totalpaid": "0",
+                              "totalused": "0",
+                               "isDragNDropInMonthView": true,
+                               "isDragNDropInDetailView": true,
+                               "isResizeInDetailView": true
+                             }, {
+                              "identifier": 4,
+                              "isAllDay": false,
+                              "start": "17-06-2017 14:30",
+                              "end": "17-06-2017 15:00",
+                              "calendar": "Personal",
+                              "calendarid": "Personal",
+                              "parent": "0",
+                              "parentenddate": "",
+                              "tag": "Personal",
+                              "title": "Personal test 2<br />
+test 3<br />
+test 5",
+                              "desc": "test 2<br />
+test 3<br />
+test 5",
+                              "people": [""],
+                              "clientfirstname": [""],
+                              "clientfullname": [""],
+                              "clientid": [""],
+                              "workout": "",
+                              "backgroundColor": "#D2527F",
+                              "url": "", "type": "p4",
+                              "icon": "fa fa-home",
+                              "totalpaid": "0",
+                              "totalused": "0",
+                               "isDragNDropInMonthView": true,
+                               "isDragNDropInDetailView": true,
+                               "isResizeInDetailView": true
+                             } ] }
+					        
+					    }
+					],
+				
+					modifyActionBarView: function(actionBar, visibleViewName)
+					{
+						var thisObj = this;
+					
+						$(actionBar).empty();
+						$(actionBar).append("<span class='reload'>Reload</span>");
+						$(".reload").click(function()
+						{
+							thisObj.reloadData();
+						});
+					}
+				
+				});
+				
+			});
+		
+		</script>
+	
+	</head>
+
+	<body>
+	
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>

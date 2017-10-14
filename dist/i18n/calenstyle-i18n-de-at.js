@@ -1,16 +1,16 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
   Homepage : https://nehakadam.github.io/CalenStyle
-  
+
  ----------------------------------------------------------------------------- */
 
 /*
-	
+
 	language: Austrian German ("de-at")
 	file: CalenStyle-i18n-de-at
 

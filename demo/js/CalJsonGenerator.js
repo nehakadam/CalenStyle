@@ -1190,7 +1190,8 @@ function generateJsonEvents(dFromDate, dToDate)
 							}
 							dEndDateTime.setSeconds(0);
 
-							sDesc = oEvent.title + " is of type " + oEvent.type;
+							sDesc = oEvent.title + " is of \n type " + oEvent.type;
+							//sDesc = sDesc.replace(/(\r\n|\n|\r)/gm,"<br>");
 						
 							var thisObject = new CalEvent(sIdentifier, false, dStartDateTime.getTime(), dEndDateTime.getTime(), oEvent.type, oEvent.title, sDesc, sURLCJG);
 						
@@ -1308,7 +1309,8 @@ function generateJsonEvents(dFromDate, dToDate)
 						}
 					
 						var sEventTitle = oEvent.title;
-						sDesc = oEvent.title + " is of type " + oEvent.type;
+						sDesc = oEvent.title + " is of \n type " + oEvent.type;
+						//sDesc = sDesc.replace(/(\r\n|\n|\r)/gm,"<br>");
 					
 						thisObject = new CalEvent(sIdentifier, false, dStartDateTime, dEndDateTime, oEvent.type, sEventTitle, sDesc, sURLCJG);
 						thisObject.icon = "cs-icon-" + oEvent.type;

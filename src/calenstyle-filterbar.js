@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -26,7 +26,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		sArrDisplayStatus = [],
 		iValIndex, sValue,
 		iSCalIndex, oEventCalendar, sCalendarId, bCalendarExist;
-	
+
 		for(var iFilterIndex = 0; iFilterIndex < to.setting.eventFilterCriteria.length; iFilterIndex++)
 		{
 			var oFilter = to.setting.eventFilterCriteria[iFilterIndex];
@@ -37,29 +37,29 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				break;
 			}
 		}
-	
+
 		if(bFilterCalExist)
 		{
 			// Add New Values
-		
+
 			sArrValues = oFilterCal.values;
 			sArrSelectedValues = oFilterCal.selectedValues;
 			sArrDisplayValues = oFilterCal.displayValues;
 			sArrDisplayStatus = oFilterCal.displayStatus;
-		
+
 			for(iSCalIndex = 0; iSCalIndex < to.tv.oAECalendar.length; iSCalIndex++)
 			{
 				oEventCalendar = to.tv.oAECalendar[iSCalIndex];
 				sCalendarId = oEventCalendar.calendarId;
 				bCalendarExist = false;
-			
+
 				for(iValIndex = 0; iValIndex < sArrValues.length; iValIndex++)
 				{
 					sValue = sArrValues[iValIndex];
 					if($.cf.compareStrings(sCalendarId, sValue))
-						bCalendarExist = true;							
+						bCalendarExist = true;
 				}
-			
+
 				if(!bCalendarExist)
 				{
 					sArrValues.push(sCalendarId);
@@ -76,15 +76,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			{
 				sValue = sArrValues[iValIndex];
 				bCalendarExist = false;
-			
+
 				for(iSCalIndex = 0; iSCalIndex < to.tv.oAECalendar.length; iSCalIndex++)
 				{
 					oEventCalendar = to.tv.oAECalendar[iSCalIndex];
 					sCalendarId = oEventCalendar.calendarId;
 					if($.cf.compareStrings(sCalendarId, sValue))
-						bCalendarExist = true;	
-				}	
-				
+						bCalendarExist = true;
+				}
+
 				if(!bCalendarExist)
 				{
 					sArrRemoved.push(sValue);
@@ -95,10 +95,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sArrDisplayValues[iValIndex] = "remove";
 				}
 			}
-		
+
 			var sArrTempValues = [],
 			sArrTempDisplayStatus = [],
-			sArrTempDisplayValues = [];					
+			sArrTempDisplayValues = [];
 			for(iValIndex = 0; iValIndex < sArrValues.length; iValIndex++)
 			{
 				if(!$.cf.compareStrings(sArrValues[iValIndex], "remove"))
@@ -111,7 +111,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			sArrValues = sArrTempValues;
 			sArrDisplayValues = sArrTempDisplayValues;
 			sArrDisplayStatus = sArrTempDisplayStatus;
-		
+
 			var sArrTempSelectedValues = [];
 			for(iValIndex = 0; iValIndex < sArrSelectedValues.length; iValIndex++)
 			{
@@ -125,8 +125,8 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					sArrTempSelectedValues.push(sArrSelectedValues[iValIndex]);
 			}
 			sArrSelectedValues = sArrTempSelectedValues;
-			
-							
+
+
 			oFilterCal.values = sArrValues;
 			oFilterCal.selectedValues = sArrSelectedValues;
 			oFilterCal.displayValues = sArrDisplayValues;
@@ -139,9 +139,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				oEventCalendar = to.tv.oAECalendar[iSCalIndex];
 				sArrValues.push(oEventCalendar.calendarId);
 				sArrSelectedValues.push(oEventCalendar.calendarId);
-				sArrDisplayValues.push(oEventCalendar.calendar);						
+				sArrDisplayValues.push(oEventCalendar.calendar);
 				if(oEventCalendar.displayStatus)
-					sArrDisplayStatus.push(oEventCalendar.displayStatus);				
+					sArrDisplayStatus.push(oEventCalendar.displayStatus);
 			}
 			oFilterCal.keyName = "calendarId";
 			oFilterCal.keyDisplayName = "Calendars";
@@ -167,7 +167,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				break;
 			}
 		}
-	
+
 		if(oFilterCal !== null)
 		{
 			var oArrSelectedValues = oFilterCal.selectedValues;
@@ -178,7 +178,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				{
 					var oEventCalendar = to.tv.oAECalendar[iSCalIndex];
 					if($.cf.compareStrings(oEventCalendar.calendar, sValue))
-						oEventCalendar.isSelected = true;			
+						oEventCalendar.isSelected = true;
 				}
 			}
 		}
@@ -190,11 +190,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var oArrEventFilterCriteria = to.setting.eventFilterCriteria;
 		if(oArrEventFilterCriteria.length <= 0)
 			return true;
-	
+
 		var bDisplayEvent = false, bNoneSelectedForAllFilters = true,
 		bArrTempDisplay = [],
 		iTempIndex1, oArrTempFilter, oArrTempSelectedValues;
-	
+
 		for(iTempIndex1 = 0; iTempIndex1 < oArrEventFilterCriteria.length; iTempIndex1++)
 		{
 			oArrTempFilter = oArrEventFilterCriteria[iTempIndex1];
@@ -205,7 +205,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				break;
 			}
 		}
-	
+
 		for(iTempIndex1 = 0; iTempIndex1 < oArrEventFilterCriteria.length; iTempIndex1++)
 		{
 			oArrTempFilter = oArrEventFilterCriteria[iTempIndex1];
@@ -213,11 +213,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			oArrTempDataType = oArrTempFilter.dataType,
 			oArrTempValues = oArrTempFilter.values;
 			oArrTempSelectedValues = oArrTempFilter.selectedValues;
-		
+
 			var bNoneSelected = true;
 			if(oArrTempSelectedValues.length > 0)
 				bNoneSelected = false;
-		
+
 			bDisplayEvent = false;
 			if(bNoneSelectedForAllFilters && $.cf.compareStrings(to.setting.noneSelectedFilterAction, "SelectNone"))
 			{
@@ -237,7 +237,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						for(var iTempIndex2 = 0; iTempIndex2 < oArrTempSelectedValues.length; iTempIndex2++)
 						{
 							var oTempValue1 = oArrTempSelectedValues[iTempIndex2];
-						
+
 							if($.cf.compareStrings(oArrTempDataType, "Array"))
 							{
 								for(var iTempIndex3 = 0; iTempIndex3 < oValuesInEvent.length; iTempIndex3++)
@@ -269,9 +269,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 			bArrTempDisplay.push(bDisplayEvent);
 		}
-	
+
 		// AND Logic (if 1 value is false, output is false)
-	
+
 		bDisplayEvent = false;
 		for(var iTempIndex = 0; iTempIndex < bArrTempDisplay.length; iTempIndex++)
 		{
@@ -283,8 +283,8 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				break;
 			}
 		}
-	
-		
+
+
 		/*
 
 		// OR Logic (if 1 value is true, output is true)
@@ -301,7 +301,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 		}
 		*/
-	
+
 		return bDisplayEvent;
 	},
 
@@ -321,7 +321,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 		if(to.setting.eventFilterCriteria.length <= 0)
 			return null;
-	
+
 		to.tv.oAEvFltrCnt = [];
 		for(var iTempIndex1 = 0; iTempIndex1 < to.setting.eventFilterCriteria.length; iTempIndex1++)
 		{
@@ -329,7 +329,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			sTempKeyName = oArrTempFilter.keyName,
 			oArrTempValues = oArrTempFilter.values,
 			oTemp = {};
-		
+
 			oTemp.keyName = sTempKeyName;
 			for(var iTempIndex2 = 0; iTempIndex2 < oArrTempValues.length; iTempIndex2++)
 			{

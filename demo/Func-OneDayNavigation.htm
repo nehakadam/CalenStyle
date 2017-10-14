@@ -4,7 +4,7 @@
 
 	<head>
 
-		<title>Agenda View - Timeline1</title>
+		<title>One Day Navigation</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
@@ -23,7 +23,7 @@
 			.calendarContOuterParent
 			{
 				width: 100%;
-				height: 600px;
+				height: 700px;
 			}
 
 			.calendarContOuter
@@ -32,7 +32,7 @@
 				height: 500px;
 				margin: 0px auto;
 
-				font-size: 16px;
+				font-size: 14px;
 			}
 
 			.cElemDatePicker
@@ -50,11 +50,56 @@
 				$(".calendarContOuter").CalenStyle(
 				{
 
-					visibleView: "AgendaView",
+					viewsToDisplay: [
+						{
+							viewName: "QuickAgendaView",
+							viewDisplayName: ""
+						},
+						{
+							viewName: "TaskPlannerView",
+							viewDisplayName: ""
+						}
+					],
 
-					selectedDate: new Date(2015, 9, 18, 0, 0, 0, 0),
+					visibleView: "QuickAgendaView",
 
-					agendaViewTheme: "Timeline1",
+
+
+
+					quickAgendaViewDuration: "CustomDays",
+
+					daysInQuickAgendaView: 4,
+
+					navigateOneDayInQuickAgendaView: true,
+
+
+
+					taskPlannerViewDuration: "CustomDays",
+
+					daysInTaskPlannerView: 4,
+
+					fixedHeightOfTaskPlannerView: false,
+
+					navigateOneDayInTaskPlannerView: true,
+
+					addDaySummaryInTaskPlannerView: function(dThisDate, $oDaySummaryCell)
+					{
+						var oCS = this,
+						iHours = getRandomInt(5, 10),
+						iMinutes = getRandomInt(0, 60),
+						iRate = 20,
+						sTemplate = "";
+
+						sTemplate += "<span class='sum_time'>" + iHours + "h " + iMinutes + "m - </span>";
+						sTemplate += "<span class='sum_amount'>$" + ((iHours * 60 + iMinutes) * iRate) + ".00</span>";
+
+						$oDaySummaryCell.html(sTemplate);
+					},
+
+
+
+					is24Hour: true,
+
 
 					calDataSource:
 					[
@@ -77,10 +122,20 @@
 								}
 							}
 						}
-					]
+					],
+
+					isNonBusinessHoursDroppable: false,
+
+					isRestrictedSectionDroppable: false
 
 				});
 			});
+
+
+			function getRandomInt(iMin, iMax)
+			{
+  				return Math.floor(Math.random() * (iMax - iMin)) + iMin;
+			}
 
 		</script>
 

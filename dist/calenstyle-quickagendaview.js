@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -18,13 +18,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	__updateQuickAgendaView: function()
 	{
 		var to = this;
-	
+
 		var sTemplate = "",
-		iDateIndex, sDVDaysClass, 
+		iDateIndex, sDVDaysClass,
 		sColumnClass = (to.tv.iNoVDayDis === 1) ? " cqavSingleColumn" : " cqavMultiColumn";
-	
+
 		//---------------------------------------------------------------------------------------------
-	
+
 		sTemplate += "<thead>";
 		sTemplate += "<tr class='cqavTableRow1'>";
 		for(iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
@@ -40,7 +40,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		sTemplate += "</thead>";
 
 		//---------------------------------------------------------------------------------------------
-	
+
 		sTemplate += "<tbody>";
 		sTemplate += "<tr class='cqavTableRow2'>";
 		for(iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
@@ -57,7 +57,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cqavTableMain").html(sTemplate);
 
 		//---------------------------------------------------------------------------------------------
-	
+
 		to._setDateStringsInHeaderOfQuickAgendaView();
 		to._makeEventContDroppableInQuickAgendaView();
 		to._takeActionOnDayClickInQuickAgendaView();
@@ -66,13 +66,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	_setDateStringsInHeaderOfQuickAgendaView: function()
 	{
 		var to = this;
-		
+
 		for(var iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
 		{
 			var dTempDate = to.tv.dAVDt[iDateIndex];
 			var bFullDateMatched = to.compareDates(dTempDate, $.CalenStyle.extra.dToday),
-		
-			/* -------------------------- Table Row 1 Start ------------------------------- */	
+
+			/* -------------------------- Table Row 1 Start ------------------------------- */
 			iDayOfWeek = dTempDate.getDay(),
 			sRow1Id = ".cqavTableRow1 #cqavDayColumn"+iDateIndex,
 			$oRow1 = $(to.elem).find(sRow1Id),
@@ -82,7 +82,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			// Set Style For All-Day Restricted Section
 			dArrTempResSec = to._getRestrictedSectionForCurrentView(dTempDate),
 			iTempIndex, sBgColor = "", sResSecClass = "";
-		
+
 			for(iTempIndex = 0; iTempIndex < dArrTempResSec.length; iTempIndex++)
 			{
 				var dArrResSec = dArrTempResSec[iTempIndex],
@@ -91,12 +91,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				dTempResSecEnd = new Date(dArrResSec.end),
 				bCompEnd = to.compareDates(dTempDate, dTempResSecEnd) === 0,
 				iNumOfHours;
-			
+
 				if(!bCompStart)
 					dTempResSecStart = to._normalizeDateTime(dTempDate, "START", "T");
 				if(!bCompEnd)
 					dTempResSecEnd = to._normalizeDateTime(dTempDate, "END", "T");
-			
+
 				iNumOfHours = Math.round((dTempResSecEnd.getTime() - dTempResSecStart.getTime()) / $.CalenStyle.extra.iMS.h);
 				if(iNumOfHours > 23 || dArrResSec.isAllDay)
 				{
@@ -106,31 +106,31 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sResSecClass = dArrResSec.class;
 				}
 			}
-		
+
 			if(bWeekDayUnavailable && bFullDateMatched === 0)
 				$oRow1.addClass("cRestrictedTodayBg cTodayHighlightTextColor");
 			else
 			{
 				if(bWeekDayUnavailable)
-					$oRow1.addClass("cNonBusinessHoursBg");				
+					$oRow1.addClass("cNonBusinessHoursBg");
 				if(bFullDateMatched === 0)
 					$oRow1.addClass("cTodayHighlightTextColor");
-				
+
 				// Set Style For All-Day Restricted Section
 				if($.cf.isValid(sBgColor))
 					$oRow1.css({"background": sBgColor});
 				if($.cf.isValid(sResSecClass))
 					$oRow1.addClass(sResSecClass);
 			}
-		
+
 			if(bFullDateMatched === 0)
 				$(to.elem).find(sRow1Id).html("<span class='cqavDayColumnLeft'>"+to.setting.miscStrings.today+"</span><span class='cqavDayColumnRight'>" + to.getNumberStringInFormat(iDay, 0, true) + "</span>");
 			else
 				$(to.elem).find(sRow1Id).html("<span class='cqavDayColumnLeft'>" + to.getDateInFormat({"iDate": {D: iDayOfWeek}}, "DDD", false, true) + "</span><span class='cqavDayColumnRight'>" + to.getNumberStringInFormat(iDay, 0, true) + "</span>");
-		
+
 			/* -------------------------- Table Row 1 End ------------------------------- */
-		
-			/* -------------------------- Table Row 2 Start ---------------------------- */	
+
+			/* -------------------------- Table Row 2 Start ---------------------------- */
 			var sRow2Id = ".cqavTableRow2 #cqavDayColumn"+iDateIndex,
 			$oRow2 = $(to.elem).find(sRow2Id);
 			if(bWeekDayUnavailable && bFullDateMatched === 0)
@@ -138,10 +138,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				if(bWeekDayUnavailable)
-					$oRow2.addClass("cNonBusinessHoursBg");	
+					$oRow2.addClass("cNonBusinessHoursBg");
 				if(bFullDateMatched === 0)
 					$oRow2.addClass("cTodayHighlightTextColor");
-			
+
 				// Set Style For All-Day Restricted Section
 				if($.cf.isValid(sBgColor))
 					$oRow2.css({"background": sBgColor});
@@ -150,10 +150,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 			/* -------------------------- Table Row 2 End ------------------------------- */
 		}
-	
+
 		var oDVStart = to.getDateInFormat({"date": to.tv.dVSDt}, "object", false, true),
 		oDVEnd = to.getDateInFormat({"date": to.tv.dVEDt}, "object", false, true);
-	
+
 		var sHeaderViewLabel;
 		if($.cf.compareStrings(to.setting.quickAgendaViewDuration, "CustomDays") && to.setting.daysInQuickAgendaView === 1)
 			sHeaderViewLabel = "<b>" + to.getDateInFormat({"iDate": oDVStart}, "DDDD", false, true) + " " + to.getDateInFormat({"iDate": oDVEnd}, "MMMM", false, true) + " " + to.getNumberStringInFormat(oDVEnd.d, 0, true) + "</b>  " + to.getNumberStringInFormat(oDVEnd.y, 0, true);
@@ -172,7 +172,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 		if(to.setting.modifyHeaderViewLabels)
 			to.setting.modifyHeaderViewLabels.call(to, to.tv.dVSDt, to.tv.dVEDt, to.setting.selectedDate, sHeaderViewLabel, to.setting.visibleView);
-	
+
 		$(to.elem).find(".cContHeaderLabel").html(sHeaderViewLabel);
 	},
 
@@ -185,9 +185,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			var pClickedAt = {};
 			pClickedAt.x = e.pageX || e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 			pClickedAt.y = e.pageY || e.originalEvent.touches[0].pageY || e.originalEvent.changedTouches[0].pageY;
-		
+
 			var dSelectedDateTime = to._getDateBasedOnLeftPositionInQuickAgendaView(pClickedAt.x - $(this).offset().left);
-		
+
 			if(to.setting.cellClicked)
 				to.setting.cellClicked.call(to, to.setting.visibleView, dSelectedDateTime, true, pClickedAt);
 		});
@@ -208,48 +208,57 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				icqavTableTop = $(to.elem).find(".cContHeader").position().top +  $(to.elem).find(".cContHeader").outerHeight() - 1;
 			else
 				icqavTableTop = $(to.elem).position().top;
-		
+
 			var newElem = $ocCQAVTableMain.clone();
 			$(newElem).removeClass("cqavTableMain").addClass("cqavTableTemp");
 			$(newElem).css({"position": "absolute", "top": icqavTableTop, "left": icqavTableLeft});
-			$ocCQAVTableMain.parent().append(newElem);	
-		
+			$ocCQAVTableMain.parent().append(newElem);
+
 			icqavTableLeft = icqavTableLeft + icqavTableWidth;
-		
+
 			//-----------------------------------------------------------------------------------
-		
+
 			var $ocCQAVContRow2Main = $(to.elem).find(".cqavContRow2Main"),
 			icqavContRow2Left = $ocCQAVContRow2Main.position().left,
 			icqavContRow2Width= $ocCQAVContRow2Main.width();
-		
+
 			var newElemCont2 = $ocCQAVContRow2Main.clone();
-			$(newElemCont2).removeClass("cqavContRow2Main").addClass("cqavContRow2Temp");	
+			$(newElemCont2).removeClass("cqavContRow2Main").addClass("cqavContRow2Temp");
 			$ocCQAVContRow2Main.parent().append(newElemCont2);
-		
+
 			icqavContRow2Left = icqavContRow2Left + icqavContRow2Width;
 
 			//-----------------------------------------------------------------------------------
-		
+
 			$(newElem).animate({"left": icqavTableLeft}, to.setting.transitionSpeed);
 			$(newElemCont2).animate({"left": icqavContRow2Left}, to.setting.transitionSpeed);
-		
+
 			setTimeout(function()
 			{
 				$(to.elem).find(".cqavTableTemp").remove();
 				$(to.elem).find(".cqavContRow2Temp").remove();
 			}, to.setting.transitionSpeed);
-		
-			//-----------------------------------------------------------------------------------				
+
+			//-----------------------------------------------------------------------------------
 		}
 
-		var iCurrentDateMS = to.tv.dVSDt.getTime();
-		if(to.setting.daysInQuickAgendaView === 7)
-			iCurrentDateMS -= (to.tv.iNoVDay * $.CalenStyle.extra.iMS.d);
-		else
+		var iCurrentDateMS;
+		if(to.setting.navigateOneDayInQuickAgendaView)
+		{
+			iCurrentDateMS = to.tv.dVEDt.getTime();
 			iCurrentDateMS -= $.CalenStyle.extra.iMS.d;
+		}
+		else
+		{
+			iCurrentDateMS = to.tv.dVSDt.getTime();
+			if(to.setting.daysInQuickAgendaView === 7)
+				iCurrentDateMS -= (to.tv.iNoVDay * $.CalenStyle.extra.iMS.d);
+			else
+				iCurrentDateMS -= $.CalenStyle.extra.iMS.d;
+		}
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Prev";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -265,7 +274,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if(to.setting.showTransition)
 		{
 			//-----------------------------------------------------------------------------------
-		
+
 			var $ocCQAVTableMain = $(to.elem).find(".cqavTableMain"),
 			icqavTableWidth = $ocCQAVTableMain.width(),
 			icqavTableLeft = $ocCQAVTableMain.position().left,
@@ -274,42 +283,51 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				icqavTableTop = $(to.elem).find(".cContHeader").position().top +  $(to.elem).find(".cContHeader").outerHeight() - 1;
 			else
 				icqavTableTop = $(to.elem).position().top;
-		
+
 			var newElem = $ocCQAVTableMain.clone();
 			$(newElem).removeClass("cqavTableMain").addClass("cqavTableTemp");
 			$(newElem).css({"position": "absolute", "top": icqavTableTop, "left": icqavTableLeft});
-			$ocCQAVTableMain.parent().append(newElem);	
-		
+			$ocCQAVTableMain.parent().append(newElem);
+
 			icqavTableLeft = icqavTableLeft - icqavTableWidth;
-		
+
 			//-----------------------------------------------------------------------------------
-		
+
 			var $ocCQAVContRow2Main = $(to.elem).find(".cqavContRow2Main"),
 			icqavContRow2Left = $ocCQAVContRow2Main.position().left,
 			icqavContRow2Width= $ocCQAVContRow2Main.width();
-		
+
 			var newElemCont2 = $ocCQAVContRow2Main.clone();
-			$(newElemCont2).removeClass("cqavContRow2Main").addClass("cqavContRow2Temp");	
+			$(newElemCont2).removeClass("cqavContRow2Main").addClass("cqavContRow2Temp");
 			$ocCQAVContRow2Main.parent().append(newElemCont2);
-		
+
 			icqavContRow2Left = icqavContRow2Left - icqavContRow2Width;
-		
+
 			//-----------------------------------------------------------------------------------
-		
+
 			$(newElem).animate({"left": icqavTableLeft}, to.setting.transitionSpeed);
 			$(newElemCont2).animate({"left": icqavContRow2Left}, to.setting.transitionSpeed);
-		
+
 			setTimeout(function()
 			{
 				$(to.elem).find(".cqavTableTemp").remove();
 				$(to.elem).find(".cqavContRow2Temp").remove();
 			}, to.setting.transitionSpeed);
-		
-			//-----------------------------------------------------------------------------------				
+
+			//-----------------------------------------------------------------------------------
 		}
-	
-		var iCurrentDateMS = to.tv.dVEDt.getTime();
-		iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+
+		var iCurrentDateMS;
+		if(to.setting.navigateOneDayInQuickAgendaView)
+		{
+			iCurrentDateMS = to.tv.dVSDt.getTime();
+			iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+		}
+		else
+		{
+			iCurrentDateMS = to.tv.dVEDt.getTime();
+			iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+		}
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
@@ -324,25 +342,25 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	__adjustQuickAgendaView: function(bIsResized)
 	{
 		var to = this;
-	
+
 		var icqavCalendarContMaxHeight = $(to.elem).find(".cqavCalendarCont").css("max-height");
 		icqavCalendarContMaxHeight = parseInt(icqavCalendarContMaxHeight.replace("px", "")) || 0;
 		var icqavCalendarContMinHeight = $(to.elem).find(".cqavCalendarCont").css("min-height");
 		icqavCalendarContMinHeight = parseInt(icqavCalendarContMinHeight.replace("px", "")) || 0;
-	
+
 		if(icqavCalendarContMaxHeight > 0 && $(to.elem).height() > icqavCalendarContMaxHeight)
 			$(to.elem).css({"height": icqavCalendarContMaxHeight});
 		else if(icqavCalendarContMinHeight > 0 && $(to.elem).height() < icqavCalendarContMinHeight)
 			$(to.elem).css({"height": icqavCalendarContMinHeight});
 		if(to.tv.iCalHeight !== 0)
 			$(to.elem).css({"height": to.tv.iCalHeight});
-	
+
 		var bIsValidView = ($(to.elem).find(".cqavCalendarCont").length > 0) ? true : false;
 		if(bIsValidView && !to.tv.bDVDrgEv && !to.tv.bDVResEv)
 		{
 			var iCalendarContWidth = $(to.elem).find(".calendarCont").parent().outerWidth(),
 			iCalendarContHeight = $(to.elem).find(".calendarCont").outerHeight(),
-		
+
 			iCalendarContInnerHeight = iCalendarContHeight;
 			if(to.tv.bDisFBar)
 			{
@@ -356,39 +374,39 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 			}
 			$(to.elem).find(".calendarContInner").css({"width": iCalendarContWidth, "height": iCalendarContInnerHeight});
-		
+
 			to.__adjustHeader();
-		
+
 			if($.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 				$(to.elem).find(".cFilterBar").css({"left": iCalendarContWidth});
-		
+
 			var icqavContRow2Left = 0,
 			icqavContRow2Width = iCalendarContWidth,
 			icContHeaderWidth = iCalendarContWidth;
 			if($(to.elem).find(".cContHeader").length > 0)
 				$(to.elem).find(".cContHeader").css({"width": icContHeaderWidth});
-		
+
 			var icqavTableWidth = iCalendarContWidth,
 			icContHeaderHeight = ($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").outerHeight() : 0;
-		
+
 			if(to.tv.bDisABar)
 				iCalendarContHeight -= $(to.elem).find(".cActionBar").height();
 			if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 				iCalendarContHeight -= $(to.elem).find(".cFilterBar").height();
-		
+
 			var icqavTableHeight = iCalendarContHeight - icContHeaderHeight;
 			if(!to.tv.bDisABar || !(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 				icqavTableHeight += $.CalenStyle.extra.iBorderOverhead;
 			else
 				icqavTableHeight -= $.CalenStyle.extra.iBorderOverhead;
 			$(to.elem).find(".cqavTableMain").css({"height": icqavTableHeight, "width": icqavTableWidth});
-		
+
 			var icqavContRow2Top = $(to.elem).find(".cqavTableMain").position().top + $(to.elem).find(".cqavTableRow1").outerHeight(),
-			icqavContRow2Height = $(to.elem).find(".cqavTableRow2").height();	
+			icqavContRow2Height = $(to.elem).find(".cqavTableRow2").height();
 			$(to.elem).find(".cqavContRow2Main").css({"left": icqavContRow2Left, "top": icqavContRow2Top, "width": icqavContRow2Width, "height": icqavContRow2Height});
-		
+
 			var iBorderOverheadAllDays = to.tv.iNoVDay * $.CalenStyle.extra.iBorderOverhead;
-		
+
 			var icqavTableColumnsWidth = (icqavContRow2Width - iBorderOverheadAllDays) / (to.tv.iNoVDayDis);
 			$(to.elem).find(".cqavTableColumns").css({"width": icqavTableColumnsWidth});
 
@@ -407,7 +425,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			if($(to.elem).find(".cqavEvent").hasClass("ui-draggable"))
 				$(to.elem).find(".cqavEvent").draggable("destroy");
 			$(to.elem).find(".cqavEvent").removeClass("ui-draggable-dragging");
-			to._makeEventDraggableInQuickAgendaView(".EventDraggable");		
+			to._makeEventDraggableInQuickAgendaView(".EventDraggable");
 		}
 	},
 
@@ -416,50 +434,50 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 		if($(to.elem).find(".cqavContRow2Main"))
 			$(to.elem).find(".cqavContRow2Main").html("");
-	
+
 		var oArrTempEvents = to.getArrayOfEventsForView(to.tv.dVSDt, to.tv.dVEDt),
 		bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
 		bHideEventTime = $.cf.isValid(to.setting.hideEventTime[to.setting.visibleView]) ? to.setting.hideEventTime[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventTime.Default) ? to.setting.hideEventTime.Default : false,
 		sEventTimeFormat = to.setting.is24Hour ? "HH:mm" : "h[:m]sm";
 
 		to.tv.bAWkRw = [];
-	
+
 		if(oArrTempEvents.length > 0)
 		{
 			var iEventHeightForAllEvents = $.CalenStyle.extra.iEventHeights[to.setting.visibleView];
-		
+
 			for(var iEventIndex = 0; iEventIndex < oArrTempEvents.length; iEventIndex++)
 			{
-				var oEvent = oArrTempEvents[iEventIndex],					
+				var oEvent = oArrTempEvents[iEventIndex],
 				dStartDateTime = null, dEndDateTime = null, bIsAllDay = 0,
 				sTitle = "", sDesc = "", sType = "", sURL = "", bDragNDrop = false, bIsMarked = false,
 				sDroppableId = "",
 				sId = "Event-" + oEvent.calEventId;
-			
+
 				if(oEvent.start !== null)
 					dStartDateTime = oEvent.start;
-			
+
 				if(oEvent.end !== null)
 					dEndDateTime = oEvent.end;
-			
+
 				if(oEvent.isAllDay !== null)
 					bIsAllDay = oEvent.isAllDay;
-			
+
 				if(oEvent.title !== null)
 					sTitle = oEvent.title;
-			
+
 				if(oEvent.desc !== null)
 					sDesc = oEvent.desc;
-			
+
 				if(oEvent.type !== null)
 					sType = oEvent.type;
-			
+
 				if(oEvent.url !== null)
 					sURL = oEvent.url;
 
 				if(oEvent.droppableId !== null)
 					sDroppableId = oEvent.droppableId;
-			
+
 				if(oEvent.isDragNDropInQuickAgendaView !== null)
 					bDragNDrop = oEvent.isDragNDropInQuickAgendaView;
 
@@ -468,30 +486,30 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				if(bIsMarked)
 					bIsAllDay = true;
-			
+
 				var iArrTempNum = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, true, true),
 				iNumOfEventElements = iArrTempNum[0],
 				iNumberOfHours = iArrTempNum[1];
-			
+
 				if(iNumOfEventElements > 0)
 				{
-					var sDayId = "", iColumn;							
+					var sDayId = "", iColumn;
 					var iNumOfSegs = iNumOfEventElements, iNumOfHours, iNumOfDays,
 					sPartialEvent = "", sDataDroppableId,
 					dTempStartDateTime = new Date(dStartDateTime),
 					dTempEndDateTime = new Date(dEndDateTime);
-				
+
 					if(to.compareDates(dStartDateTime, to.tv.dVSDt) < 0 && Math.abs(to.__getDifference("m", to.tv.dVSDt, dStartDateTime)) > 1)
 					{
 						sPartialEvent = "Left";
 						dTempStartDateTime = new Date(to.tv.dVSDt);
 					}
-					if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)	
+					if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)
 					{
 						sPartialEvent = "Right";
 						dTempEndDateTime = new Date(to.tv.dVEDt);
 					}
-				
+
 					var dTempSDT = new Date(dTempStartDateTime),
 					bActualStartDate = true;
 					while(!to.__findWhetherDateIsVisibleInCurrentView(dTempSDT, (bIsAllDay || iNumberOfHours > 23), dTempStartDateTime, dTempEndDateTime))
@@ -502,13 +520,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							break;
 					}
 					dTempStartDateTime = new Date(dTempSDT);
-					
+
 					iColumn = to._getDayNumberFromDateInQuickAgendaView(dTempStartDateTime);
-					sDayId = "#cqavDayColumn"+iColumn;			
+					sDayId = "#cqavDayColumn"+iColumn;
 					iNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dTempStartDateTime, dTempEndDateTime, true, true, bActualStartDate);
 					iNumOfSegs = iNumOfDays[0];
 					iNumOfHours = iNumOfDays[1];
-				
+
 					if(iNumOfHours > 0)
 					{
 						var sEventClass = "cqavEvent ";
@@ -524,7 +542,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 						var sColorStyle = "", sEventIconStyle = "", sLinkStyle = "",
 						sPartialEventStyle = "", sIcon = "";
-						
+
 						if(bIsAllDay === true || iNumberOfHours > 23)
 						{
 							if(bIsMarked)
@@ -581,14 +599,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						}
 
 						sPartialEventStyle = "border-color: " + (oEvent.fromSingleColor ? sEventTextColor : "#000000");
-					
+
 						if(bIsMarked)
 							sIcon = ($.cf.isValid(oEvent.icon) && oEvent.icon !== "Dot") ? oEvent.icon : "cs-icon-Mark";
 						else
 							sIcon = $.cf.isValid(oEvent.icon) ? oEvent.icon : to.setting.eventIcon;
-					
+
 						if(to.compareDates(dEndDateTime, to.tv.dAVDt[0]) < 0)
-							sEventClass += ("cBlurredEvent ");							
+							sEventClass += ("cBlurredEvent ");
 						if(bDragNDrop)
 							sEventClass += ("EventDraggable cDragNDrop ");
 						if(to.setting.isTooltipInQuickAgendaView)
@@ -596,22 +614,22 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sEventClass += sId;
 						if(bIsMarked)
 							sEventClass += " cMarkedDayEvent";
-					
+
 						var iAddedDays = 0, iEventSegIndex = 0,
 						iEventRow = -1, bLeftPartial = false, bRightPartial = false;
-					
+
 						if($.cf.compareStrings(sPartialEvent, "Left"))
 							bLeftPartial = (iAddedDays > 0) ? false : true;
-					
+
 						if($.cf.compareStrings(sPartialEvent, "Right"))
 							bRightPartial = true;
-					
+
 						if(iAddedDays < iNumOfSegs)
 						{
 							var iEventColumn = (iAddedDays > 0) ? 0 : iColumn,
 							iEventLengthInRow = (iNumOfSegs - iAddedDays),
 							iEventLengthInWeek = to.tv.iNoVDayDis - iEventColumn;
-						
+
 							if(iEventLengthInRow > iEventLengthInWeek)
 							{
 								iEventLengthInRow = iEventLengthInWeek;
@@ -620,15 +638,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							if(iAddedDays > 0)
 								bLeftPartial = true;
 							var iMaxColumn = iEventColumn + iEventLengthInRow;
-						
+
 							var bInnerRow, iTempIndex3;
 							for(var iTempIndex2 = 0; iTempIndex2 < to.tv.bAWkRw.length; iTempIndex2++)
 							{
 								bInnerRow = to.tv.bAWkRw[iTempIndex2];
-							
+
 								if(iEventRow !== -1)
 									break;
-							
+
 								var iTempEventLengthInRow = 0;
 								for(iTempIndex3 = iEventColumn; iTempIndex3 < iMaxColumn; iTempIndex3++)
 								{
@@ -648,27 +666,27 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								to.tv.bAWkRw.push([0, 0, 0, 0, 0, 0, 0]);
 								iEventRow = to.tv.bAWkRw.length - 1;
 							}
-						
+
 							bInnerRow = to.tv.bAWkRw[iEventRow];
-						
+
 							var sEventSegId = sId + "-" + (++iEventSegIndex);
-						
+
 							//--------------------------- Add Event Start -----------------------------
-						
+
 							var sName = (iEventRow + 1) + "|" + iEventColumn + "|" + iEventLengthInRow;
-						
+
 							var sHeight = iEventHeightForAllEvents + "px";
 							var sStyle = sColorStyle;
 							sStyle += "height: " + sHeight + "; ";
 							if(sEventBorderColor === "transparent")
 								sStyle += "border-width: 0px; ";
-						
+
 							sDataDroppableId = $.cf.isValid(sDroppableId) ? " data-droppableid='" + sDroppableId + "'" : "";
 
 							var sTemplate = "<div id='" + sEventSegId + "' class='" + sEventClass + "' style='" + sStyle + "'  data-pos='" + sName + "' " + sDataDroppableId + " title='' data-id='" + oEvent.calEventId + "'>";
-						
+
 							sTemplate += "<a class='cEventLink' style='" + sLinkStyle + "'>";
-						
+
 							if(bIsMarked)
 							{
 								sTemplate += "<span class='cqavEventTitle'>" + sTitle + "</span>";
@@ -697,20 +715,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								if(!bHideEventTime && bIsAllDay === false && ((iEventSegIndex === 1 && !bLeftPartial && iNumOfEventElements > 1) || iNumOfEventElements === 1))
 									sTemplate += "<span class='cqavEventTime'>" + to.getDateInFormat({"date": dStartDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-							
+
 								if(!bHideEventIcon && !$.cf.compareStrings(sIcon, "Dot"))
 									sTemplate += "<span class='cqavEventIcon "+sIcon+"' style='" + sEventIconStyle + "'></span>";
-							
+
 								if(!bHideEventTime && bIsAllDay === false && (iNumOfSegs > 1 || iEventLengthInRow > 1 || iNumberOfHours > 23) && !bRightPartial)
 									sTemplate += "<span class='cqavEventTimeRight'>" + to.getDateInFormat({"date": dEndDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-							
+
 								sTemplate += "<span class='cqavEventTitle'>" + sTitle + "</span>";
 							}
-						
+
 							sTemplate += "</a>";
-						
+
 							sTemplate += "</div>";
-						
+
 							$(to.elem).find(".cqavContRow2Main").append(sTemplate);
 
 							var sIdElem = "#"+sEventSegId,
@@ -722,9 +740,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							var sArrDateTime = sDateTime.split("&&");
 							oEventTooltip.title = sTitle;
 							oEventTooltip.startDateTime = sArrDateTime[0];
-							oEventTooltip.endDateTime = sArrDateTime[1];						
+							oEventTooltip.endDateTime = sArrDateTime[1];
 							$oSeg.data("tooltipcontent", oEventTooltip);
-						
+
 							if(to.setting.eventRendered)
 								to.setting.eventRendered.call(to, oEvent, $oSeg, $oSegContent, to.setting.visibleView, false);
 
@@ -733,7 +751,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								$oSegContent.on($.CalenStyle.extra.sClickHandler, {"url": sURL, "eventId": oEvent.calEventId, "eventElemSelector": sIdElem, "view": "QuickAgendaView", "pluginId": to.tv.pluginId}, to.__bindClick);
 							}
 							//--------------------------- Add Event End -----------------------------
-						
+
 							for(iTempIndex3 = iEventColumn; iTempIndex3 < iMaxColumn; iTempIndex3++)
 							{
 								bInnerRow[iTempIndex3] = 1;
@@ -745,13 +763,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 			}
-		
+
 			if(to.setting.isTooltipInQuickAgendaView)
-				to._addTooltipInQuickAgendaView(".cEventTooltip");	
-		
+				to._addTooltipInQuickAgendaView(".cEventTooltip");
+
 			if(to.setting.isDragNDropInQuickAgendaView)
 				to._makeEventDraggableInQuickAgendaView(".EventDraggable");
-		
+
 			if(to.setting.eventsAddedInView)
 				to.setting.eventsAddedInView.call(to, to.setting.visibleView, ".cqavEvent");
 		}
@@ -769,17 +787,17 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var iEventFirstRowTop = 10,
 		iEventRowHeight = $.CalenStyle.extra.iEventHeights[to.setting.visibleView] + 2,
 		sArrEventElems = $(to.elem).find(".cqavEvent");
-	
+
 		for(var iElemIndex = 0; iElemIndex < sArrEventElems.length; iElemIndex++)
 		{
 			var oElem = sArrEventElems[iElemIndex],
 			sElemName = $(to.elem).find(oElem).attr("data-pos"),
 			sArrElemName = sElemName.split("|"),
-		
+
 			iInnerRowIndex = parseInt(sArrElemName[0]),
 			iColumnNo = parseInt(sArrElemName[1]),
 			iWidthUnits = parseInt(sArrElemName[2]),
-		
+
 			iEventTop = iEventFirstRowTop + ((iInnerRowIndex - 1) * iEventRowHeight),
 			iEventLeft = $(to.elem).find("#cqavDayColumn"+iColumnNo).position().left + (2 * $.CalenStyle.extra.iBorderOverhead),
 			iEventWidth;
@@ -796,7 +814,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			iEventWidth -= (2 * $.CalenStyle.extra.iBorderOverhead);
 
 			$(oElem).css({"left": iEventLeft, "top": iEventTop, "width": iEventWidth});
-		
+
 			var $oEventTitle = $(oElem).find(".cqavEventTitle"),
 			iEventTitleHeight = $(oElem).height(),
 			$oEventIcon = $(oElem).find(".cqavEventIcon"),
@@ -809,7 +827,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iEventTimeWidthRight = ($oEventTimeRight !== null) ? $oEventTimeRight.outerWidth(true) : 0;
 			var iPartialSymbolWidth = $(oElem).find(".cPartialEventLeft").outerWidth(true) + $(oElem).find(".cPartialEventRight").outerWidth(true);
 			var iEventTitleWidth = iEventWidth - (iEventIconWidth + iEventTimeWidth + iEventTimeWidthRight + (10 * $.CalenStyle.extra.iBorderOverhead) + iPartialSymbolWidth);
-		
+
 			$oEventTitle.css({"height": iEventTitleHeight, "line-height": iEventTitleHeight + "px", "width": iEventTitleWidth});
 			$oEventTime.css({"height": iEventTitleHeight, "line-height": iEventTitleHeight + "px"});
 			if($oEventTimeRight !== null)
@@ -821,7 +839,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	{
 		var to = this;
 		var $oElemDragged, sDroppableId,
-		sEventId, sId, oDraggedEvent, sEventClass, 
+		sEventId, sId, oDraggedEvent, sEventClass,
 		dStartDateTime = null, dEndDateTime = null, bIsAllDay = 0,
 		iArrNumOfDays, iNumOfDays, iNumOfHours, dNextDate, iDroppedDayIndex,
 		bEventEntered = false, dStartDateAfterDrop = null, dEndDateAfterDrop = null,
@@ -830,7 +848,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cqavTableRow2 .cqavTableColumns").droppable(
 		{
 			scope: "Events",
-		
+
 			over: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -850,13 +868,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iArrNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, false, true);
 				iNumOfDays = iArrNumOfDays[0];
 				iNumOfHours = iArrNumOfDays[1];
-			
+
 				dNextDate = to._getDateBasedOnLeftPositionInQuickAgendaView(ui.position.left);
 				iDroppedDayIndex = to._getDayNumberFromDateInQuickAgendaView(dNextDate);
 
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: dNextDate.getDate(), M: dNextDate.getMonth(), y: dNextDate.getFullYear(), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-			
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -884,7 +902,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 			},
-		
+
 			drop: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -893,7 +911,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				oDraggedEvent = to.getEventWithId(sId);
 				sEventClass = ".Event-" + sId;
 				dStartDateTime = null; dEndDateTime = null; bIsAllDay = false;
-			
+
 				if($(this).attr("id") === to.tv.draggableParent)
 				{
 					setTimeout(function()
@@ -901,7 +919,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						$(sEventClass+".cEventBeingDragged").remove();
 						$(sEventClass).removeClass("ui-draggable-dragging cEditingEvent cEditingEventUI");
 					}, 300);
-					
+
 					to.tv.iTSEndEditing = $.cf.getTimestamp();
 					return true;
 				}
@@ -912,16 +930,16 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					dEndDateTime = oDraggedEvent.end;
 				if(oDraggedEvent.isAllDay !== null)
 					bIsAllDay = oDraggedEvent.isAllDay;
-			
+
 				iArrNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, false, true);
 				iNumOfDays = iArrNumOfDays[0];
 				iNumOfHours = iArrNumOfDays[1];
-			
+
 				var dDroppedDate = to._getDateBasedOnLeftPositionInQuickAgendaView(ui.position.left);
-			
+
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: dDroppedDate.getDate(), M: dDroppedDate.getMonth(), y: dDroppedDate.getFullYear(), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-			
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -931,7 +949,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$oElemDragged.removeClass("cCursorNotAllowed");
 					$oElemDragged.find(".cEventLink").removeClass("cCursorNotAllowed");
 				}
-				
+
 				if(bEventEntered)
 				{
 					setTimeout(function()
@@ -959,10 +977,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 					$(to.elem).find(".cqavTableColumns").removeClass("cActivatedCell");
 				}
-			
+
 				if(to.setting.saveChangesOnEventDrop)
 					to.setting.saveChangesOnEventDrop.call(to, oDraggedEvent, dStartDateTime, dEndDateTime, dStartDateAfterDrop, dEndDateAfterDrop);
-			
+
 				to.tv.iTSEndEditing = $.cf.getTimestamp();
 			}
 		});
@@ -974,14 +992,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var iEventHeight = $(to.elem).find(".cqavEvent").height(),
 		iEventWidth = $(to.elem).find(".cqavTableColumns").width(),
 		iTimeSlotWidth = iEventWidth + 1,
-	
+
 		iCalendarLeft = $(to.elem).position().left,
 		iCalendarMarginLeft = $(to.elem).css("margin-left");
 		iCalendarMarginLeft = parseInt(iCalendarMarginLeft.replace("px", ""));
 		var iLeft = iCalendarLeft + iCalendarMarginLeft + $(to.elem).find(".cqavContRow2Main").position().left,
 		iX1 = iLeft,
 		iX2 = iX1 + $(to.elem).find(".cqavContRow2Main").width() - iEventWidth,
-	
+
 		iCalendarTop = $(to.elem).position().top,
 		iCalendarMarginTop = $(to.elem).css("margin-top");
 		iCalendarMarginTop = parseInt(iCalendarMarginTop.replace("px", ""));
@@ -989,7 +1007,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Top"))
 			iY1 += to.setting.filterBarHeight;
 		var iY2 = iY1 + $(to.elem).find(".cqavContRow2Main").height() - iEventHeight;
-	
+
 		$(to.elem).find(sClass).draggable(
 		{
 			zIndex: 100,
@@ -1000,7 +1018,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			cursor: "move",
 			delay: 300,
 			revertDuration: 300,
-		
+
 			start: function()
 			{
 				var $oElemDragged = $(this),
@@ -1011,18 +1029,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				to.tv.draggableParent = "cqavDayColumn" + iColumn;
 
 				$oElemDragged.removeClass("cPartialEventLeft cPartialEventRight cPartialEventBoth");
-				
+
 				var oElementClone = $oElemDragged.clone();
 				$oElemDragged.parent().append(oElementClone);
 				$(oElementClone).addClass("cEventBeingDragged cEventClone");
-				
+
 				if(!$oElemDragged.hasClass("cEventOnlyText"))
 					$oElemDragged.addClass("cEditingEvent cEditingEventUI");
 				else
 					$oElemDragged.addClass("cEditingEvent");
 				$oElemDragged.css({"width": iEventWidth, "height": iEventHeight});
 			},
-		
+
 			revert: function()
 			{
 				$(to.elem).find(".cqavTableColumns").removeClass("cActivatedCell");
@@ -1037,7 +1055,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 		$(to.elem).find(sClass).tooltip(
 		{
-			
+
 			content: function()
 			{
 				var sTooltipText = "";
@@ -1063,7 +1081,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 				return sTooltipText;
 			},
-						
+
 			position:
 			{
 				my: "center bottom-15",
@@ -1094,18 +1112,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		for(var iTempIndex1 = 0; iTempIndex1 < iArrDVDaysLength; iTempIndex1++)
 		{
 			var iHoriStartPos = to.tv.fADVDayLftPos[iTempIndex1] - 5,
-			iHoriEndPos = iHoriStartPos + iDVTableColumnWidth - 5; 
-		
+			iHoriEndPos = iHoriStartPos + iDVTableColumnWidth - 5;
+
 			if(iTempIndex1 === (iArrDVDaysLength - 1))
 				iHoriEndPos += 5;
-		
+
 			if(iLeftPos >= iHoriStartPos && iLeftPos <= iHoriEndPos)
 			{
 				iThisIndex = iTempIndex1 + 1;
 				break;
 			}
 		}
-	
+
 		for(var iTempIndex2 = 0; iTempIndex2 < to.tv.dAVDt.length; iTempIndex2++)
 		{
 			var dThisDate = to.tv.dAVDt[iTempIndex2];

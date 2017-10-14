@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -32,7 +32,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var dPMDt = new Date(to.tv.dCMDt.getTime() - (30 * $.CalenStyle.extra.iMS.d));
 		dPMDt.setDate(15);
 		to.tv.dPMDt = new Date(dPMDt);
-	
+
 		var dNMDt = new Date(to.tv.dCMDt.getTime() + (30 * $.CalenStyle.extra.iMS.d));
 		dNMDt.setDate(15);
 		to.tv.dNMDt = new Date(dNMDt);
@@ -42,63 +42,63 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	{
 		var to = this;
 		to.__getCurrentViewDates();
-	
+
 		var sTemplate = "";
-	
+
 		sTemplate += "<thead>";
 		sTemplate += "<tr class='cmvMonthTableRowDayHeader'>";
 		if(to.setting.displayWeekNumInMonthView)
-			sTemplate += "<td class='cmvDayHeader cmvWeekNumber cmvThinBorderRight cmvFirstColumn'></td>"; 
+			sTemplate += "<td class='cmvDayHeader cmvWeekNumber cmvThinBorderRight cmvFirstColumn'></td>";
 		var iCountDays = to.setting.weekStartDay,
 		iNumWeekDays = (to.setting.excludeNonBusinessHours) ? to.tv.iBsDays : 7,
 		iWeekDayIndex;
-	
+
 		for(iWeekDayIndex = 0; iWeekDayIndex < 7; iWeekDayIndex++)
 		{
 			var sClass = "";
 			if(!to.setting.displayWeekNumInMonthView && iWeekDayIndex === 0)
 				sClass = "cmvFirstColumn";
-		
+
 			if((to.setting.excludeNonBusinessHours && to.tv.bABsDays[iCountDays]) || !to.setting.excludeNonBusinessHours)
 				sTemplate += "<td id='" + "cmvDayName"+(iCountDays + 1) + "' class='cmvDayHeader cmvTableColumns "+sClass+"'>" + to.getDateInFormat({"iDate": {D: iCountDays}}, "DDD", false, true) + "</td>";
-		
+
 			iCountDays++;
 			if(iCountDays > 6)
 				iCountDays = 0;
 		}
 		sTemplate += "</tr>";
 		sTemplate += "</thead>";
-	
+
 		to.tv.dCMDt = new Date(to.setting.selectedDate);
 		to.tv.dCMDt.setDate(15);
 		to._setNextPreviousMonthDates();
-	
+
 		var iTodayDateNum = $.CalenStyle.extra.dToday.getDate(),
 		iTodayMonthNum = $.CalenStyle.extra.dToday.getMonth(),
 		iTodayYearNum = $.CalenStyle.extra.dToday.getFullYear();
-	
+
 		sTemplate += "<tbody>";
-	
+
 		var iDateIndex = 0;
 		for(var iMonthWeeks = 1; iMonthWeeks <= to.tv.iWkInMonth; iMonthWeeks++)
 		{
 			sTemplate += "<tr id='"+ ("cmvMonthTableRow"+iMonthWeeks) +"' class='cmvMonthTableRows'>";
-		
+
 			var bCurrentWeek = false;
 			if(to.setting.displayWeekNumInMonthView)
 			{
 				var dWkSDate = to.tv.dAVDt[iDateIndex],
 				dWkEDate = to.setDateInFormat({"date": to.tv.dAVDt[(iDateIndex + 6)]}, "END"),
 				sWkNumber = to.__getWeekNumber(dWkSDate, dWkEDate);
-			
-				var sCellClass = "cmvDay cmvWeekNumber cmvThinBorderRight cmvWeekNumberBorderLeft";				
+
+				var sCellClass = "cmvDay cmvWeekNumber cmvThinBorderRight cmvWeekNumberBorderLeft";
 				if(iMonthWeeks === 1)
 					sCellClass += " cmvWeekNumberBorderBottom";
 				else if(iMonthWeeks === to.tv.iWkInMonth)
 					sCellClass += " cmvWeekNumberBorderTop";
-				else 
+				else
 					sCellClass += " cmvWeekNumberBorderBottom cmvWeekNumberBorderTop";
-			
+
 				var dArrTempDates = to._getWeekForDate($.CalenStyle.extra.dToday, false),
 				dWkSDateToday = dArrTempDates[0],
 				dWkEDateToday = dArrTempDates[1];
@@ -107,10 +107,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					sCellClass += " cTodayHighlightTextColor";
 					bCurrentWeek = true;
 				}
-			
+
 				sTemplate += "<td id='"+ dWkSDate.getTime() +"' class='"+ sCellClass +"'><span>" + sWkNumber + "</span></td>";
 			}
-		
+
 			for(iWeekDayIndex = 0; iWeekDayIndex < iNumWeekDays; iWeekDayIndex++)
 			{
 				var dCurrentDate = to.tv.dAVDt[iDateIndex],
@@ -120,30 +120,30 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				iSourceCount = to.__getSourceCountForDate(dCurrentDate),
 				sDayNumberClass = ($.cf.compareStrings(to.setting.eventIndicatorInDatePicker, "DayNumberBold") && ($.cf.compareStrings(to.setting.visibleView, "DatePicker") || to.setting.parentObject !== null) && (iSourceCount > 0)) ? " cBold" : "",
-			
+
 				dArrTempResSec = [], sStyle = "", iTempIndex,
 				sTempId,
 				sCellClassTemp = "cmvDay" + " " + "cmvTableColumns" + " " + "cmvTableColumn" + iWeekDayIndex;
-			
+
 				if(to.tv.dCMDt.getMonth() !== iCurrentMonthNum)
 					sCellClassTemp += " " + "cmvOtherMonthDay";
 				else
 					sCellClassTemp += " " + "cmvCurrentMonthDay";
-			
+
 				if(!to.setting.displayWeekNumInMonthView && iWeekDayIndex === 0)
 					sCellClassTemp += (" " + "cmvFirstColumn");
-			
+
 				sTempId = "cmvDay" + "-" + iCurrentDateNum + "-" + iCurrentMonthNum + "-" + iCurrentYearNum;
-			
+
 				var iSelectedDateNum = to.setting.selectedDate.getDate(),
 				iSelectedMonthNum = to.setting.selectedDate.getMonth(),
 				iSelectedYearNum = to.setting.selectedDate.getFullYear();
-			
+
 				if(iCurrentDateNum === iTodayDateNum && iCurrentMonthNum === iTodayMonthNum && iCurrentYearNum === iTodayYearNum)
-					sCellClassTemp += " " + "cTodayHighlightTextColor";	
+					sCellClassTemp += " " + "cTodayHighlightTextColor";
 				else if(iCurrentDateNum === iSelectedDateNum && iCurrentMonthNum === iSelectedMonthNum && iCurrentYearNum === iSelectedYearNum)
 					sCellClassTemp += " " + "cCurrentDateHighlightColor";
-			
+
 				if(($.cf.compareStrings(to.setting.visibleView, "MonthView") && !$.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "DisplayEventListDialog")) || $.cf.compareStrings(to.setting.visibleView, "DatePicker"))
 					sCellClassTemp += " clickableLink";
 
@@ -163,12 +163,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					dTempResSecEnd = new Date(dArrResSec.end),
 					bCompEnd = (to.compareDates(dCurrentDate, dTempResSecEnd) === 0),
 					iNumOfHours;
-				
+
 					if(!bCompStart)
 						dTempResSecStart = to._normalizeDateTime(dCurrentDate, "START", "T");
 					if(!bCompEnd)
 						dTempResSecEnd = to._normalizeDateTime(dCurrentDate, "END", "T");
-				
+
 					iNumOfHours = Math.round((dTempResSecEnd.getTime() - dTempResSecStart.getTime()) / $.CalenStyle.extra.iMS.h);
 					if(iNumOfHours > 23 || dArrResSec.isAllDay)
 					{
@@ -178,14 +178,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sCellClassTemp += " " + dArrResSec.class;
 					}
 				}
-			
+
 				sTemplate += "<td id='"+ sTempId +"' class='" + sCellClassTemp + "' " + sStyle + ">";
 				sTemplate += "<span class='cmvDayNumber" + sDayNumberClass + "'>" + to.getNumberStringInFormat(iCurrentDateNum, 0, true) + "</span>";
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{
 					if($.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "DisplayEventListDialog"))
 						sTemplate += "<span class='cmvDisplayAllEvents'>..</span>";
-				
+
 					if($.cf.compareStrings(to.setting.eventIndicatorInMonthView, "DayHighlight"))
 						sTemplate += "<div class='cmvMonthTableRowIndicator' ><span>&nbsp;</span></div>";
 					else if($.cf.compareStrings(to.setting.eventIndicatorInMonthView, "Custom"))
@@ -201,24 +201,24 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			    	sTemplate += "</div>";
 			    }
 			    sTemplate += "</td>";
-			
+
 				iDateIndex++;
 			}
 			sTemplate += "</tr>";
 		}
-	
+
 		sTemplate += "</tbody>";
-	
+
 		$(to.elem).find(".cmvMonthTableMain").html(sTemplate);
 
 		$(to.elem).find(".cTodayHighlightTextColor").find(".cmvDayNumber").addClass("cTodayHighlightCircle");
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView") && $.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "ModifyEventList"))
 			$(to.elem).find(".cCurrentDateHighlightColor").find(".cmvDayNumber").addClass("cCurrentHighlightCircle");
-	
+
 		to.adjustMonthTable();
 		if(!to.setting.addEventsInMonthView)
 			to.adjustMonthTable();
-	
+
 		to._setMonthStrings();
 		if(!$.CalenStyle.extra.bTouchDevice)
 			to._addHoverClassesInMonthView();
@@ -267,7 +267,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				$oDay = $(to.elem).find(sDayId),
 				iSourceCount = to.__getSourceCountForDate(dTempViewDate),
 				sDayNumberClass = (($.cf.compareStrings(to.setting.visibleView, "DatePicker") || to.setting.parentObject !== null) && (iSourceCount > 0)) ? " cBold" : "";
-				
+
 				if($.cf.compareStrings(to.setting.eventIndicatorInDatePicker, "DayNumberBold"))
 				{
 					if(sDayNumberClass !== "")
@@ -282,7 +282,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				    	sTemplate += "</div>";
 				    	$oDay.append(sTemplate);
 				    }
-				}		
+				}
 			}
 		});
 	},
@@ -296,7 +296,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			{
 				var dTempViewDate = to.tv.dAVDt[iTempIndex],
 				sDayId = "#cmvDay-"+dTempViewDate.getDate()+"-"+dTempViewDate.getMonth()+"-"+dTempViewDate.getFullYear();
-			
+
 				var dTempViewStartDate = to.setDateInFormat({"date": dTempViewDate}, "START"),
 				dTempViewEndDate = to.setDateInFormat({"date": dTempViewDate}, "END"),
 				oArrDayDetails = to.getEventCountAndIsMarkedDay(dTempViewStartDate, dTempViewEndDate),
@@ -328,12 +328,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						$(to.elem).find(".cmvMonthTableMain " +sDayId).prepend("<span class='cmvDisplayAllEvents'>...</span>");
 				}
 			}
-		
+
 			if(!$.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "ChangeDate"))
 				to._displayEventOnDayClickInMonthView();
-		
+
 			to.adjustMonthTable();
-		
+
 			to.addRemoveViewLoader(false, "cEventLoaderBg");
 			to.addRemoveLoaderIndicators(false, "cEventLoaderIndicator");
 
@@ -351,7 +351,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cHiddenEventsIndicator").remove();
 		$(to.elem).find(".cHiddenEventsCont").remove();
 		$(to.elem).find(".cmvDialog").remove();
-	
+
 		to._updateMonthTable();
 		to._updateMonthTableContents(bLoadAllData);
 	},
@@ -362,7 +362,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if($(to.elem).find(".cContHeaderLabelMonth" + ", " + ".cContHeaderLabelYear").hasClass("sClickableClass"))
 		{
 			$(to.elem).find(".cContHeaderLabelMonth" + ", " + ".cContHeaderLabelYear").hover(
-			
+
 				function(e)
 				{
 					$(this).addClass("cContHeaderLabelHover");
@@ -373,9 +373,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 			);
 		}
-	
+
 		$(to.elem).find(".cmvDay").hover(
-		
+
 			function(e)
 			{
 				$(this).addClass("cContHeaderButtonsHover");
@@ -405,7 +405,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cmvDay").droppable(
 		{
 			scope: "Events",
-		
+
 			over: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -416,7 +416,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				dStartDateTime = null; dEndDateTime = null; bIsAllDay = 0;
 
 				$(to.elem).find(sEventClass).addClass("cEditingEventClone");
-			
+
 				if(oDraggedEvent.start !== null)
 					dStartDateTime = oDraggedEvent.start;
 				if(oDraggedEvent.end !== null)
@@ -427,7 +427,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iArrNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, false, true);
 				iNumOfDays = iArrNumOfDays[0];
 				iNumOfHours = iArrNumOfDays[1];
-			
+
 				sDayId = $(this).attr("id");
 				sArrDayId = sDayId.split("-");
 				dThisDate = new Date(sArrDayId[3], sArrDayId[2], sArrDayId[1], 0, 0, 0, 0);
@@ -436,7 +436,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: parseInt(sArrDayId[1]), M: parseInt(sArrDayId[2]), y: parseInt(sArrDayId[3]), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-				
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -469,7 +469,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 			},
-		
+
 			drop: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -492,10 +492,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				sDayId = $(this).attr("id");
 				sArrDayId = sDayId.split("-");
-			
+
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: parseInt(sArrDayId[1]), M: parseInt(sArrDayId[2]), y: parseInt(sArrDayId[3]), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-			
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -528,15 +528,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				to.tv.bDroppedInDifferent = true;
 
-				var sEventContClass = "";	
+				var sEventContClass = "";
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
-				{	
+				{
 					if(bIsAllDay === true || iNumOfHours> 23)
 						sEventContClass += ".cmvEventContAllDay";
 					else
 						sEventContClass += ".cmvEventContSmall";
 				}
-			
+
 				if(to.__updateEventWithId(sId, dStartDateAfterDrop, dEndDateAfterDrop))
 				{
 					$(to.elem).find(".cmvDisplayAllEvents").remove();
@@ -551,22 +551,22 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						to._adjustEventsInMonthView();
 				}
 				$(to.elem).find(".cmvDay").removeClass("cActivatedCell");
-			
+
 				if(to.setting.saveChangesOnEventDrop)
 					to.setting.saveChangesOnEventDrop.call(to, oDraggedEvent, dStartDateTime, dEndDateTime, dStartDateAfterDrop, dEndDateAfterDrop);
-			
+
 				to.tv.iTSEndEditing = $.cf.getTimestamp();
 			}
 		});
-	
+
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 			to.adjustMonthTable();
-	
+
 		to.__parseData(bLoadAllData, function()
 		{
 			to._addEventsInMonthView(null);
 			to.adjustMonthTable();
-		
+
 			to.__modifyFilterBarCallback();
 		});
 	},
@@ -593,9 +593,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		{
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 				$(to.elem).find(".cdmvEventContMain").html("");
-		
+
 			oArrTempEvents = to.getArrayOfEventsForView(to.tv.dVSDt, to.tv.dVEDt);
-		
+
 			to.tv.bAWkRw = [];
 			for(var iTempIndex = 0; iTempIndex < 6; iTempIndex++)
 			{
@@ -608,20 +608,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				to.tv.bAWkRw.push(oArrTempRow);
 			}
 		}
-	
+
 		if(oArrTempEvents.length > 0)
 		{
 			// DetailedMonthView
 			var iEventHeightForAllEvents = $.CalenStyle.extra.iEventHeights[to.setting.visibleView],
 			sTooltipEventClass = "",
-		
+
 			// MonthView
 			iDayWidth = $(to.elem).find(".cmvTableColumn0").width(),
 			iHeightOfAllDayEvents = to._getHeightForAllDayEventInMonthView(),
 			iHeightOfSmallEvents = to._getHeightForSmallEventInMonthView(),
 			iMarginForSmallEvent = to._getMarginValueForSmallEventInMonthView(),
 			sMarginForSmallEvent = iMarginForSmallEvent + "px" + " " + iMarginForSmallEvent+ "px";
-		
+
 			for(var iEventIndex = 0; iEventIndex < oArrTempEvents.length; iEventIndex++)
 			{
 				var oEvent = oArrTempEvents[iEventIndex],
@@ -631,25 +631,25 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				bDragNDrop = false,
 				sDroppableId = "",
 				sId = "Event-" + oEvent.calEventId;
-			
+
 				if(oEvent.start !== null)
 					dStartDateTime = oEvent.start;
-			
+
 				if(oEvent.end !== null)
 					dEndDateTime = oEvent.end;
-			
+
 				if(oEvent.isAllDay !== null)
 					bIsAllDay = oEvent.isAllDay;
-			
+
 				if(oEvent.title !== null)
 					sTitle = oEvent.title;
-			
+
 				if(oEvent.desc !== null)
 					sDesc = oEvent.desc;
-			
+
 				if(oEvent.type !== null)
 					sType = oEvent.type;
-			
+
 				if(oEvent.url !== null)
 					sURL = oEvent.url;
 
@@ -682,7 +682,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					sEventTitle, sEventContent, iArrNumOfDays, bActualStartDate,
 					sDataDroppableId, bLeftPartial = false, bRightPartial = false,
 					bAddedHidden = false, bAddedLessElems = false, iAddedElemsLength = 0;
-				
+
 					if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 					{
 						sTooltipEventClass = ".cdmvEvent";
@@ -695,7 +695,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sPartialEvent = "Left";
 								dTempStartDateTime = new Date(dDialogDayStart);
 							}
-							if(to.compareDates(dDialogDayEnd, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", dDialogDayEnd, dEndDateTime)) > 1)	
+							if(to.compareDates(dDialogDayEnd, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", dDialogDayEnd, dEndDateTime)) > 1)
 							{
 								bRightPartial = true;
 								sPartialEvent = "Right";
@@ -710,7 +710,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sPartialEvent = "Left";
 								dTempStartDateTime = new Date(to.tv.dVSDt);
 							}
-							if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)	
+							if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)
 							{
 								sPartialEvent = "Right";
 								dTempEndDateTime = new Date(to.tv.dVEDt);
@@ -807,12 +807,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 							}
 							sPartialEventStyle = "border-color: " + (oEvent.fromSingleColor ? sEventTextColor : "#000000");
-						
+
 							if(bIsMarked)
 								sIcon = ($.cf.isValid(oEvent.icon) && oEvent.icon !== "Dot") ? oEvent.icon : "cs-icon-Mark";
 							else
 								sIcon = $.cf.isValid(oEvent.icon) ? oEvent.icon : to.setting.eventIcon;
-						
+
 							if(to.compareDates(dEndDateTime, dMonthStartDate) < 0)
 								sEventClass += "cBlurredEvent ";
 							if(bDragNDrop)
@@ -822,29 +822,29 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sEventClass += sId;
 							if(bIsMarked)
 								sEventClass += " cMarkedDayEvent";
-						
+
 							sEventTitle = sTitle;
 							sEventContent = sDesc;
-						
+
 							var $oRow = $(to.elem).find(sDayId).parent(),
 							sRow = $oRow.attr("id"),
 							iRow = parseInt(sRow.replace("cmvMonthTableRow", "")) - 1,
 							iColumn = $(to.elem).find(sDayId).index(),
 							sHeight, sPartialClass;
-						
+
 							if(to.setting.displayWeekNumInMonthView)
 								iColumn--;
 
 							if(bEventsInDialog)
 							{
-								iTableRowIndex = 0; 
+								iTableRowIndex = 0;
 								iEventRow = iEventIndex;
-								iEventColumn = 0; 
+								iEventColumn = 0;
 								iEventLengthInRow = 1;
 								sEventSegId = sId + "-Hidden";
 
 								sName = iTableRowIndex + "|" + (iEventRow + 1) + "|" + iEventColumn + "|" + iEventLengthInRow;
-							
+
 								sHeight = iEventHeightForAllEvents + "px";
 								sStyle = sColorStyle;
 								sStyle += "height: " + sHeight + "; ";
@@ -856,9 +856,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sDataDroppableId = $.cf.isValid(sDroppableId) ? "data-droppableid='" + sDroppableId + "'" : "";
 
 								sTemplate = "<div id='" + sEventSegId + "' class='" + sEventClass + "' style='" + sStyle + "'  data-pos='" + sName + "' " + sDataDroppableId + " title='' data-id='" + oEvent.calEventId + "'>";
-							
+
 								sTemplate += "<a class='cEventLink' style='" + sLinkStyle + "'>";
-							
+
 								sPartialClass = "";
 								if(bRightPartial && bLeftPartial)
 								{
@@ -873,7 +873,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 										sPartialClass += " cPartialEventLeft";
 									if(bRightPartial)
 										sPartialClass += " cPartialEventRight";
-								
+
 									sTemplate += "<span class='" + sPartialClass + "' style='" + sPartialEventStyle + "'></span>";
 								}
 
@@ -888,10 +888,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								{
 									if(!bHideEventTime && bIsAllDay === false && (iNumOfEventElements === 1 || (iNumOfEventElements > 1 && !bLeftPartial && bRightPartial)))
 										sTemplate += "<span class='cdmvEventTime'>" + to.getDateInFormat({"date": dStartDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-								
+
 									if(!bHideEventTime && bIsAllDay === false && (iNumOfEventElements === 1 || (iNumOfEventElements > 1 && bLeftPartial && !bRightPartial)))
 										sTemplate += "<span class='cdmvEventTimeRight'>" + to.getDateInFormat({"date": dEndDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-								
+
 									if(!bHideEventIcon && !$.cf.compareStrings(sIcon, "Dot"))
 										sTemplate += "<span class='cdmvEventIcon "+sIcon+"' style='" + sEventIconStyle + "'></span>";
 
@@ -899,7 +899,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 
 								sTemplate += "</a>";
-							
+
 								sTemplate += "</div>";
 
 								$(to.elem).find(".cHiddenEventsCont").append(sTemplate);
@@ -914,7 +914,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								oEventTooltip.startDateTime = sArrDateTime[0];
 								oEventTooltip.endDateTime = sArrDateTime[1];
 								$oSeg.data("tooltipcontent", oEventTooltip);
-							
+
 								if(to.setting.eventRendered)
 									to.setting.eventRendered.call(to, oEvent, $oSeg, $oSegContent, to.setting.visibleView, true);
 
@@ -937,7 +937,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 									if($.cf.compareStrings(sPartialEvent, "Left"))
 										bLeftPartial = (iAddedDays > 0) ? false : true;
-								
+
 									if($.cf.compareStrings(sPartialEvent, "Right"))
 										bRightPartial = true;
 
@@ -946,7 +946,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 										var iEventColumn = (iAddedDays > 0 && !bAddedHidden && !bAddedLessElems) ? 0 : iColumn,
 										iEventLengthInRow = (iNumOfSegs - iAddedDays),
 										iEventLengthInWeek = ((to.setting.excludeNonBusinessHours) ? to.tv.iBsDays : 7) - iEventColumn;
-									
+
 										bAddedHidden = false;
 										bAddedLessElems = false;
 										iAddedElemsLength = 0;
@@ -964,10 +964,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 										for(iTempIndex2 = 0; iTempIndex2 < bArrCurrentRow.length; iTempIndex2++)
 										{
 											bInnerRow = bArrCurrentRow[iTempIndex2];
-										
+
 											if(iEventRow !== -1)
 												break;
-										
+
 											iTempEventLengthInRow = 0;
 											for(iTempIndex3 = iEventColumn; iTempIndex3 < iMaxColumn; iTempIndex3++)
 											{
@@ -982,7 +982,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 													}
 													else
 														iTempEventLengthInRow++;
-													
+
 													if(iTempEventLengthInRow === iEventLengthInRow)
 													{
 														iEventRow = iTempIndex2;
@@ -1015,28 +1015,28 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 												bArrCurrentRow.push([0, 0, 0, 0, 0, 0, 0]);
 												iEventRow = bArrCurrentRow.length - 1;
 											}
-										
+
 											bInnerRow = bArrCurrentRow[iEventRow];
-										
+
 											var sEventSegId = sId + "-" + (++iEventSegIndex);
-										
+
 											//--------------------------- Add Event Start -----------------------------
-										
+
 											sName = iTableRowIndex + "|" + (iEventRow + 1) + "|" + iEventColumn + "|" + (bAddedLessElems ? iAddedElemsLength : iEventLengthInRow);
-										
+
 											sHeight = iEventHeightForAllEvents + "px";
 											sStyle = sColorStyle;
 											sStyle += "height: " + sHeight + "; ";
-											
+
 											if(sEventBorderColor === "transparent")
 												sStyle += "border-width: 0px; ";
 
 											sDataDroppableId = $.cf.isValid(sDroppableId) ? "data-droppableid='" + sDroppableId + "'" : "";
 
 											sTemplate = "<div id='" + sEventSegId + "' class='" + sEventClass + "' style='" + sStyle + "'  data-pos='" + sName + "' " + sDataDroppableId + " title='' data-id='" + oEvent.calEventId + "'>";
-										
+
 											sTemplate += "<a class='cEventLink' style='" + sLinkStyle + "'>";
-										
+
 											sPartialClass = "";
 											if(bRightPartial && bLeftPartial)
 											{
@@ -1051,7 +1051,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 													sPartialClass += " cPartialEventLeft";
 												if(bRightPartial)
 													sPartialClass += " cPartialEventRight";
-											
+
 												sTemplate += "<span class='" + sPartialClass + "' style='" + sPartialEventStyle + "'></span>";
 											}
 
@@ -1066,10 +1066,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											{
 												if(!bHideEventTime && bIsAllDay === false && ((iEventSegIndex === 1 && !bLeftPartial && iNumOfEventElements > 1) || iNumOfEventElements === 1))
 													sTemplate += "<span class='cdmvEventTime'>" + to.getDateInFormat({"date": dStartDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-											
+
 												if(!bHideEventTime && bIsAllDay === false && (iNumOfSegs > 1 || (bAddedLessElems ? iAddedElemsLength : iEventLengthInRow) > 1 || iNumberOfHours > 23) && !bRightPartial)
 													sTemplate += "<span class='cdmvEventTimeRight'>" + to.getDateInFormat({"date": dEndDateTime}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>";
-											
+
 												if(!bHideEventIcon && !$.cf.compareStrings(sIcon, "Dot"))
 													sTemplate += "<span class='cdmvEventIcon "+sIcon+"' style='" + sEventIconStyle + "'></span>";
 
@@ -1077,7 +1077,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											}
 
 											sTemplate += "</a>";
-										
+
 											sTemplate += "</div>";
 
 											$(to.elem).find(".cdmvEventContMain").append(sTemplate);
@@ -1092,18 +1092,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											oEventTooltip.startDateTime = sArrDateTime[0];
 											oEventTooltip.endDateTime = sArrDateTime[1];
 											$oSeg.data("tooltipcontent", oEventTooltip);
-										
+
 											if(to.setting.eventRendered)
 												to.setting.eventRendered.call(to, oEvent, $oSeg, $oSegContent, to.setting.visibleView, false);
 
 											if($.cf.isValid(sURL) || to.setting.eventClicked)
 												$oSegContent.on($.CalenStyle.extra.sClickHandler, {"url": sURL, "eventId": oEvent.calEventId, "eventElemSelector": sIdElem, "view": "MonthView", "pluginId": to.tv.pluginId}, to.__bindClick);
-										
+
 											if(bIsMarked)
 											{
 												$oDay = $(to.elem).find(sDayId);
 
-												dTemp = new Date(dTempStartDateTime); 
+												dTemp = new Date(dTempStartDateTime);
 												for(iDateIndex = 0; iDateIndex < iNumOfDays; iDateIndex++)
 												{
 													if(iDateIndex > 0)
@@ -1115,7 +1115,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 													if($oDay.find(".cMarkedDayIndicator").length === 0)
 														$oDay.append("<span class='cMarkedDayIndicator cs-icon-Mark'></span>");
-												
+
 													if($.cf.isValid(sEventColor))
 													{
 														if(oEvent.fromSingleColor)
@@ -1127,7 +1127,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											}
 
 											//--------------------------- Add Event End -----------------------------
-										
+
 											if(to.setting.hideExtraEvents)
 											{
 												var iMaxElemIndex = iEventColumn + (bAddedLessElems ? iAddedElemsLength : iEventLengthInRow);
@@ -1166,7 +1166,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											$oDateDay = $(to.elem).find("#cmvDay-" + sDateId),
 											sDateRow = $oDateDay.closest('.cmvMonthTableRows').index(),
 											sDateColumn = $oDateDay.index();
-										
+
 											sDateColumn = to.setting.displayWeekNumInMonthView ? (sDateColumn - 1) : sDateColumn;
 											sName = sDateRow + "|" + (bArrCurrentRow.length + 1) + "|" + sDateColumn + "|" + 1;
 
@@ -1175,20 +1175,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 												var sEventOverflow = "<span class='cHiddenEventsIndicator clickableLink' id='" + sId + "' data-pos='" + sName + "'>";
 												sEventOverflow += to.setting.hiddenEventsIndicatorLabel.replace("(count)", sExtraEventCount);
 												sEventOverflow += "</span>";
-												
+
 												$oCDMVEvContM.append(sEventOverflow);
 											}
 											else
 												$oCDMVEvContM.find("#"+sId).html(to.setting.hiddenEventsIndicatorLabel.replace("(count)", sExtraEventCount));
 
 											iAddedDays++;
-										
+
 											if(iEventColumn !== (iNoBsDays - 1))
 											{
 												bAddedHidden = true;
 												iTableRowIndex--;
 											}
-										
+
 											dTempStartDateTime = new Date(dTempStartDateTime.getTime() + $.CalenStyle.extra.iMS.d);
 											sDayId = "#cmvDay" + "-" + dTempStartDateTime.getDate() + "-" + dTempStartDateTime.getMonth() + "-" + dTempStartDateTime.getFullYear();
 											iColumn = $(to.elem).find(sDayId).index();
@@ -1203,21 +1203,21 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					else if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 					{
 						sTooltipEventClass = ".cmvEvent";
-					
+
 						var iEventElemTopPosition = 0,
 						bShowDetails = 0;
-					
+
 						if(to.compareDates(dStartDateTime, to.tv.dVSDt) < 0)
 						{
 							sPartialEvent = "Left";
 							dTempStartDateTime = new Date(to.tv.dVSDt);
 						}
-						if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0)	
+						if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0)
 						{
 							sPartialEvent = "Right";
 							dTempEndDateTime = new Date(to.tv.dVEDt);
 						}
-					
+
 						dTempSDT = new Date(dTempStartDateTime);
 						bActualStartDate = true;
 						while(!to.__findWhetherDateIsVisibleInCurrentView(dTempSDT, (bIsAllDay || iNumberOfHours > 23), dTempStartDateTime, dTempEndDateTime))
@@ -1228,7 +1228,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								break;
 						}
 						dTempStartDateTime = new Date(dTempSDT);
-					
+
 						iArrNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dTempStartDateTime, dTempEndDateTime, true, false, bActualStartDate);
 						iNumOfSegs = iArrNumOfDays[0];
 						iNumberOfHrs = iArrNumOfDays[1];
@@ -1238,7 +1238,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 						if(bIsMarked)
 						{
-							dTemp = new Date(dTempStartDateTime); 
+							dTemp = new Date(dTempStartDateTime);
 							for(iDateIndex = 0; iDateIndex < iNumOfSegs; iDateIndex++)
 							{
 								if(iDateIndex > 0)
@@ -1258,20 +1258,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sPartialEvent = "";
 								iNumOfSegs = 1;
 							}
-						
+
 							var dThisDate = new Date(dTempStartDateTime),
 							iThisDate = dThisDate.getTime();
-						
+
 							for(var iEventElem = 1; iEventElem <= iNumOfSegs; iEventElem++)
 							{
 								if(to.__findWhetherDateIsVisibleInCurrentView(dThisDate, (bIsAllDay || iNumberOfHours > 23), dTempStartDateTime, dTempEndDateTime))
 								{
 									sDayId = "#cmvDay" + "-" + dThisDate.getDate() + "-" + dThisDate.getMonth() + "-" + dThisDate.getFullYear();
-								
+
 									var isFirstDay = false;
 									if(iEventElem === 1)
 										isFirstDay = true;
-								
+
 									if(to.setting.displayEventsInMonthView)
 									{
 										sEventClass = "cmvEvent ";
@@ -1289,29 +1289,29 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 										}
 										else
 											sEventClass += "cmvEventSmall ";
-									
+
 										if(to.compareDates(dEndDateTime, dMonthStartDate) < 0)
-											sEventClass += ("cBlurredEvent ");	
+											sEventClass += ("cBlurredEvent ");
 										if(bDragNDrop)
 											sEventClass += ("EventDraggable cDragNDrop ");
 										if(to.setting.isTooltipInMonthView)
 											sEventClass += ("cEventTooltip ");
 										sEventClass += sId;
-									
+
 										sEventTitle = sTitle;
 										sEventContent = sDesc;
-									
+
 										if(bIsAllDay === 1 || bIsAllDay === true || iNumberOfHours > 23)
 										{
 											if(isFirstDay)
 											{
 												var iTopPosition;
 												var oArrChildren = $(to.elem).find(".cmvMonthTableMain "+sDayId+" .cmvEventCont .cmvEventContAllDay").children();
-											
+
 												var iArrTopPositions = [];
 												for(var iChildElem = 0; iChildElem < oArrChildren.length; iChildElem++)
 													iArrTopPositions.push($(to.elem).find(oArrChildren[iChildElem]).position().top);
-											
+
 												var iAllDayEventHeight = to._getHeightForAllDayEventInMonthView(),
 												iSpaceBetweenEvents = 2;
 												iTopPosition = iSpaceBetweenEvents;
@@ -1325,7 +1325,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 													}
 													else
 														bShowDetails = 1;
-												}											
+												}
 												iEventElemTopPosition = iTopPosition;
 											}
 										}
@@ -1336,29 +1336,29 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 											if(iNumberOfElements >= iMaxNumberOfElements)
 												bShowDetails = 1;
 										}
-									
+
 										if(bShowDetails === 0)
 										{
 											sStyle = "background: " + sEventColor + "; ";
-										
+
 											sStyle += " top: " + iEventElemTopPosition + "px;";
 											if(bIsAllDay === true || iNumberOfHours > 23)
 												sStyle += " height: " + iHeightOfAllDayEvents + "px;";
 											else
 												sStyle += " height: " + iHeightOfSmallEvents + "px; width: " + iHeightOfSmallEvents + "px; margin: " + sMarginForSmallEvent + ";";
-										
+
 											oEventTooltip = {};
 											sDateTime = to.getEventDateTimeString(dStartDateTime, dEndDateTime, bIsAllDay, "&&");
 											sArrDateTime = sDateTime.split("&&");
 											oEventTooltip.title = sTitle;
 											oEventTooltip.startDateTime = sArrDateTime[0];
 											oEventTooltip.endDateTime = sArrDateTime[1];
-											
+
 											sDataDroppableId = $.cf.isValid(sDroppableId) ? "data-droppableid='" + sDroppableId + "'" : "";
 
 											sTemplate = "<span id='" + sId + "' class='" + sEventClass + "' style='" + sStyle + "' " + sDataDroppableId + " title='' data-id='" + oEvent.calEventId + "'>";
 											sTemplate += "</span>";
-										
+
 											if(bIsAllDay === true || iNumberOfHours > 23)
 												$(to.elem).find(".cmvMonthTableMain "+sDayId+" .cmvEventCont .cmvEventContAllDay").append(sTemplate);
 											else
@@ -1378,7 +1378,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							oEventTooltip.startDateTime = sArrDateTime[0];
 							oEventTooltip.endDateTime = sArrDateTime[1];
 							$(to.elem).find(sIdElem).data("tooltipcontent", oEventTooltip);
-						
+
 							$(to.elem).find(sIdElem).on($.CalenStyle.extra.sClickHandler, {"url": sURL, "eventId": oEvent.calEventId, "eventElemSelector": sIdElem, "view": "MonthView", "pluginId": to.tv.pluginId}, to.__bindClick);
 						}
 					}
@@ -1388,7 +1388,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			if(bEventsInDialog)
 			{
 				if(to.setting.isTooltipInMonthView)
-					to._addTooltipInMonthView(".cEventTooltip.cHiddenEvent");	
+					to._addTooltipInMonthView(".cEventTooltip.cHiddenEvent");
 				if(to.setting.isDragNDropInMonthView)
 					to._makeEventDraggableInMonthView(".EventDraggable.cHiddenEvent");
 			}
@@ -1396,18 +1396,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			{
 				if(!$.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "ChangeDate"))
 					to._displayEventOnDayClickInMonthView();
-			
+
 				if(to.setting.hideExtraEvents)
 					to._hiddenEventsIndicatorActionHandler();
-			
+
 				if(to.setting.displayEventsInMonthView)
 				{
 					if(to.setting.isTooltipInMonthView)
-						to._addTooltipInMonthView(".cEventTooltip");	
+						to._addTooltipInMonthView(".cEventTooltip");
 					if(to.setting.isDragNDropInMonthView)
 						to._makeEventDraggableInMonthView(".EventDraggable");
 				}
-			
+
 				if(to.setting.datePickerObject !== null)
 					to.setting.datePickerObject.refreshView();
 				if(to.setting.eventsAddedInView)
@@ -1424,7 +1424,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	_hiddenEventsIndicatorActionHandler: function()
 	{
 		var to = this;
-	
+
 		$(to.elem).find(".cHiddenEventsIndicator").on($.CalenStyle.extra.sClickHandler, function(e)
 		{
 			e.stopPropagation();
@@ -1465,7 +1465,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					{
 						if($oHiddenEventsDialog.length > 0)
 							$oHiddenEventsDialog.remove();
-					
+
 						var sHiddenDialogStr = "<div class='cHiddenEventsCont' data-date='" + sHiddenEventId + "'></span>";
 						sHiddenDialogStr += "<span class='" + sHeaderClass + "'>";
 						sHiddenDialogStr += to.getDateInFormat({"date": dHiddenEventsDate}, "DDD MMM dd, yyyy", false, true);
@@ -1480,9 +1480,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						oHiddenEventsDialog.dDayStart = dDayStart;
 						oHiddenEventsDialog.dDayEnd = dDayEnd;
 						to._addEventsInMonthView(oHiddenEventsDialog);
-					
+
 						$oHiddenEventsDialog.css({ "left": iLeft, "top": iTop, "width": iWidth + (iWidth / 2) });
-					
+
 						to._adjustEventsInMonthView(true);
 
 						$(document).on($.CalenStyle.extra.sClickHandler + ".CalenStyleDialog", function(e)
@@ -1512,7 +1512,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	_endHiddenEventsIndicatorHandlerAction: function()
 	{
 		var to = this;
-		
+
 		if($.cf.compareStrings(typeof to.setting.hiddenEventsIndicatorAction, "function"))
 		{
 			to.setting.hiddenEventsIndicatorAction.call(to, null, null, false);
@@ -1574,7 +1574,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			iCMVMonthTableRowMinHeight = $(to.elem).find(".cmvMonthTableRows").css("min-height"),
 			iEventRowHeight = $.CalenStyle.extra.iEventHeights[to.setting.visibleView],
 			sArrEventElems = $(to.elem).find(".cdmvEvent, .cHiddenEventsIndicator"),
-		
+
 			iCMVMonthTableHeight = 0,
 			iCMVMonthTableWidth = $(to.elem).find(".cdmvEventContMain").width(),
 			iHiddenEventContWidth = 0,
@@ -1586,7 +1586,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			if(to.setting.hideExtraEvents)
 			{
 				iCMVMonthTableHeight = $(to.elem).find(".cmvMonthTableMain").height();
-			
+
 				iHiddenEventContWidth = $(to.elem).find(".cmvDay").width();
 				iHiddenEventContWidth += (iHiddenEventContWidth / 2);
 				iHiddenEventContWidth = (iHiddenEventContWidth < 200) ? 200 : iHiddenEventContWidth;
@@ -1594,16 +1594,16 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				iCMVMonthTableHeight += $(to.elem).find(".cmvMonthTableRowDayHeader").height();
-			
+
 				for(var iTempIndex1 = 0; iTempIndex1 < to.tv.bAWkRw.length; iTempIndex1++)
 				{
 					var bArrCurrentRow = to.tv.bAWkRw[iTempIndex1],
 					iRowMaxHeight = bArrCurrentRow.length,
 					iWeekRowHeight = iEventFirstRowTop + (iRowMaxHeight * iEventRowHeight);
-				
+
 					if(iWeekRowHeight < iCMVMonthTableRowMinHeight)
 						iWeekRowHeight = iCMVMonthTableRowMinHeight;
-				
+
 					$(to.elem).find("#cmvMonthTableRow"+(iTempIndex1 + 1)).css({"height": iWeekRowHeight});
 					iCMVMonthTableHeight += iWeekRowHeight;
 				}
@@ -1611,54 +1611,54 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				$(to.elem).find(".cmvMonthTableMain").css({"height": iCMVMonthTableHeight});
 				$(to.elem).find(".cdmvEventContMain").css({"height": iCMVMonthTableHeight});
 			}
-		
+
 			//--------------------------------------		Start		-----------------------------------------
 			var iCMVMonthTableHeight1 = $(to.elem).find(".cmvMonthTableMain").height();
-	
-			var iCalendarContInnerHeight, iCalendarContHeight, iCalendarContOuterHeight;				
+
+			var iCalendarContInnerHeight, iCalendarContHeight, iCalendarContOuterHeight;
 			if(to.setting.hideExtraEvents)
 			{
 				if($(to.elem).find(".cmvTableContainer").height() < 30)
 					$(to.elem).find(".cmvTableContainer").css({"height": iCMVMonthTableHeight1});
 				if($(to.elem).find(".cmvTableContainerOuter").height() < 30)
 					$(to.elem).find(".cmvTableContainerOuter").css({"height": iCMVMonthTableHeight1});
-			
+
 				iCalendarContInnerHeight = $(to.elem).find(".calendarContInner").height();
-				
+
 				iCalendarContInnerHeight = iCMVMonthTableHeight1 + (($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").height() : 0);
 				if(to.tv.bDisABar)
 					iCalendarContInnerHeight += $(to.elem).find(".cActionBar").height();
 				$(to.elem).find(".calendarContInner").css({"height": iCalendarContInnerHeight});
-			
+
 				iCalendarContHeight = iCalendarContInnerHeight;
-				
+
 				if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCalendarContHeight = iCalendarContInnerHeight + $(to.elem).find(".cFilterBar").height();
 				$(to.elem).find(".calendarCont").css({"height": iCalendarContHeight});
-				
+
 			}
 			else
 			{
 				$(to.elem).find(".cmvTableContainer").css({"height": iCMVMonthTableHeight1});
 				$(to.elem).find(".cmvTableContainerOuter").css({"height": iCMVMonthTableHeight1});
-			
+
 				iCalendarContInnerHeight = iCMVMonthTableHeight1 + (($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").height() : 0);
 				if(to.tv.bDisABar)
 					iCalendarContInnerHeight += $(to.elem).find(".cActionBar").height();
 				$(to.elem).find(".calendarContInner").css({"height": iCalendarContInnerHeight});
-			
+
 				iCalendarContHeight = iCalendarContInnerHeight;
 				if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCalendarContHeight += $(to.elem).find(".cFilterBar").height();
 				$(to.elem).find(".calendarCont").css({"height": iCalendarContHeight});
-				
+
 				iCalendarContOuterHeight = iCalendarContHeight;
 				$(to.elem).find(".calendarCont").parent().css({"height": iCalendarContOuterHeight});
 			}
-		
+
 			if(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Bottom"))
 				$(to.elem).find(".cFilterBar").css({"top": iCalendarContInnerHeight});
-		
+
 			if(to.tv.iDocHtPrev < $(document).height())
 			{
 				if($(window).height() < $(document).height())
@@ -1669,9 +1669,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				if($(window).height() > $(document).height())
 					to.adjustMonthTable();
 			}
-		
+
 			//-----------------------------------------		End	------------------------------------------------
-		
+
 			var iCMVCalendarContHeight = iCMVMonthTableHeight + $.CalenStyle.extra.iBorderOverhead;
 			if($(to.elem).find(".cContHeader").length > 0)
 				iCMVCalendarContHeight += $(to.elem).find(".cContHeader").outerHeight();
@@ -1681,15 +1681,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iCMVCalendarContHeight += $(to.elem).find(".cFilterBar").outerHeight();
 			if(to.tv.bCMVDisEvLst)
 				iCMVCalendarContHeight += $(to.elem).find(".cListOuterCont").height();
-		
+
 			//-----------------------------------------------------------------
-		
+
 			for(var iElemIndex = 0; iElemIndex < sArrEventElems.length; iElemIndex++)
 			{
 				var oElem = sArrEventElems[iElemIndex],
 				sElemName = $(to.elem).find(oElem).attr("data-pos"),
 				sArrElemName = sElemName.split("|"),
-			
+
 				iRowNo = parseInt(sArrElemName[0]) + 1,
 				iInnerRowIndex = parseInt(sArrElemName[1]),
 				iColumnNo = parseInt(sArrElemName[2]),
@@ -1735,7 +1735,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 				$(oElem).css({"left": iEventLeft, "top": iEventTop, "width": iEventWidth});
-			
+
 				if(!$(oElem).hasClass("cHiddenEventsIndicator"))
 				{
 					var $oEventTitle = $(oElem).find(".cdmvEventTitle"),
@@ -1750,7 +1750,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						iEventTimeWidthRight = ($oEventTimeRight !== null) ? $oEventTimeRight.outerWidth(true) : 0;
 					var iPartialSymbolWidth = $(oElem).find(".cPartialEventLeft").outerWidth(true) + $(oElem).find(".cPartialEventRight").outerWidth(true);
 					var iEventTitleWidth = iEventWidth - (iEventIconWidth + iEventTimeWidth + iEventTimeWidthRight + (10 * $.CalenStyle.extra.iBorderOverhead) + iPartialSymbolWidth);
-				
+
 					$oEventTitle.css({"height": iEventTitleHeight, "line-height": iEventTitleHeight + "px", "width": iEventTitleWidth});
 					$oEventTime.css({"height": iEventTitleHeight, "line-height": iEventTitleHeight + "px"});
 					if($oEventTimeRight !== null)
@@ -1761,7 +1761,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			var $oHiddenEventsDialog = $(to.elem).find(".cHiddenEventsCont");
 			if(to.setting.hideExtraEvents && $oHiddenEventsDialog.length > 0)
 			{
-				var iHiddenEventContLeft = $oHiddenEventsDialog.position().left, 
+				var iHiddenEventContLeft = $oHiddenEventsDialog.position().left,
 				iHiddenEventContTop = $oHiddenEventsDialog.position().top;
 				iHiddenEventContHeight += 10;
 
@@ -1772,7 +1772,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				$oHiddenEventsDialog.css({"width": iHiddenEventContWidth, "height": iHiddenEventContHeight, "left": iHiddenEventContLeft, "top": iHiddenEventContTop});
 			}
-		
+
 			if(to.setting.isDragNDropInMonthView)
 				to._makeEventDraggableInMonthView(".EventDraggable");
 		}
@@ -1792,7 +1792,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cmvDay, .cmvDisplayAllEvents").on($.CalenStyle.extra.sClickHandler, function(e)
 		{
 			e.stopPropagation();
-		
+
 			var $oDayElem = $(this).hasClass("cmvDay") ? $(this) : $(this).parent(),
 			sDayId = $oDayElem.attr("id"),
 			dThisDate = to._getDateForDayIdInMonthView(sDayId),
@@ -1811,11 +1811,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 
 			var oThisDateEventsArray = to.getArrayOfEventsForView(dThisDate, dThisDate),
-		
+
 			pClickedAt = {};
 			pClickedAt.x = e.pageX || e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 			pClickedAt.y = e.pageY || e.originalEvent.touches[0].pageY || e.originalEvent.changedTouches[0].pageY;
-		
+
 			if(to.setting.displayEventListDialog)
 				to.setting.displayEventListDialog.call(to, dThisDate, oThisDateEventsArray, pClickedAt);
 			else if(oThisDateEventsArray.length > 0)
@@ -1830,10 +1830,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					iDayIndex = iDayNumber - to.setting.weekStartDay;
 
 				// ------------------------------------- Dialog HTML Start ----------------------------------------
-			
-				var iDayHeight = $oDayElem.height(), 
+
+				var iDayHeight = $oDayElem.height(),
 				iDayWidth = $oDayElem.width(),
-				iDialogHeight = iDayHeight * 3, 
+				iDialogHeight = iDayHeight * 3,
 				iDialogWidth = iDayWidth * 1.25;
 				iDialogWidth = (iDialogWidth < 200) ? 200 : iDialogWidth;
 				iCalendarContWidth = $(to.elem).find(".calendarCont").parent().outerWidth();
@@ -1844,7 +1844,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				sTemplate += "<span class='cmvDialogTooltip'></span>";
 				sTemplate += "<div class='cmvDialogInnerCont'>";
 				sTemplate += "<table class='cmvDialogTable'>";
-			
+
 				for(var iEventIndex = 0; iEventIndex < oThisDateEventsArray.length; iEventIndex++)
 				{
 					var oTempEvent = oThisDateEventsArray[iEventIndex],
@@ -1856,7 +1856,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					bIsMarked = oTempEvent.isMarked,
 					sEventColor, sEventColorStyle,
 					sClass = "cmvDialogEvent",
-					sEventBgColor, sIcon, 
+					sEventBgColor, sIcon,
 					sEventStyle = "", sEventIconStyle = "",
 
 					bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
@@ -1872,8 +1872,8 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sStartDate = "All Day";
 
 						if(bCompEnd !== 0)
-							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ? 
-							to.__getDurationBetweenDates(dThisDate, dEventEndDate, "dhm", false, false) : 
+							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ?
+							to.__getDurationBetweenDates(dThisDate, dEventEndDate, "dhm", false, false) :
 							to.setting.duration.call(to, dThisDate, dEventEndDate, "dhm"));
 						else
 							sDuration = "";
@@ -1889,21 +1889,21 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 						if(bCompStart === 0 && bCompEnd === 0)
 						{
-							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ? 
-								to.__getDurationBetweenDates(dEventStartDate, dEventEndDate, "dhm", false, false) : 
+							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ?
+								to.__getDurationBetweenDates(dEventStartDate, dEventEndDate, "dhm", false, false) :
 								to.setting.duration.call(to, dEventStartDate, dEventEndDate, "dhm"));
 						}
 						else
 						{
-							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ? 
-								to.__getDurationBetweenDates(dThisDate, dEventEndDate, "dhm", false, false) : 
+							sDuration = ($.cf.compareStrings(to.setting.duration, "Default") ?
+								to.__getDurationBetweenDates(dThisDate, dEventEndDate, "dhm", false, false) :
 								to.setting.duration.call(to, dThisDate, dEventEndDate, "dhm"));
 						}
 					}
 
 					if($.cf.isValid(sStartDate))
 						sDateTimeString += "<span class='cmvDialogTimeStart'>" + sStartDate + "</span>";
-				
+
 					if($.cf.isValid(sDuration))
 						sDateTimeString += "<span class='cmvDialogTimeDuration'>" + sDuration + "</span>";
 
@@ -1924,15 +1924,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sIcon = $.cf.isValid(oTempEvent.icon) ? oTempEvent.icon : to.setting.eventIcon;
 					}
 
-					sTemplate += "<tr id='cmvDialogEvent-"+sEventId+"' class='" + sClass + "'>";	
-				
+					sTemplate += "<tr id='cmvDialogEvent-"+sEventId+"' class='" + sClass + "'>";
+
 					sTemplate += "<td style='" + sEventStyle + "'>";
 					sTemplate += "<div>";
 					sTemplate += "<div class='cmvDialogTitle'>" + sEventTitle + "</div>";
-				
+
 					if(!bHideEventTime && !bIsMarked && sDateTimeString !== "")
 						sTemplate += "<div class='cmvDialogTime'>" + sDateTimeString + "</div>";
-				
+
 					sTemplate += "</div>";
 					sTemplate += "</td>";
 
@@ -1953,7 +1953,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						}
 					}
 					sTemplate += "</td>";
-				
+
 					sTemplate += "</tr>";
 
 					if(bIsMarked)
@@ -1961,20 +1961,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					else if(iEventIndex !== oThisDateEventsArray.length - 1)
 						sTemplate += "<tr class='cmvDialogEventSeparator'><td colspan='2'><hr></td></tr>";
 				}
-			
+
 				sTemplate += "</table>";
 				sTemplate += "</div>";
 				sTemplate += "</div>";
-			
+
 				if(sPrevDialogHeader !== sHeaderDateString)
 				{
 					$(to.elem).find(".calendarContInner").append(sTemplate);
-				
+
 					// ------------------------------------- Dialog HTML End ----------------------------------------
-				
+
 					var iDialogWidthActual = $(to.elem).find(".cmvDialog").width();
 					iDialogWidthActual = (iDialogWidthActual < 200) ? 200 : iDialogWidthActual;
-				
+
 					if(iCalendarContWidth <= 400)
 					{
 						iDialogWidth = iCalendarContWidth - 2;
@@ -1984,25 +1984,25 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 					else if(iCalendarContHeight <= 400)
 						iDialogHeight = iDayHeight * 4;
-				
+
 					$(to.elem).find(".cmvDialog").css({"max-height": iDialogHeight, "max-width": iDialogWidth, "width": iDialogWidthActual});
-				
+
 					iCalendarContWidth = $(to.elem).find(".cmvCalendarCont").width();
 					iCalendarContHeight = $(to.elem).find(".cmvCalendarCont").height();
-				
+
 					var iDialogCalcWidth = $(to.elem).find(".cmvDialog").width(),
 					iDialogCalcHeight = $(to.elem).find(".cmvDialog").height(),
 					iDayLeft = $(to.elem).find("#"+sDayId).position().left,
 
 					iRowTop = $(to.elem).find("#"+sRowId).position().top,
-				
+
 					iDialogMaxHeight = iDialogHeight - 24;
 					iDialogCalcHeight = (iDialogCalcHeight > iDialogMaxHeight) ? iDialogMaxHeight : iDialogCalcHeight;
-				
+
 					var iCMVMonthTableTop = $(to.elem).find(".cmvMonthTableMain").position().top,
 					iDialogTop, iDialogLeft, iTooltipTop, iTooltipLeft,
 					sInnerContMargin = "", sTooltipClass = "";
-				
+
 					if(iCalendarContWidth <= 400)
 					{
 						if(iRowId <= 3)
@@ -2081,14 +2081,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						else
 						{
 							iTooltipLeft = (iDialogCalcWidth / 2) - 14;
-							var iDayMid = iDayLeft + iDayWidth - 10; 
+							var iDayMid = iDayLeft + iDayWidth - 10;
 							iDialogLeft = iDayMid - (iDialogCalcWidth / 2) - 4;
-						
+
 							var iDay1Left = $(to.elem).find(".cmvTableColumn0").position().left,
 							iMaxHoriPos = iDialogLeft + iDialogCalcWidth,
 							iMinHoriPos = iDialogLeft - (iDialogCalcWidth / 2),
 							iDialogLeftPrev, iDiff;
-						
+
 							if(iMaxHoriPos >= iCalendarContWidth)
 							{
 								iDialogLeftPrev = iDialogLeft;
@@ -2105,14 +2105,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							}
 						}
 					}
-				
+
 					$(to.elem).find(".cmvDialogTooltip").addClass(sTooltipClass);
 					$(to.elem).find(".cmvDialogTooltip").css({"top": iTooltipTop, "left": iTooltipLeft});
 					$(to.elem).find(".cmvDialog").css({"top": iDialogTop, "left": iDialogLeft});
-				
-					iDialogHeight -= 24;		
+
+					iDialogHeight -= 24;
 					$(to.elem).find(".cmvDialogInnerCont").css({"margin": sInnerContMargin, "max-height": iDialogHeight, "max-width": iDialogWidth});
-				
+
 					$(to.elem).find(".cmvDialogClose").on($.CalenStyle.extra.sClickHandler, function(e)
 					{
 						e.stopPropagation();
@@ -2131,7 +2131,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					var iCMVDialogTableHeight = $(to.elem).find(".cmvDialogTable").height() + 20;
 					iDialogHeight = (iCMVDialogTableHeight > iDialogHeight) ? iDialogHeight : iCMVDialogTableHeight;
 					$(to.elem).find(".cmvDialogInnerCont").css({"height": iDialogHeight});
-				
+
 					if(iRowId > 3)
 					{
 						iDialogTop = iCMVMonthTableTop + iRowTop - (iDialogHeight + 6);
@@ -2165,7 +2165,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".cmvDialogEvent").on($.CalenStyle.extra.sClickHandler, function(e)
 		{
 			e.stopPropagation();
-		
+
 			var oTempEvent = to.getEventWithId($(this).attr("data-id"));
 			if(to.setting.eventInADialogClicked)
 				to.setting.eventInADialogClicked.call(to, oTempEvent);
@@ -2188,7 +2188,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$oElem.on($.CalenStyle.extra.sClickHandler, function(e)
 		{
 			e.stopPropagation();
-		
+
 			var pClickedAt = {};
 			pClickedAt.x = e.pageX || e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 			pClickedAt.y = e.pageY || e.originalEvent.touches[0].pageY || e.originalEvent.changedTouches[0].pageY;
@@ -2199,14 +2199,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				if($oTempElem.hasClass("cmvDay"))
 					$oElem = $oTempElem;
 			}
-		
+
 			if($oElem.hasClass("cmvDay"))
 			{
 				$(to.elem).find(".cmvDay .cmvDayNumber").removeClass("cCurrentHighlightCircle cContHeaderButtonsHover");
-			
+
 				var sDayId = $oElem.attr("id");
 				to.setting.selectedDate = to._getDateForDayIdInMonthView(sDayId);
-			
+
 				if($(to.elem).find(".cHiddenEventsCont").length === 0 && to.setting.cellClicked)
 					to.setting.cellClicked.call(to, to.setting.visibleView, to.setting.selectedDate, true, pClickedAt);
 
@@ -2224,7 +2224,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						to.setting.eventListAppended.call(to);
 				}
 			}
-		});	
+		});
 	},
 
 	//------------------------------------------ Events List End ------------------------------------------
@@ -2265,7 +2265,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 				return sTooltipText;
 			},
-						
+
 			position:
 			{
 				my: "center bottom-15",
@@ -2287,28 +2287,28 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	{
 		var to = this;
 		var iEventHeight, iColumnWidth, iColumnHeight;
-		
+
 		if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			iEventHeight = $.CalenStyle.extra.iEventHeights[to.setting.visibleView];
 		else if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 			iEventHeight = to._getHeightForAllDayEventInMonthView();
-	
+
 		iColumnWidth = $(to.elem).find("#cmvMonthTableRow1 .cmvTableColumn0").width();
 		iColumnHeight = $(to.elem).find(".cmvMonthTableRows").css("height");
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 			iColumnHeight = $(to.elem).find(".cmvMonthTableRows").css("height");
 		iColumnHeight = parseInt(iColumnHeight.replace("px", "")) || 0;
-	
+
 		var iX1 = $(to.elem).find("#cmvMonthTableRow1 .cmvTableColumn0").offset().left,
 		iX2 = $(to.elem).find("#cmvMonthTableRow1 .cmvTableColumns:last").offset().left,
 		iY1 = $(to.elem).find("#cmvMonthTableRow1 .cmvTableColumn0").offset().top,
 		iY2 = $(to.elem).find("#cmvMonthTableRow"+to.tv.iWkInMonth+" .cmvTableColumn0").offset().top + iColumnHeight - iEventHeight;
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 			iY2 = iY2 - (2 * iEventHeight);
-	
+
 		var $oElemDragged, sId, oDraggedEvent, sEventClass, dStartDateTime,
 		iEventTitleWidthBeforeDrag;
-	
+
 		$(to.elem).find(sClass).draggable(
 		{
 			zIndex: 100,
@@ -2316,11 +2316,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			containment: [iX1, iY1, iX2, iY2],
 			scroll: false,
 			revertDuration: 300,
-		
+
 			start: function()
 			{
 				$oElemDragged = $(this);
-			
+
 				var oElementClone = $oElemDragged.clone();
 				$(oElementClone).removeClass("ui-draggable-dragging").addClass("cEventClone cEventBeingDragged");
 				$oElemDragged.parent().append(oElementClone);
@@ -2339,10 +2339,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					dStartDateTime = oDraggedEvent.start;
 
 				to.tv.draggableParent = "cmvDay-" + dStartDateTime.getDate() + "-" + dStartDateTime.getMonth() + "-" + dStartDateTime.getFullYear();
-			
+
 				$oElemDragged.css({"position": "absolute"});
 				$oElemDragged.css({"width": iColumnWidth, "height": iEventHeight});
-			
+
 				if(to.setting.hideExtraEvents)
 				{
 					iEventTitleWidthBeforeDrag = $oElemDragged.find(".cdmvEventTitle").width();
@@ -2360,14 +2360,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$oElemDragged.find(".cdmvEventTitle").css({"width": iEventTitleWidth});
 				}
 			},
-		
+
 			revert: function()
 			{
 				$oElemDragged = $(this);
 
 				if(to.setting.hideExtraEvents)
 					$oElemDragged.find(".cdmvEventTitle").css({"width": iEventTitleWidthBeforeDrag});
-				
+
 				$(to.elem).find(".cmvDay").removeClass("cActivatedCell");
 
 				if(to.tv.bDroppedInDifferent)
@@ -2377,10 +2377,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					if(to.setting.isDragNDropInMonthView)
 						to._makeEventDraggableInMonthView(".EventDraggable");
 				}
-				
+
 				return true;
 			}
-		
+
 		});
 	},
 
@@ -2391,15 +2391,15 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var iCalendarContWidth = $(to.elem).outerWidth(),
 		iCalendarContHeight = $(to.elem).outerHeight(),
 		iCalendarContMaxWidth = $.cf.getSizeValue($(to.elem), "max-width"),
-	
+
 		iCMVMonthTableMinHeight = $.cf.getSizeValue($(to.elem).find(".cmvMonthTable"), "min-height") || 0;
 		to.tv.iDocHtPrev = $(document).height();
 		iCalendarContHeight += (2 * $.CalenStyle.extra.iBorderOverhead);
-	
+
 		to._closeDialogOfEventsForDay();
 
 		iCalendarContWidth = (iCalendarContMaxWidth && iCalendarContWidth > iCalendarContMaxWidth) ? iCalendarContMaxWidth : iCalendarContWidth;
-	
+
 		var iCalendarContHeightMV = iCalendarContHeight;
 		if(to.tv.bDisFBar)
 		{
@@ -2414,12 +2414,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 			$(to.elem).find(".calendarContInner").css({"height": iCalendarContHeightMV});
 		$(to.elem).find(".calendarContInner").css({"width": iCalendarContWidth});
-	
+
 		to.__adjustHeader();
-	
+
 		if($.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 			$(to.elem).find(".cFilterBar").css({"left": iCalendarContWidth});
-	
+
 		if(iCalendarContWidth >= 300 && iCalendarContHeight >= 300)
 		{
 			$(to.elem).find(".cmvDayHeader").removeClass("cmvThinBorderBottom cmvThinBorder").addClass("cmvThinBorderBottom");
@@ -2431,7 +2431,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			$(to.elem).find(".cmvWeekNumber").removeClass("cmvThinBorderRight cmvThinBorder").addClass("cmvThinBorder");
 			$(to.elem).find(".cmvTableContainerOuter").addClass("cmvThinBorder");
 		}
-	
+
 		var iCalendarSectionMaxHeight;
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView") && $.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "ModifyEventList") && to.tv.bCMVDisEvLst)
 		{
@@ -2457,13 +2457,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iCalendarSectionMaxHeight = iCMVMonthTableMinHeight;
 			$(to.elem).find(".cmvMonthTableMain").css({"height": iCalendarSectionMaxHeight});
 		}
-	
-		var iAvailableHeightForEvents, iCMVMonthTableHeight, 
+
+		var iAvailableHeightForEvents, iCMVMonthTableHeight,
 		iCMVMonthTableWidth, iCMVTableColumnsWidth,
 		iCMVTableHeaderRowHeight, iCMVTableRowHeight,
 		iDayNumberHeight, iDisplayAllDayEventsButtonHeight, iMaxNumberSectionHeight,
 		iCMVMonthTableHeightModified, iMonthCustomMaxHeight;
-	
+
 		if(iCalendarContWidth > 500 && iCalendarContHeight > 500)
 		{
 			if($.cf.compareStrings(to.setting.visibleView, "MonthView") && $.cf.compareStrings(to.setting.actionOnDayClickInMonthView, "ModifyEventList") && to.tv.bCMVDisEvLst)
@@ -2476,9 +2476,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCMVMonthTableHeight -= $(to.elem).find(".cFilterBar").outerHeight();
 			}
-		
+
 			$(to.elem).find(".calendarCont").css({"height": iCalendarContHeight});
-		
+
 			if($(to.elem).find(".cContHeader").length > 0)
 				$(to.elem).find(".cContHeader").css({"width": iCalendarContWidth});
 
@@ -2497,12 +2497,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 
 			$(to.elem).find(".cmvTableColumns").css({"width": iCMVTableColumnsWidth});
-		
+
 			iCMVTableHeaderRowHeight = $(to.elem).find(".cmvMonthTableRowDayHeader").outerHeight();
 			if($.cf.compareStrings(to.setting.visibleView, "MonthView") || $.cf.compareStrings(to.setting.visibleView, "DatePicker"))
 			{
 				iCMVTableRowHeight = (iCMVMonthTableHeight - iCMVTableHeaderRowHeight) / to.tv.iWkInMonth;
-				
+
 				iDayNumberHeight = $(to.elem).find(".cmvDayNumber").height() + 2;
 				iDisplayAllDayEventsButtonHeight = $(to.elem).find(".cmvDisplayAllEvents").height();
 				iMaxNumberSectionHeight = (iDayNumberHeight > iDisplayAllDayEventsButtonHeight) ? iDayNumberHeight : iDisplayAllDayEventsButtonHeight;
@@ -2511,19 +2511,19 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
 				iCMVTableRowHeight = (iCMVMonthTableHeight - iCMVTableHeaderRowHeight) / to.tv.iWkInMonth;
-			
+
 				if(to.tv.bDisABar || (to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCMVMonthTableHeight += $.CalenStyle.extra.iBorderOverhead;
 			}
 			$(to.elem).find(".cmvTableContainerOuter").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth});
-		
+
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
 				iCMVMonthTableWidth -= $.CalenStyle.extra.iBorderOverhead;
 				iCMVMonthTableHeight -= $.CalenStyle.extra.iBorderOverhead;
 			}
 			$(to.elem).find(".cmvTableContainer").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth, "top": -$.CalenStyle.extra.iBorderOverhead, "left": -$.CalenStyle.extra.iBorderOverhead});
-		
+
 			iCMVMonthTableHeightModified = 0;
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
@@ -2533,7 +2533,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
 
 					to.tv.iMxEvRw = Math.floor((iCMVTableRowHeight - 30) / ($.CalenStyle.extra.iEventHeights[to.setting.visibleView]));
-				
+
 					iCMVMonthTableHeightModified = iCMVTableHeaderRowHeight + (to.tv.iWkInMonth * iCMVTableRowHeight);
 					if(iCMVMonthTableHeightModified > iCMVMonthTableHeight)
 						iCMVMonthTableHeight = iCMVMonthTableHeightModified;
@@ -2546,7 +2546,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				{
 					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
 				}
-			
+
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{
 					if($.cf.compareStrings(to.setting.eventIndicatorInMonthView, "Custom"))
@@ -2604,13 +2604,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$(to.elem).find(".cmvWeekNumber").css({"width": iCMVTableColumnsWidth});
 			}
 			$(to.elem).find(".cmvTableColumns").css({"width": iCMVTableColumnsWidth});
-		
+
 			iCMVTableHeaderRowHeight = $(to.elem).find(".cmvMonthTableRowDayHeader").outerHeight();
-			
+
 			if($.cf.compareStrings(to.setting.visibleView, "MonthView") || $.cf.compareStrings(to.setting.visibleView, "DatePicker"))
 			{
 				iCMVTableRowHeight = (iCMVMonthTableHeight - iCMVTableHeaderRowHeight) / to.tv.iWkInMonth;
-			
+
 				iDayNumberHeight = $(to.elem).find(".cmvDayNumber").height() + 2;
 				iDisplayAllDayEventsButtonHeight = $(to.elem).find(".cmvDisplayAllEvents").height();
 				iMaxNumberSectionHeight = (iDayNumberHeight > iDisplayAllDayEventsButtonHeight) ? iDayNumberHeight : iDisplayAllDayEventsButtonHeight;
@@ -2621,21 +2621,21 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				if(to.setting.hideExtraEvents)
 					iCMVTableRowHeight = (iCMVMonthTableHeight - iCMVTableHeaderRowHeight) / to.tv.iWkInMonth;
 			}
-		
+
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
 				if(to.tv.bDisABar || (to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCMVMonthTableHeight += $.CalenStyle.extra.iBorderOverhead;
 			}
 			$(to.elem).find(".cmvTableContainerOuter").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth});
-		
+
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
 				iCMVMonthTableWidth -= $.CalenStyle.extra.iBorderOverhead;
 				iCMVMonthTableHeight -= $.CalenStyle.extra.iBorderOverhead;
 			}
 			$(to.elem).find(".cmvTableContainer").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth, "top": -$.CalenStyle.extra.iBorderOverhead, "left": -$.CalenStyle.extra.iBorderOverhead});
-		
+
 			iCMVMonthTableHeightModified = 0;
 			if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 			{
@@ -2645,7 +2645,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$(to.elem).find(".cmvMonthTableRows").css({"height": iCMVTableRowHeight});
 
 					to.tv.iMxEvRw = Math.floor((iCMVTableRowHeight - 30) / ($.CalenStyle.extra.iEventHeights[to.setting.visibleView]));
-				
+
 					iCMVMonthTableHeightModified = iCMVTableHeaderRowHeight + (to.tv.iWkInMonth * iCMVTableRowHeight);
 					if(iCMVMonthTableHeightModified > iCMVMonthTableHeight)
 						iCMVMonthTableHeight = iCMVMonthTableHeightModified;
@@ -2658,7 +2658,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				{
 					$(to.elem).find(".cmvMonthTableRows").css({"min-height": iCMVTableRowHeight});
 				}
-			
+
 				if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 				{
 					if($.cf.compareStrings(to.setting.eventIndicatorInMonthView, "Custom"))
@@ -2668,40 +2668,40 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 			}
-		
+
 			$(to.elem).find(".cmvMonthTableMain").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth});
 			$(to.elem).find(".cdmvEventContMain").css({"height": iCMVMonthTableHeight, "width": iCMVMonthTableWidth});
 		}
-	
+
 		//------------------------ Events Adjustment Start ---------------------------------
-	
+
 		var iHeightForEvents = iAvailableHeightForEvents / 2;
 		$(to.elem).find(".cmvEventContSmall").css({"height": iHeightForEvents});
 		$(to.elem).find(".cmvEventContAllDay").css({"height": iHeightForEvents});
-	
+
 		var iHeightOfAllDayEvents = to._getHeightForAllDayEventInMonthView(),
 		iHeightOfSmallEvents = to._getHeightForSmallEventInMonthView(),
 		iMarginForSmallEvent = to._getMarginValueForSmallEventInMonthView(),
 		sMarginForSmallEvent = iMarginForSmallEvent + "px " + iMarginForSmallEvent + "px;";
-	
+
 		$(to.elem).find(".cmvEventSmall").css({"width": iHeightOfSmallEvents, "height": iHeightOfSmallEvents, "margin": sMarginForSmallEvent, "top": 0});
 		$(to.elem).find(".cmvEventAllDay").css({"height": iHeightOfAllDayEvents});
-	
+
 		//------------------------ Events Adjustment End ---------------------------------
-	
+
 		if(iCalendarContWidth >= 550)
 			$(to.elem).find(".cmvMonthTableRows .cmvWeekNumber").addClass("clickableLink");
 		else
 			$(to.elem).find(".cmvMonthTableRows .cmvWeekNumber").removeClass("clickableLink");
-	
+
 		//-----------------------------------------------------------------------------------
-	
+
 		var iMonthListHeight = $(to.elem).find(".calendarCont").height();
 		if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 			iMonthListHeight -= $(to.elem).find(".cFilterBar").height();
 		for(var iTempIndex = 0; iTempIndex < to.setting.sectionsList.length; iTempIndex++)
 		{
-			var sSectionName = to.setting.sectionsList[iTempIndex];	
+			var sSectionName = to.setting.sectionsList[iTempIndex];
 			if($.cf.compareStrings(sSectionName, "Calendar"))
 			{
 				iMonthListHeight -= ((($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").height() : 0) + 4);
@@ -2711,7 +2711,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iMonthListHeight -= ($(to.elem).find(".cActionBar").height() + 1);
 		}
 		$(to.elem).find(".cListOuterCont").css({"height": iMonthListHeight});
-	
+
 		var iCMVMonthTableLeft = $(to.elem).find(".cmvMonthTableMain").position().left,
 		iCMVMonthTableTop = 0;
 		if($(to.elem).find(".cContHeader").length > 0)
@@ -2719,11 +2719,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		else
 			iCMVMonthTableTop = $(to.elem).position().top;
 		$(to.elem).find(".cdmvEventContMain").css({"left": iCMVMonthTableLeft, "top": -$.CalenStyle.extra.iBorderOverhead});
-	
+
 		//to.__adjustFontSize();
 		to._adjustEventsInMonthView();
 		to.setCalendarBorderColor();
-	
+
 		if($.cf.compareStrings(to.setting.visibleView, "MonthView"))
 		{
 			if(to.setting.isDragNDropInMonthView)
@@ -2760,14 +2760,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if(iHeightOfSmallEvents < 2)
 			iHeightOfSmallEvents = 2;
 		else if(iHeightOfSmallEvents > 10)
-			iHeightOfSmallEvents = 10;		
+			iHeightOfSmallEvents = 10;
 		return iHeightOfSmallEvents;
 	},
 
 	_getMarginValueForSmallEventInMonthView: function()
 	{
 		var to = this;
-		var iHeightOfSmallEvents = to._getHeightForSmallEventInMonthView();	
+		var iHeightOfSmallEvents = to._getHeightForSmallEventInMonthView();
 		if(iHeightOfSmallEvents <= 3)
 			return 1;
 		else if(iHeightOfSmallEvents > 3)
@@ -2775,33 +2775,33 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	},
 
 	_setMonthStrings: function()
-	{	
+	{
 		var to = this;
 		var bDatePickerView = $.cf.compareStrings(to.setting.visibleView, "DatePicker"),
 		sUnderlineClass = bDatePickerView ? "cContHeaderLabelUnderline" : "",
 		sClickableClass = bDatePickerView ? "clickableLink" : "";
-		var sHeaderViewLabel = "<span class='cContHeaderLabelMonth "+sClickableClass+"'><span class='"+sUnderlineClass+"'><b>" + to.getDateInFormat({"iDate": {M: to.setting.selectedDate.getMonth()}}, "MMMM", false, true) + "</b></span></span>";	
-		sHeaderViewLabel += "<span class='cContHeaderLabelYear "+sClickableClass+"'><span class='"+sUnderlineClass+"'>" + to.getNumberStringInFormat(to.setting.selectedDate.getFullYear(), 0, true) + "</span></span>";	
-	
+		var sHeaderViewLabel = "<span class='cContHeaderLabelMonth "+sClickableClass+"'><span class='"+sUnderlineClass+"'><b>" + to.getDateInFormat({"iDate": {M: to.setting.selectedDate.getMonth()}}, "MMMM", false, true) + "</b></span></span>";
+		sHeaderViewLabel += "<span class='cContHeaderLabelYear "+sClickableClass+"'><span class='"+sUnderlineClass+"'>" + to.getNumberStringInFormat(to.setting.selectedDate.getFullYear(), 0, true) + "</span></span>";
+
 		if(to.setting.modifyHeaderViewLabels)
 			to.setting.modifyHeaderViewLabels.call(to, to.tv.dVSDt, to.tv.dVEDt, to.setting.selectedDate, sHeaderViewLabel, to.setting.visibleView);
 
 		$(to.elem).find(".cContHeaderLabel").html(sHeaderViewLabel);
-	
+
 		if($.cf.compareStrings(to.setting.visibleView, "DatePicker"))
 		{
 			$(to.elem).find(".cContHeaderLabelMonth").on($.CalenStyle.extra.sClickHandler, function(e)
 			{
 				e.stopPropagation();
-		
+
 				var oMonthPicker = new CalenStyle_MonthPicker(to, false);
 				oMonthPicker.showOrHideMonthList();
 			});
-		
+
 			$(to.elem).find(".cContHeaderLabelYear").on($.CalenStyle.extra.sClickHandler, function(e)
 			{
 				e.stopPropagation();
-		
+
 				var oYearPicker = new CalenStyle_YearPicker(to, false);
 				oYearPicker.showOrHideYearList();
 			});
@@ -2814,7 +2814,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if($(to.elem).find(".cmlvOuterCont").length <= 0 && $(to.elem).find(".cylvOuterCont").length <= 0)
 		{
 			if(to.setting.showTransition)
-			{				
+			{
 				var iCMVMonthTableWidth = $(to.elem).find(".cmvMonthTableMain").width(),
 				iCMVMonthTableLeft = $(to.elem).find(".cmvMonthTableMain").position().left,
 				iCMVMonthTableTop = 0;
@@ -2825,32 +2825,32 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					else
 						iCMVMonthTableTop = $(to.elem).position().top;
 				}
-			
+
 				var newElem = $(to.elem).find(".cmvMonthTableMain").clone();
 				$(newElem).removeClass("cmvMonthTableMain").addClass("cmvMonthTableTemp");
 				$(newElem).css({"position": "absolute", "top": iCMVMonthTableTop, "left": iCMVMonthTableLeft});
 				$(to.elem).find(".cmvMonthTableMain").parent().append(newElem);
 				$(newElem).css({"z-index": 101});
 				iCMVMonthTableLeft = iCMVMonthTableLeft + iCMVMonthTableWidth;
-			
+
 				//-----------------------------------------------------------------------------------
-			
+
 				var iCDMVEventContLeft, iCDMVEventContWidth, newElemCont2;
 				if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 				{
 					iCDMVEventContLeft = $(to.elem).find(".cdmvEventContMain").position().left;
 					iCDMVEventContWidth= $(to.elem).find(".cdmvEventContMain").width();
 					newElemCont2 = $(to.elem).find(".cdmvEventContMain").clone();
-					$(newElemCont2).removeClass("cdmvEventContMain").addClass("cdmvEventContTemp");	
+					$(newElemCont2).removeClass("cdmvEventContMain").addClass("cdmvEventContTemp");
 					$(to.elem).find(".cdmvEventContMain").parent().append(newElemCont2);
 					$(newElemCont2).css({"z-index": 102});
 					iCDMVEventContLeft = iCDMVEventContLeft + iCDMVEventContWidth;
 					$(newElemCont2).animate({"left": iCDMVEventContLeft}, to.setting.transitionSpeed);
 				}
 				//-----------------------------------------------------------------------------------
-			
+
 				$(newElem).animate({"left": iCMVMonthTableLeft}, to.setting.transitionSpeed);
-			
+
 				setTimeout(function()
 				{
 					$(newElem).remove();
@@ -2858,21 +2858,21 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						$(newElemCont2).remove();
 				}, to.setting.transitionSpeed);
 			}
-		
+
 			to.tv.dCMDt = new Date(to.tv.dPMDt);
 			to._setNextPreviousMonthDates();
-		
+
 			var iMonth = to.tv.dCMDt.getMonth(),
 			iYear = to.tv.dCMDt.getFullYear(),
 			iNumOfDays = to.__getNumberOfDaysOfMonth(iMonth, iYear),
 			iDate = to.setting.selectedDate.getDate();
 			if(iDate > iNumOfDays)
 				iDate = iNumOfDays;
-		
+
 			var iHours = to.setting.selectedDate.getHours(),
 			iMinutes = to.setting.selectedDate.getMinutes(),
-			iSeconds = to.setting.selectedDate.getSeconds();			
-		
+			iSeconds = to.setting.selectedDate.getSeconds();
+
 			to.setting.selectedDate = to.setDateInFormat({"iDate": {y: iYear, M: iMonth, d: iDate, H: iHours, m: iMinutes, s: iSeconds}}, "");
 			to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
 
@@ -2902,59 +2902,59 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					else
 						iCMVMonthTableTop = $(to.elem).position().top;
 				}
-			
+
 				var newElem = $(to.elem).find(".cmvMonthTableMain").clone();
 				$(newElem).removeClass("cmvMonthTableMain").addClass("cmvMonthTableTemp");
 				$(newElem).css({"position": "absolute", "top": iCMVMonthTableTop, "left": iCMVMonthTableLeft});
 				$(newElem).css({"z-index": 101});
-			
+
 				iCMVMonthTableLeft = iCMVMonthTableLeft - iCMVMonthTableWidth;
 				$(to.elem).find(".cmvMonthTableMain").parent().append(newElem);
-			
+
 				//-----------------------------------------------------------------------------------
-			
+
 				var iCDMVEventContLeft, iCDMVEventContWidth, newElemCont2;
 				if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
 				{
 					iCDMVEventContLeft = $(to.elem).find(".cdmvEventContMain").position().left;
 					iCDMVEventContWidth= $(to.elem).find(".cdmvEventContMain").width();
 					newElemCont2 = $(to.elem).find(".cdmvEventContMain").clone();
-					$(newElemCont2).removeClass("cdmvEventContMain").addClass("cdmvEventContTemp");	
+					$(newElemCont2).removeClass("cdmvEventContMain").addClass("cdmvEventContTemp");
 					$(to.elem).find(".cdmvEventContMain").parent().append(newElemCont2);
 					$(newElemCont2).css({"z-index": 102});
 					iCDMVEventContLeft = iCDMVEventContLeft - iCDMVEventContWidth;
 					$(newElemCont2).animate({"left": iCDMVEventContLeft}, to.setting.transitionSpeed);
 				}
-			
+
 				//-----------------------------------------------------------------------------------
-			
+
 				$(newElem).animate({"left": iCMVMonthTableLeft}, to.setting.transitionSpeed);
-			
+
 				setTimeout(function()
 				{
 					$(newElem).remove();
 					if($.cf.compareStrings(to.setting.visibleView, "DetailedMonthView"))
-						$(newElemCont2).remove();						
+						$(newElemCont2).remove();
 				}, to.setting.transitionSpeed);
 			}
-		
+
 			to.tv.dCMDt = new Date(to.tv.dNMDt);
 			to._setNextPreviousMonthDates();
-		
+
 			var iMonth = to.tv.dCMDt.getMonth(),
 			iYear = to.tv.dCMDt.getFullYear(),
 			iNumOfDays = to.__getNumberOfDaysOfMonth(iMonth, iYear),
 			iDate = to.setting.selectedDate.getDate();
 			if(iDate > iNumOfDays)
 				iDate = iNumOfDays;
-		
+
 			var iHours = to.setting.selectedDate.getHours(),
 			iMinutes = to.setting.selectedDate.getMinutes(),
-			iSeconds = to.setting.selectedDate.getSeconds();			
-		
+			iSeconds = to.setting.selectedDate.getSeconds();
+
 			to.setting.selectedDate = to.setDateInFormat({"iDate": {y: iYear, M: iMonth, d: iDate, H: iHours, m: iMinutes, s: iSeconds}}, "");
 			to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-		
+
 			to.tv.sLoadType = "Next";
 			to.updateMonthTableAndContents(true);
 			setTimeout(function()

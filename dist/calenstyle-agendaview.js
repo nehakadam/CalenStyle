@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -21,7 +21,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 
 		var iTempIndex, iEventIndex,
-		dTempViewDate, dTempViewStartDate, dTempViewEndDate, oAEventsForView, 
+		dTempViewDate, dTempViewStartDate, dTempViewEndDate, oAEventsForView,
 		iNumOfDays = to.tv.dAVDt.length,
 		bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
 		bHideEventTime = $.cf.isValid(to.setting.hideEventTime[to.setting.visibleView]) ? to.setting.hideEventTime[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventTime.Default) ? to.setting.hideEventTime.Default : false;
@@ -33,18 +33,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			to.tv.dLoadDt = to.tv.dAVDt[(iNumOfDays - 1)];
 
 		to._setDateStringsInHeaderOfAgendaView();
-	
+
 		to.__parseData(bLoadAllData, function()
 		{
 			var iEventId = 0, sSelectedDateElemId,
-			sFullDate, sDateId, iColspan, sTemplate, bIsToday, sDateClass = "", sDayClass = "", 
+			sFullDate, sDateId, iColspan, sTemplate, bIsToday, sDateClass = "", sDayClass = "",
 			oEvent = null, dStartDateTime = null, dEndDateTime = null,
 			bIsAllDay = 0, sTitle = "",  sURL = "", sDesc = "", bIsMarked = false,
-			sArrEventDateTime = null, sEventDateTime = null, 
+			sArrEventDateTime = null, sEventDateTime = null,
 			sEventColor = "", sEventBorderColor = "", sEventTextColor = "",
-			sStyle = "", sStyleColorHeight = "", sIcon = "", sEventDetailsStyle = "", 
+			sStyle = "", sStyleColorHeight = "", sIcon = "", sEventDetailsStyle = "",
 			sEventIconStyle = "", sEventBorderStyle = "", sEventBeforeStyle = "",
-			sId = "", sIdElem = "", sEventClass = "", 
+			sId = "", sIdElem = "", sEventClass = "",
 			$oDateElem;
 
 			if(to.setting.displayEventsForPeriodInListInAgendaView)
@@ -52,7 +52,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				var oViewDetails = {};
 				oViewDetails.viewStartDate = to.tv.dVSDt;
 				oViewDetails.viewEndDate = to.tv.dVEDt;
-			
+
 				var iEventCount = 0;
 				var oDateList = [];
 				for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
@@ -63,21 +63,21 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					oAEventsForView = to.getArrayOfEventsForView(dTempViewStartDate, dTempViewEndDate);
 					var oDate = {};
 					oDate.date = dTempViewStartDate;
-				
+
 					var oEventList = [];
 					for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 					{
 						oEventList.push(oAEventsForView[iEventIndex]);
 						iEventCount++;
 					}
-				
+
 					oDate.events = oEventList;
-					oDateList.push(oDate);				
+					oDateList.push(oDate);
 				}
-			
+
 				oViewDetails.eventCount = iEventCount;
 				oViewDetails.eventList = oDateList;
-			
+
 				sTemplate = to.setting.displayEventsForPeriodInListInAgendaView.call(to, oViewDetails);
 				$(to.elem).find(".cListOuterCont").html(sTemplate);
 			}
@@ -92,7 +92,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				if($.cf.compareStrings(to.setting.agendaViewTheme, "Timeline1"))
 				{
 					$(to.elem).find(".cListOuterCont").html("<table class='cagvTable'></table>");
-				
+
 					iColspan = 4;
 					if(bHideEventIcon)
 						iColspan--;
@@ -124,25 +124,25 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								dStartDateTime = null; dEndDateTime = null;
 								bIsAllDay = 0; sTitle = "";  sURL = ""; sEventColor = ""; sDesc = "";
-								sId = ""; sIdElem = ""; 
+								sId = ""; sIdElem = "";
 								sEventColor = ""; sEventBorderColor = ""; sEventTextColor = "";
 								sStyle = ""; sStyleColorHeight = ""; sIcon = ""; sEventDetailsStyle = ""; sEventIconStyle = "";
-							
+
 								if(oEvent.start !== null)
 									dStartDateTime = oEvent.start;
-							
+
 								if(oEvent.end !== null)
 									dEndDateTime = oEvent.end;
-							
+
 								if(oEvent.isAllDay !== null)
 									bIsAllDay = oEvent.isAllDay;
-							
+
 								if(oEvent.title !== null)
 									sTitle = oEvent.title;
 
 								if(oEvent.desc !== null)
 									sDesc = oEvent.desc;
-							
+
 								if(oEvent.url !== null)
 									sURL = oEvent.url;
 
@@ -151,12 +151,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								if(bIsMarked)
 									bIsAllDay = true;
-							
+
 								sArrEventDateTime = to.getEventDateTimeDataForAgendaView(dStartDateTime, dEndDateTime, bIsAllDay, dTempViewStartDate);
 								sEventDateTime = sArrEventDateTime[0];
 								if(sEventDateTime === "")
 									sEventDateTime = to.setting.miscStrings.allDay;
-							
+
 								sEventColor = oEvent.fromSingleColor ? oEvent.textColor : oEvent.backgroundColor;
 								sEventColor = ($.cf.compareStrings(sEventColor, "") || $.cf.compareStrings(sEventColor, "transparent")) ? "transparent" : sEventColor;
 								sId = "Event" + (++iEventId);
@@ -182,10 +182,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 								else
 									sIcon = $.cf.isValid(oEvent.icon) ? oEvent.icon : to.setting.eventIcon;
-							
+
 								sTemplate = "";
 								sTemplate += "<tr id='" + sId + "' class='cagvEvent'>";
-							
+
 								if(bIsMarked)
 								{
 									sTemplate += "<td class='cagvEventIcon'><span class='cagvEventIconLine'></span><span class='cagvEventIconFont "+sIcon+"' style='" + sEventIconStyle + "'></span></td>";
@@ -209,7 +209,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								if(!bHideEventTime)
 									sTemplate += "<div class='cagvEventTime'>" + sEventDateTime + "</div>";
-							
+
 								sTemplate += "<div class='cagvEventContent'>";
 
 								sTemplate += "<div class='cagvEventTitle'>" + sTitle + "</div>";
@@ -230,7 +230,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 									if($oDateElem.find(".cMarkedDayIndicator").length === 0)
 										$oDateElem.append("<span class='cMarkedDayIndicator cs-icon-Mark'></span>");
 								}
-							
+
 								if($.cf.isValid(sURL) || to.setting.eventClicked)
 								{
 									sIdElem = "#"+sId;
@@ -249,7 +249,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				else if($.cf.compareStrings(to.setting.agendaViewTheme, "Timeline2"))
 				{
 					$(to.elem).find(".cListOuterCont").html("<table class='cagvTable'></table>");
-				
+
 					for(iTempIndex = 0; iTempIndex < iNumOfDays; iTempIndex++)
 					{
 						dTempViewDate = to.tv.dAVDt[iTempIndex];
@@ -273,28 +273,28 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 							{
 								oEvent = oAEventsForView[iEventIndex];
-							
+
 								dStartDateTime = null; dEndDateTime = null;
 								bIsAllDay = 0; sTitle = "";  sURL = ""; sEventColor = ""; sDesc = "";
-								sId = ""; sIdElem = ""; 
+								sId = ""; sIdElem = "";
 								sEventColor = ""; sEventBorderColor = ""; sEventTextColor = "";
 								sStyle = ""; sStyleColorHeight = ""; sIcon = ""; sEventDetailsStyle = ""; sEventIconStyle = "";
 
 								if(oEvent.start !== null)
 									dStartDateTime = oEvent.start;
-							
+
 								if(oEvent.end !== null)
 									dEndDateTime = oEvent.end;
-							
+
 								if(oEvent.isAllDay !== null)
 									bIsAllDay = oEvent.isAllDay;
-							
+
 								if(oEvent.title !== null)
 									sTitle = oEvent.title;
 
 								if(oEvent.desc !== null)
 									sDesc = oEvent.desc;
-							
+
 								if(oEvent.url !== null)
 									sURL = oEvent.url;
 
@@ -303,14 +303,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								if(bIsMarked)
 									bIsAllDay = true;
-							
+
 								sEventColor = oEvent.backgroundColor;
 								sEventColor = ($.cf.compareStrings(sEventColor, "") || $.cf.compareStrings(sEventColor, "transparent")) ? "transparent" : sEventColor;
 								sEventBorderColor = oEvent.borderColor || $.cf.addHashToHexcode(to.setting.borderColor);
 								sEventBorderColor = ($.cf.compareStrings(sEventBorderColor, "") || $.cf.compareStrings(sEventBorderColor, "transparent")) ? "transparent" : sEventBorderColor;
 								sEventTextColor = oEvent.textColor || $.cf.addHashToHexcode(to.setting.textColor);
 								sEventTextColor = ($.cf.compareStrings(sEventTextColor, "") || $.cf.compareStrings(sEventTextColor, "transparent")) ? $.cf.addHashToHexcode(to.setting.textColor) : sEventTextColor;
-							
+
 								sStyle = "background: " + sEventColor + "; border-color: " + sEventBorderColor + "; color: " + sEventTextColor + "; ";
 								if(sEventBorderColor === "transparent")
 									sStyle += "border-width: 0px; ";
@@ -319,10 +319,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								sEventDateTime = sArrEventDateTime[0];
 								if(sEventDateTime === "")
 									sEventDateTime = to.setting.miscStrings.allDay;
-							
+
 								sId = "Event" + (++iEventId);
 								sStyleColorHeight = sArrEventDateTime[1];
-								
+
 								if(bIsMarked)
 								{
 									sEventDetailsStyle =  "color: " + sEventTextColor + "; border-color: " + sEventBorderColor + "; background: " + sEventColor + "; ";
@@ -339,7 +339,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								sTemplate = "";
 								sTemplate += "<tr id='" + sId + "'>";
-							
+
 								sTemplate += "<td id='" + sDateId + "' class='cagvContDate'>";
 								if(!bAddedDate)
 								{
@@ -383,7 +383,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 									sTemplate += "<span class='cagvEventTitle'>" + sTitle + "</span>";
 									sTemplate += "</div>";
-								
+
 									sTemplate += "<div class='cagvContTime'>";
 									if(!bHideEventTime)
 										sTemplate += "<span class='cagvEventTime'>" + sEventDateTime + "</span>";
@@ -392,7 +392,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								sTemplate += "</div>";
 								sTemplate += "</td>";
-							
+
 								sTemplate += "</tr>";
 
 								if(iEventIndex === (oAEventsForView.length - 1))
@@ -401,7 +401,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 
 								$(to.elem).find(".cagvTable").append(sTemplate);
-							
+
 								sIdElem = "#"+sId;
 								$(to.elem).find(sIdElem + " .cagvEventTimeLabel").css({"background": sEventTextColor});
 								if($.cf.isValid(sURL) || to.setting.eventClicked)
@@ -414,7 +414,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						{
 							sTemplate = "";
 							sTemplate += "<tr>";
-						
+
 							sTemplate += "<td id='" + sDateId + "' class='cagvContDate'>";
 							if(!bAddedDate)
 							{
@@ -435,7 +435,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				else if($.cf.compareStrings(to.setting.agendaViewTheme, "Timeline3"))
 				{
 					$(to.elem).find(".cListOuterCont").html("<table class='cagvTable'></table>");
-				
+
 					iColspan = 4;
 					if(bHideEventIcon)
 						iColspan--;
@@ -449,14 +449,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						dTempViewEndDate = to.setDateInFormat({"date": dTempViewDate}, "END");
 						oAEventsForView = to.getArrayOfEventsForView(dTempViewStartDate, dTempViewEndDate);
 						bIsToday = (to.compareDates(dTempViewDate, $.CalenStyle.extra.dToday) === 0);
-					
+
 						sFullDate = to.getDateInFormat({"date": dTempViewStartDate}, "dd-MM-yyyy", false, true);
 						sDateId = "Date-" +  sFullDate;
 						sDateClass = bIsToday ? "cagvDate cagvDateToday" : "cagvDate";
 
 						if(iTempIndex === 0 && sSelectedDateElemId === undefined)
 							sSelectedDateElemId = "#" + sDateId;
-					
+
 						if(oAEventsForView.length !== 0)
 						{
 							$(to.elem).find(".cagvTable").append("<tr><td colspan='"+iColspan+"'><div id='" + sDateId + "' class='" + sDateClass + "'>" + to.getDateInFormat({"date": dTempViewStartDate}, "DDDD MMMM dd yyyy", false, true) + "</div></td></tr>");
@@ -464,28 +464,28 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							for(iEventIndex = 0; iEventIndex < oAEventsForView.length; iEventIndex++)
 							{
 								oEvent = oAEventsForView[iEventIndex];
-							
+
 								dStartDateTime = null; dEndDateTime = null;
 								bIsAllDay = 0; sTitle = "";  sURL = ""; sEventColor = ""; sDesc = "";
-								sId = ""; sIdElem = ""; 
+								sId = ""; sIdElem = "";
 								sEventColor = ""; sEventBorderColor = ""; sEventTextColor = "";
 								sStyle = ""; sStyleColorHeight = ""; sIcon = ""; sEventDetailsStyle = ""; sEventIconStyle = "";
-							
+
 								if(oEvent.start !== null)
 									dStartDateTime = oEvent.start;
-							
+
 								if(oEvent.end !== null)
 									dEndDateTime = oEvent.end;
-							
+
 								if(oEvent.isAllDay !== null)
 									bIsAllDay = oEvent.isAllDay;
-							
+
 								if(oEvent.title !== null)
 									sTitle = oEvent.title;
 
 								if(oEvent.desc !== null)
 									sDesc = oEvent.desc;
-							
+
 								if(oEvent.url !== null)
 									sURL = oEvent.url;
 
@@ -494,17 +494,17 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 								if(bIsMarked)
 									bIsAllDay = true;
-							
+
 								sArrEventDateTime = to.getEventDateTimeDataForAgendaView(dStartDateTime, dEndDateTime, bIsAllDay, dTempViewStartDate);
 								sEventDateTime = sArrEventDateTime[0];
 								if(sEventDateTime === "")
 									sEventDateTime = to.setting.miscStrings.allDay;
-							
+
 								sEventColor = oEvent.fromSingleColor ? oEvent.textColor : oEvent.backgroundColor;
 								sEventColor = ($.cf.compareStrings(sEventColor, "") || $.cf.compareStrings(sEventColor, "transparent")) ? "transparent" : sEventColor;
 								sId = "Event" + (++iEventId);
 								sStyleColorHeight = sArrEventDateTime[1];
-							
+
 								sEventClass = "cagvEvent";
 								if(bIsMarked)
 								{
@@ -519,14 +519,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 
 								sTemplate = "";
-								
+
 								sTemplate += "<tr id='" + sId + "' class='" + sEventClass + "'>";
-								
+
 								sTemplate += "<td class='cagvEventColor'><span style='background:" + sEventColor + "; height:" + sStyleColorHeight + ";'></span></td>";
-							
+
 								if(!bHideEventTime)
 									sTemplate += "<td class='cagvEventTime'>" + sEventDateTime + "</td>";
-								
+
 								if(bIsMarked)
 								{
 									sTemplate += "<td class='cagvEventIcon'><span class='cagvEventIconFont "+sIcon+"' style='" + sEventIconStyle + "'></span></td>";
@@ -543,16 +543,16 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								}
 
 								sTemplate += "<td class='cagvEventContent'>";
-															
+
 								sTemplate += "<div class='cagvEventTitle'>" + sTitle + "</div>";
 								sTemplate += "<div class='cagvEventDesc'>" + sDesc + "</div>";
 								sTemplate += "</td>";
 
 								sTemplate += "</tr>";
-							
+
 								sTemplate += "<tr class='cagvEventSeparator'><td colspan='"+iColspan+"'><hr/></td></tr>";
 								$(to.elem).find(".cagvTable").append(sTemplate);
-							
+
 								if(bIsMarked)
 								{
 									$oDateElem = $(to.elem).find("#"+sDateId);
@@ -591,7 +591,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 			to.addRemoveViewLoader(false, "cEventLoaderBg");
 			to.addRemoveLoaderIndicators(false, "cEventLoaderIndicator");
-		
+
 			if(to.setting.eventListAppended)
 				to.setting.eventListAppended.call(to);
 
@@ -604,18 +604,18 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	_setDateStringsInHeaderOfAgendaView: function()
 	{
 		var to = this;
-		var sHeaderViewLabel = "";	
+		var sHeaderViewLabel = "";
 		if($.cf.compareStrings(to.setting.agendaViewDuration, "Month"))
 		{
 			var oSelectedDate = to.getDateInFormat({"date": to.setting.selectedDate}, "object", false, true);
-			sHeaderViewLabel = "<span class='cContHeaderLabelMonth'><b>" + to.getDateInFormat({"iDate": oSelectedDate}, "MMMM", false, true) + "</b></span></span>";	
+			sHeaderViewLabel = "<span class='cContHeaderLabelMonth'><b>" + to.getDateInFormat({"iDate": oSelectedDate}, "MMMM", false, true) + "</b></span></span>";
 			sHeaderViewLabel += "<span class='cContHeaderLabelYear'>" + to.getNumberStringInFormat(oSelectedDate.y, 0, true) + "</span></span>";
 		}
 		else
 		{
 			var oAGVStart = to.getDateInFormat({"date": to.tv.dVSDt}, "object", false, true),
 			oAGVEnd = to.getDateInFormat({"date": to.tv.dVEDt}, "object", false, true);
-		
+
 			if(to.tv.iNoVDay > 1)
 			{
 				if(oAGVStart.y === oAGVEnd.y)
@@ -679,7 +679,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iHeight = (iHours/24)*iBaseHeight;
 				iHeight = (iHeight < 1) ? 1 : iHeight;
 				sStyleColorHeight = iHeight + "px";
-			
+
 				if(to.compareDates(dEvStartDate, dThisDate) === 0)
 					sDateTimeString = "<span class='"+sClassTop+"'>" + to.getDateInFormat({"date": dEvStartDate}, sEventTimeFormat, to.setting.is24Hour, true) + "</span>" + sSeparator + "<span class='"+sClassBottom+" "+sClassDuration+"'>" + ($.cf.compareStrings(to.setting.duration, "Default") ? to.__getDurationBetweenDates(dEvStartDate, dEvEndDate, "dhm", false, false) : to.setting.duration.call(to, dEvStartDate, dEvEndDate, "dhm")) + "</span>";
 				else if(to.compareDates(dEvEndDate, dThisDate) === 0)
@@ -709,9 +709,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 				iCurrentDateMS -= $.CalenStyle.extra.iMS.d;
 			to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
-		}	
+		}
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Prev";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -723,7 +723,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	__goToNextAgendaView: function()
 	{
 		var to = this;
-	
+
 		if($.cf.compareStrings(to.setting.agendaViewDuration, "Month"))
 		{
 			var iMonth = to.tv.dVSDt.getMonth();
@@ -737,7 +737,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 		}
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Next";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -754,20 +754,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		icagvCalendarContMaxHeight = parseInt(icagvCalendarContMaxHeight.replace("px", "")) || 0;
 		var icagvCalendarContMinHeight = $(to.elem).find(".cagvCalendarCont").css("min-height");
 		icagvCalendarContMinHeight = parseInt(icagvCalendarContMinHeight.replace("px", "")) || 0;
-	
+
 		if(icagvCalendarContMaxHeight > 0 && $(to.elem).height() > icagvCalendarContMaxHeight)
 			$(to.elem).css({"height": icagvCalendarContMaxHeight});
 		else if(icagvCalendarContMinHeight > 0 && $(to.elem).height() < icagvCalendarContMinHeight)
 			$(to.elem).css({"height": icagvCalendarContMinHeight});
 		if(to.tv.iCalHeight !== 0)
 			$(to.elem).css({"height": to.tv.iCalHeight});
-	
+
 		var iCalendarContWidth = $(to.elem).find(".calendarCont").parent().outerWidth(),
 		iCalendarContHeight = $(to.elem).find(".calendarCont").outerHeight();
-	
+
 		if($.cf.compareStrings(to.setting.filterBarPosition, "Left") || $.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 			iCalendarContWidth -= to.setting.filterBarWidth;
-	
+
 		if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 		{
 			$(to.elem).find(".cFilterBar").css({"width": iCalendarContWidth});
@@ -775,27 +775,27 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		}
 		$(to.elem).find(".calendarContInner").css({"width": iCalendarContWidth, "height": iCalendarContHeight});
 		to.__adjustHeader();
-	
+
 		if(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 			$(to.elem).find(".cFilterBar").css({"left": iCalendarContWidth});
-	
+
 		iCalendarContHeight -= (($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").outerHeight() : 0);
 		if(to.tv.bDisABar)
 			iCalendarContHeight -= $(to.elem).find(".cActionBar").outerHeight();
-	
+
 		$(to.elem).find(".cListOuterCont").css({"height": iCalendarContHeight});
 		$(to.elem).find(".cagvTable").css({"width": (iCalendarContWidth - $.CalenStyle.extra.iScrollbarWidth)});
-	
+
 		var iEventWidth = iCalendarContWidth,
 		iEventColorWidth = $(to.elem).find(".cagvEventColor").outerWidth(true),
 		oElems = $(to.elem).find(".cagvEventTime span");
-		var iTimeMaxWidth = Math.max.apply(null, $(oElems).map(function() 
+		var iTimeMaxWidth = Math.max.apply(null, $(oElems).map(function()
 		{
 			return $(this).outerWidth(true);
 		}).get());
 		iTimeMaxWidth += 10;
 		$(to.elem).find(".cagvEventTime").css({"min-width": iTimeMaxWidth});
-	
+
 		var iEventTitleWidth = iEventWidth - (iEventColorWidth + iTimeMaxWidth) - 10;
 		if($.cf.compareStrings(to.setting.agendaViewTheme, "Timeline1"))
 		{

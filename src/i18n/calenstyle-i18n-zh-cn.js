@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -18,7 +18,7 @@
 */
 
 (function ($) {
-    $.CalenStyle.i18n["zh-cn"] = $.extend($.CalenStyle.i18n["zh-cn"], 
+    $.CalenStyle.i18n["zh-cn"] = $.extend($.CalenStyle.i18n["zh-cn"],
     {
         veryShortDayNames: '日_一_二_三_四_五_六'.split('_'),
 		shortDayNames: '周日_周一_周二_周三_周四_周五_周六'.split('_'),

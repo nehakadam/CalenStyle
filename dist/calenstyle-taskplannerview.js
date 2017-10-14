@@ -1,7 +1,7 @@
-/* ----------------------------------------------------------------------------- 
+/* -----------------------------------------------------------------------------
 
   CalenStyle - Responsive Event Calendar
-  Version 2.0.7
+  Version 2.0.8
   Copyright (c)2017 Lajpat Shah
   Contributors : https://github.com/nehakadam/CalenStyle/contributors
   Repository : https://github.com/nehakadam/CalenStyle
@@ -18,14 +18,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	__updateTaskPlannerView: function(bLoadAllData)
 	{
 		var to = this;
-	
+
 		var sTemplate = "",
-		iDateIndex, sDVDaysClass, 
+		iDateIndex, sDVDaysClass,
 		sColumnClass = (to.tv.iNoVDayDis === 1) ? " ctpvSingleColumn" : " ctpvMultiColumn",
 		sTempId;
-	
+
 		//---------------------------------------------------------------------------------------------
-	
+
 		sTemplate += "<thead>";
 		sTemplate += "<tr class='ctpvTableRow1'>";
 		for(iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
@@ -63,7 +63,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		// ----------------------------------------------
 
 		// -------------- Task Container --------------------
-	
+
 		sTemplate += "<tr class='ctpvTableRow2'>";
 		for(iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
 		{
@@ -76,13 +76,13 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		sTemplate += "</tr>";
 
 		// ----------------------------------------------
-		
+
 		sTemplate += "</tbody>";
 
 		$(to.elem).find(".ctpvTableMain").html(sTemplate);
 
 		//---------------------------------------------------------------------------------------------
-	
+
 		to._updateDaySummaryView();
 		to._setDateStringsInHeaderOfTaskPlannerView();
 		to._makeEventContDroppableInTaskPlannerView();
@@ -92,24 +92,24 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	_setDateStringsInHeaderOfTaskPlannerView: function()
 	{
 		var to = this;
-		
+
 		for(var iDateIndex = 0; iDateIndex < to.tv.iNoVDayDis; iDateIndex++)
 		{
 			var dTempDate = to.tv.dAVDt[iDateIndex];
 			var bFullDateMatched = to.compareDates(dTempDate, $.CalenStyle.extra.dToday),
-		
-			/* -------------------------- Table Row 1 Start ------------------------------- */	
+
+			/* -------------------------- Table Row 1 Start ------------------------------- */
 			iDayOfWeek = dTempDate.getDay(),
 			sRow1Id = ".ctpvTableRow1 .ctpvDayColumn"+iDateIndex,
 			$oRow1 = $(to.elem).find(sRow1Id),
 			iDay = dTempDate.getDate(),
-		
+
 			bWeekDayUnavailable = to.tv.bABsDays[iDayOfWeek] ? false : true,
 
 			// Set Style For All-Day Restricted Section
 			dArrTempResSec = to._getRestrictedSectionForCurrentView(dTempDate),
 			iTempIndex, sBgColor = "", sResSecClass = "";
-		
+
 			for(iTempIndex = 0; iTempIndex < dArrTempResSec.length; iTempIndex++)
 			{
 				var dArrResSec = dArrTempResSec[iTempIndex],
@@ -118,12 +118,12 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				dTempResSecEnd = new Date(dArrResSec.end),
 				bCompEnd = to.compareDates(dTempDate, dTempResSecEnd) === 0,
 				iNumOfHours;
-			
+
 				if(!bCompStart)
 					dTempResSecStart = to._normalizeDateTime(dTempDate, "START", "T");
 				if(!bCompEnd)
 					dTempResSecEnd = to._normalizeDateTime(dTempDate, "END", "T");
-			
+
 				iNumOfHours = Math.round((dTempResSecEnd.getTime() - dTempResSecStart.getTime()) / $.CalenStyle.extra.iMS.h);
 				if(iNumOfHours > 23 || dArrResSec.isAllDay)
 				{
@@ -133,31 +133,31 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sResSecClass = dArrResSec.class;
 				}
 			}
-		
+
 			if(bWeekDayUnavailable && bFullDateMatched === 0)
 				$oRow1.addClass("cRestrictedTodayBg cTodayHighlightTextColor");
 			else
 			{
 				if(bWeekDayUnavailable)
-					$oRow1.addClass("cNonBusinessHoursBg");				
+					$oRow1.addClass("cNonBusinessHoursBg");
 				if(bFullDateMatched === 0)
 					$oRow1.addClass("cTodayHighlightTextColor");
-				
+
 				// Set Style For All-Day Restricted Section
 				if($.cf.isValid(sBgColor))
 					$oRow1.css({"background": sBgColor});
 				if($.cf.isValid(sResSecClass))
 					$oRow1.addClass(sResSecClass);
 			}
-		
+
 			if(bFullDateMatched === 0)
 				$(to.elem).find(sRow1Id).html("<span class='ctpvDayColumnLeft'>"+to.setting.miscStrings.today+"</span><span class='ctpvDayColumnRight'>" + to.getNumberStringInFormat(iDay, 0, true) + "</span>");
 			else
 				$(to.elem).find(sRow1Id).html("<span class='ctpvDayColumnLeft'>" + to.getDateInFormat({"iDate": {D: iDayOfWeek}}, "DDD", false, true) + "</span><span class='ctpvDayColumnRight'>" + to.getNumberStringInFormat(iDay, 0, true) + "</span>");
-		
+
 			/* -------------------------- Table Row 1 End ------------------------------- */
-		
-			/* -------------------------- Table Row 2 Start ---------------------------- */	
+
+			/* -------------------------- Table Row 2 Start ---------------------------- */
 			var sRow2Id = ".ctpvTableRow2 #ctpvDayColumn"+iDateIndex,
 			$oRow2 = $(to.elem).find(sRow2Id);
 			if(bWeekDayUnavailable && bFullDateMatched === 0)
@@ -165,10 +165,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			else
 			{
 				if(bWeekDayUnavailable)
-					$oRow2.addClass("cNonBusinessHoursBg");	
+					$oRow2.addClass("cNonBusinessHoursBg");
 				if(bFullDateMatched === 0)
 					$oRow2.addClass("cTodayHighlightTextColor");
-			
+
 				// Set Style For All-Day Restricted Section
 				if($.cf.isValid(sBgColor))
 					$oRow2.css({"background": sBgColor});
@@ -177,10 +177,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 			/* -------------------------- Table Row 2 End ------------------------------- */
 		}
-	
+
 		var oDVStart = to.getDateInFormat({"date": to.tv.dVSDt}, "object", false, true),
 		oDVEnd = to.getDateInFormat({"date": to.tv.dVEDt}, "object", false, true);
-	
+
 		var sHeaderViewLabel;
 		if($.cf.compareStrings(to.setting.TaskPlannerViewDuration, "CustomDays") && to.setting.daysInTaskPlannerView === 1)
 			sHeaderViewLabel = "<b>" + to.getDateInFormat({"iDate": oDVStart}, "DDDD", false, true) + " " + to.getDateInFormat({"iDate": oDVEnd}, "MMMM", false, true) + " " + to.getNumberStringInFormat(oDVEnd.d, 0, true) + "</b>  " + to.getNumberStringInFormat(oDVEnd.y, 0, true);
@@ -199,7 +199,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 		if(to.setting.modifyHeaderViewLabels)
 			to.setting.modifyHeaderViewLabels.call(to, to.tv.dVSDt, to.tv.dVEDt, to.setting.selectedDate, sHeaderViewLabel, to.setting.visibleView);
-	
+
 		$(to.elem).find(".cContHeaderLabel").html(sHeaderViewLabel);
 	},
 
@@ -212,10 +212,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			var pClickedAt = {};
 			pClickedAt.x = e.pageX || e.originalEvent.touches[0].pageX || e.originalEvent.changedTouches[0].pageX;
 			pClickedAt.y = e.pageY || e.originalEvent.touches[0].pageY || e.originalEvent.changedTouches[0].pageY;
-		
+
 			var iDayIndex = parseInt($(this).attr("id").replace("ctpvDayColumn", "")),
 			dSelectedDateTime = to.tv.dAVDt[iDayIndex];
-		
+
 			if(to.setting.cellClicked)
 				to.setting.cellClicked.call(to, to.setting.visibleView, dSelectedDateTime, true, pClickedAt);
 		});
@@ -236,32 +236,42 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				ictpvTableTop = $(to.elem).find(".cContHeader").position().top +  $(to.elem).find(".cContHeader").outerHeight() - 1;
 			else
 				ictpvTableTop = $(to.elem).position().top;
-		
+
 			var oNewElem = $ocCTPVTableMain.clone();
 			$(oNewElem).removeClass("ctpvTableMain").addClass("ctpvTableTemp");
 			$(oNewElem).css({"position": "absolute", "top": ictpvTableTop, "left": ictpvTableLeft});
-			$ocCTPVTableMain.parent().append(oNewElem);	
-		
+			$ocCTPVTableMain.parent().append(oNewElem);
+
 			ictpvTableLeft = ictpvTableLeft + ictpvTableWidth;
-		
+
 			$(oNewElem).animate({"left": ictpvTableLeft}, to.setting.transitionSpeed);
-		
+
 			setTimeout(function()
 			{
 				$(to.elem).find(".ctpvTableTemp").remove();
 			}, to.setting.transitionSpeed);
-		
-			//-----------------------------------------------------------------------------------				
+
+			//-----------------------------------------------------------------------------------
 		}
 
-		var iCurrentDateMS = to.tv.dVSDt.getTime();
-		if(to.setting.daysInTaskPlannerView === 7)
-			iCurrentDateMS -= (to.tv.iNoVDay * $.CalenStyle.extra.iMS.d);
-		else
+		var iCurrentDateMS;
+		if(to.setting.navigateOneDayInTaskPlannerView)
+		{
+			iCurrentDateMS = to.tv.dVEDt.getTime();
 			iCurrentDateMS -= $.CalenStyle.extra.iMS.d;
+		}
+		else
+		{
+			iCurrentDateMS = to.tv.dVSDt.getTime();
+			if(to.setting.daysInTaskPlannerView === 7)
+				iCurrentDateMS -= (to.tv.iNoVDay * $.CalenStyle.extra.iMS.d);
+			else
+				iCurrentDateMS -= $.CalenStyle.extra.iMS.d;
+		}
+
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
-	
+
 		to.tv.sLoadType = "Prev";
 		to.__reloadCurrentView(false, true);
 		setTimeout(function()
@@ -277,7 +287,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if(to.setting.showTransition)
 		{
 			//-----------------------------------------------------------------------------------
-		
+
 			var $ocCTPVTableMain = $(to.elem).find(".ctpvTableMain"),
 			ictpvTableWidth = $ocCTPVTableMain.width(),
 			ictpvTableLeft = $ocCTPVTableMain.position().left,
@@ -286,26 +296,35 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				ictpvTableTop = $(to.elem).find(".cContHeader").position().top +  $(to.elem).find(".cContHeader").outerHeight() - 1;
 			else
 				ictpvTableTop = $(to.elem).position().top;
-		
+
 			var oNewElem = $ocCTPVTableMain.clone();
 			$(oNewElem).removeClass("ctpvTableMain").addClass("ctpvTableTemp");
 			$(oNewElem).css({"position": "absolute", "top": ictpvTableTop, "left": ictpvTableLeft});
-			$ocCTPVTableMain.parent().append(oNewElem);	
-		
+			$ocCTPVTableMain.parent().append(oNewElem);
+
 			ictpvTableLeft = ictpvTableLeft - ictpvTableWidth;
-		
+
 			$(oNewElem).animate({"left": ictpvTableLeft}, to.setting.transitionSpeed);
-		
+
 			setTimeout(function()
 			{
 				$(to.elem).find(".ctpvTableTemp").remove();
 			}, to.setting.transitionSpeed);
-		
-			//-----------------------------------------------------------------------------------				
+
+			//-----------------------------------------------------------------------------------
 		}
-	
-		var iCurrentDateMS = to.tv.dVEDt.getTime();
-		iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+
+		var iCurrentDateMS;
+		if(to.setting.navigateOneDayInTaskPlannerView)
+		{
+			iCurrentDateMS = to.tv.dVSDt.getTime();
+			iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+		}
+		else
+		{
+			iCurrentDateMS = to.tv.dVEDt.getTime();
+			iCurrentDateMS += $.CalenStyle.extra.iMS.d;
+		}
 		to.setting.selectedDate = to.setDateInFormat({"date": new Date(iCurrentDateMS)}, "START");
 
 		to.tv.dLoadDt = to.setDateInFormat({"date": to.setting.selectedDate}, "START");
@@ -320,25 +339,25 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	__adjustTaskPlannerView: function(bIsResized)
 	{
 		var to = this;
-		
+
 		var ictpvCalendarContMaxHeight = $(to.elem).find(".ctpvCalendarCont").css("max-height");
 		ictpvCalendarContMaxHeight = parseInt(ictpvCalendarContMaxHeight.replace("px", "")) || 0;
 		var ictpvCalendarContMinHeight = $(to.elem).find(".ctpvCalendarCont").css("min-height");
 		ictpvCalendarContMinHeight = parseInt(ictpvCalendarContMinHeight.replace("px", "")) || 0;
-	
+
 		if(ictpvCalendarContMaxHeight > 0 && $(to.elem).height() > ictpvCalendarContMaxHeight)
 			$(to.elem).css({"height": ictpvCalendarContMaxHeight});
 		else if(ictpvCalendarContMinHeight > 0 && $(to.elem).height() < ictpvCalendarContMinHeight)
 			$(to.elem).css({"height": ictpvCalendarContMinHeight});
 		if(to.tv.iCalHeight !== 0)
 			$(to.elem).css({"height": to.tv.iCalHeight});
-	
+
 		var bIsValidView = ($(to.elem).find(".ctpvCalendarCont").length > 0) ? true : false;
 		if(bIsValidView && !to.tv.bDVDrgEv && !to.tv.bDVResEv)
 		{
 			var iCalendarContWidth = $(to.elem).find(".calendarCont").parent().outerWidth(),
 			iCalendarContHeight = $(to.elem).find(".calendarCont").outerHeight();
-		
+
 			if(to.tv.bDisFBar)
 			{
 				if($.cf.compareStrings(to.setting.filterBarPosition, "Left") || $.cf.compareStrings(to.setting.filterBarPosition, "Right"))
@@ -351,36 +370,36 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 			}
 			$(to.elem).find(".calendarContInner").css({"width": iCalendarContWidth, "height": iCalendarContHeight});
-		
+
 			to.__adjustHeader();
-		
+
 			if($.cf.compareStrings(to.setting.filterBarPosition, "Right"))
 				$(to.elem).find(".cFilterBar").css({"left": iCalendarContWidth});
-		
+
 			var ictpvContRow2Width = iCalendarContWidth,
 			icContHeaderWidth = iCalendarContWidth;
 			if($(to.elem).find(".cContHeader").length > 0)
 				$(to.elem).find(".cContHeader").css({"width": icContHeaderWidth});
-		
+
 			var ictpvTableWidth = iCalendarContWidth,
 			icContHeaderHeight = ($(to.elem).find(".cContHeader").length > 0) ? $(to.elem).find(".cContHeader").outerHeight() : 0;
-		
+
 			if(to.tv.bDisABar)
 				iCalendarContHeight -= $(to.elem).find(".cActionBar").height();
-		
+
 			var ictpvTableHeight = iCalendarContHeight - icContHeaderHeight;
 			if(!to.tv.bDisABar || !(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 				ictpvTableHeight += $.CalenStyle.extra.iBorderOverhead;
 			else
 				ictpvTableHeight -= $.CalenStyle.extra.iBorderOverhead;
-		
+
 			if(to.setting.fixedHeightOfTaskPlannerView)
 			{
 				$(to.elem).find(".ctpvTableMain").css({"height": ictpvTableHeight, "width": ictpvTableWidth});
 
 				var ictpvTableBodyHeight = ictpvTableHeight - $(to.elem).find(".ctpvTableRow1").height();
 				$(to.elem).find(".ctpvTableMain tbody").css({"height": ictpvTableBodyHeight, "width": ictpvTableWidth});
-				
+
 				var ictpvTableRow2Height = ictpvTableBodyHeight - $(to.elem).find(".ctpvTableRowSummary").height();
 				$(to.elem).find(".ctpvTableRow2").css({"height": (ictpvTableRow2Height - 1)});
 
@@ -391,20 +410,20 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			{
 				ictpvTableHeight = $(to.elem).find(".ctpvTableRow1").height() + $(to.elem).find(".ctpvTableRow2").height() + $(to.elem).find(".ctpvTableRowSummary").height();
 				$(to.elem).find(".ctpvTableMain").css({"height": ictpvTableHeight, "width": ictpvTableWidth});
-			
+
 				iCalendarContHeight = ictpvTableHeight;
 				iCalendarContHeight += $(to.elem).find(".cContHeader").height();
 				if(to.tv.bDisABar)
 					iCalendarContHeight += $(to.elem).find(".cActionBar").height();
 				$(to.elem).find(".calendarContInner").css({"height": iCalendarContHeight});
-			
+
 				if(to.tv.bDisFBar && ($.cf.compareStrings(to.setting.filterBarPosition, "Top") || $.cf.compareStrings(to.setting.filterBarPosition, "Bottom")))
 					iCalendarContHeight += $(to.elem).find(".cFilterBar").height();
 				$(to.elem).css({"height": iCalendarContHeight});
 			}
 
 			var iBorderOverheadAllDays = to.tv.iNoVDay * $.CalenStyle.extra.iBorderOverhead;
-		
+
 			var ictpvTableColumnsWidth = (ictpvContRow2Width - iBorderOverheadAllDays) / (to.tv.iNoVDayDis);
 			$(to.elem).find(".ctpvTableColumns").css({"width": ictpvTableColumnsWidth});
 
@@ -421,7 +440,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			if($(to.elem).find(".ctpvEvent").hasClass("ui-draggable"))
 				$(to.elem).find(".ctpvEvent").draggable("destroy");
 			$(to.elem).find(".ctpvEvent").removeClass("ui-draggable-dragging");
-			to._makeEventDraggableInTaskPlannerView(".EventDraggable");		
+			to._makeEventDraggableInTaskPlannerView(".EventDraggable");
 		}
 	},
 
@@ -430,47 +449,47 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 		if($(to.elem).find(".ctpvTableRow2"))
 			$(to.elem).find(".ctpvTableRow2 td").html("");
-	
+
 		var oArrTempEvents = to.getArrayOfEventsForView(to.tv.dVSDt, to.tv.dVEDt),
 		bHideEventIcon = $.cf.isValid(to.setting.hideEventIcon[to.setting.visibleView]) ? to.setting.hideEventIcon[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventIcon.Default) ? to.setting.hideEventIcon.Default : false,
 		bHideEventTime = $.cf.isValid(to.setting.hideEventTime[to.setting.visibleView]) ? to.setting.hideEventTime[to.setting.visibleView] : $.cf.isValid(to.setting.hideEventTime.Default) ? to.setting.hideEventTime.Default : false;
 
 		to.tv.bAWkRw = [];
-	
+
 		if(oArrTempEvents.length > 0)
 		{
 			for(var iEventIndex = 0; iEventIndex < oArrTempEvents.length; iEventIndex++)
 			{
-				var oEvent = oArrTempEvents[iEventIndex],					
+				var oEvent = oArrTempEvents[iEventIndex],
 				dStartDateTime = null, dEndDateTime = null, bIsAllDay = 0,
 				sTitle = "", sDesc = "", sType = "", sURL = "", bDragNDrop = false, bIsMarked = false,
 				sDroppableId = "",
 				sId = "Event-" + oEvent.calEventId;
-			
+
 				if(oEvent.start !== null)
 					dStartDateTime = oEvent.start;
-			
+
 				if(oEvent.end !== null)
 					dEndDateTime = oEvent.end;
-			
+
 				if(oEvent.isAllDay !== null)
 					bIsAllDay = oEvent.isAllDay;
-			
+
 				if(oEvent.title !== null)
 					sTitle = oEvent.title;
-			
+
 				if(oEvent.desc !== null)
 					sDesc = oEvent.desc;
-			
+
 				if(oEvent.type !== null)
 					sType = oEvent.type;
-			
+
 				if(oEvent.url !== null)
 					sURL = oEvent.url;
 
 				if(oEvent.droppableId !== null)
 					sDroppableId = oEvent.droppableId;
-			
+
 				if(oEvent.isDragNDropInTaskPlannerView !== null)
 					bDragNDrop = oEvent.isDragNDropInTaskPlannerView;
 
@@ -479,24 +498,24 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				if(bIsMarked)
 					bIsAllDay = true;
-			
+
 				var iArrTempNum = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, true, true),
 				iNumOfEventElements = iArrTempNum[0],
 				iNumberOfHours = iArrTempNum[1];
-			
+
 				if(iNumOfEventElements > 0)
 				{
-					var sDayId = "", iColumn;							
+					var sDayId = "", iColumn;
 					var iNumOfSegs = iNumOfEventElements, iNumOfHours, iNumOfDays,
 					sDataDroppableId, sDateTimeString,
 					dTempStartDateTime = new Date(dStartDateTime),
 					dTempEndDateTime = new Date(dEndDateTime);
-				
+
 					if(to.compareDates(dStartDateTime, to.tv.dVSDt) < 0 && Math.abs(to.__getDifference("m", to.tv.dVSDt, dStartDateTime)) > 1)
 						dTempStartDateTime = new Date(to.tv.dVSDt);
-					if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)	
+					if(to.compareDates(to.tv.dVEDt, dEndDateTime) < 0 && Math.abs(to.__getDifference("m", to.tv.dVEDt, dEndDateTime)) > 1)
 						dTempEndDateTime = new Date(to.tv.dVEDt);
-				
+
 					var dTempSDT = new Date(dTempStartDateTime),
 					bActualStartDate = true;
 					while(!to.__findWhetherDateIsVisibleInCurrentView(dTempSDT, (bIsAllDay || iNumberOfHours > 23), dTempStartDateTime, dTempEndDateTime))
@@ -507,11 +526,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							break;
 					}
 					dTempStartDateTime = new Date(dTempSDT);
-				
+
 					iNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dTempStartDateTime, dTempEndDateTime, true, true, bActualStartDate);
 					iNumOfSegs = iNumOfDays[0];
 					iNumOfHours = iNumOfDays[1];
-				
+
 					if(iNumOfHours > 0)
 					{
 						var sEventClass = "ctpvEvent ";
@@ -527,7 +546,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 						var sColorStyle = "", sEventIconStyle = "",
 						sIcon = "";
-						
+
 						if(bIsMarked)
 						{
 							if(oEvent.fromSingleColor)
@@ -551,9 +570,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sIcon = ($.cf.isValid(oEvent.icon) && oEvent.icon !== "Dot") ? oEvent.icon : "cs-icon-Mark";
 						else
 							sIcon = $.cf.isValid(oEvent.icon) ? oEvent.icon : to.setting.eventIcon;
-					
+
 						if(to.compareDates(dEndDateTime, to.tv.dAVDt[0]) < 0)
-							sEventClass += ("cBlurredEvent ");							
+							sEventClass += ("cBlurredEvent ");
 						if(bDragNDrop)
 							sEventClass += ("EventDraggable cDragNDrop ");
 						if(to.setting.isTooltipInTaskPlannerView)
@@ -561,9 +580,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						sEventClass += sId;
 						if(bIsMarked)
 							sEventClass += " cMarkedDayEvent";
-					
+
 						iColumn = to._getDayNumberFromDateInTaskPlannerView(dTempStartDateTime);
-						
+
 						var dTemp = new Date(dTempStartDateTime);
 						for(var iEventSegIndex = 1; iEventSegIndex <= iNumOfSegs; iEventSegIndex++)
 						{
@@ -571,17 +590,17 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							sDayId = "#ctpvDayColumn"+iColumn;
 
 							var sEventSegId = sId + "-" + iEventSegIndex;
-						
+
 							//--------------------------- Add Event Start -----------------------------
-						
+
 							sDataDroppableId = $.cf.isValid(sDroppableId) ? " data-droppableid='" + sDroppableId + "'" : "";
 
 							var sTemplate = "<div id='" + sEventSegId + "' class='" + sEventClass + "' style='" + sColorStyle + "' " + sDataDroppableId + " title='' data-id='" + oEvent.calEventId + "'>";
-						
+
 							sTemplate += "<a class='cEventLink'>";
 
 							sTemplate += "<div class='ctpvEventTitle'>" + sTitle + "</div>";
-						
+
 							sTemplate += "<div class='ctpvEventExtra'>";
 
 							if($.cf.isValid(oEvent.status))
@@ -599,17 +618,17 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							{
 								if(!bHideEventTime && bIsAllDay === false)
 									sTemplate += "<span class='ctpvEventTime'>" + sDateTimeString + "</span>";
-							
+
 								if(!bHideEventIcon && !$.cf.compareStrings(sIcon, "Dot"))
 									sTemplate += "<span class='ctpvEventIcon "+sIcon+"' style='" + sEventIconStyle + "'></span>";
 							}
 
 							sTemplate += "</div>";
-						
+
 							sTemplate += "</a>";
-						
+
 							sTemplate += "</div>";
-						
+
 							$(to.elem).find(".ctpvTableRow2 " + sDayId).append(sTemplate);
 
 							var sIdElem = "#"+sEventSegId,
@@ -621,9 +640,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 							var sArrDateTime = sDateTime.split("&&");
 							oEventTooltip.title = sTitle;
 							oEventTooltip.startDateTime = sArrDateTime[0];
-							oEventTooltip.endDateTime = sArrDateTime[1];						
+							oEventTooltip.endDateTime = sArrDateTime[1];
 							$oSeg.data("tooltipcontent", oEventTooltip);
-						
+
 							if(to.setting.eventRendered)
 								to.setting.eventRendered.call(to, oEvent, $oSeg, $oSegContent, to.setting.visibleView, false);
 
@@ -632,7 +651,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 								$oSegContent.on($.CalenStyle.extra.sClickHandler, {"url": sURL, "eventId": oEvent.calEventId, "eventElemSelector": sIdElem, "view": "TaskPlannerView", "pluginId": to.tv.pluginId}, to.__bindClick);
 							}
 							//--------------------------- Add Event End -----------------------------
-							
+
 							iColumn++;
 							dTemp = new Date(dTemp.getTime() + $.CalenStyle.extra.iMS.d);
 							if(iEventSegIndex === 1)
@@ -643,11 +662,11 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			}
 
 			if(to.setting.isTooltipInTaskPlannerView)
-				to._addTooltipInTaskPlannerView(".cEventTooltip");	
-		
+				to._addTooltipInTaskPlannerView(".cEventTooltip");
+
 			if(to.setting.isDragNDropInTaskPlannerView)
 				to._makeEventDraggableInTaskPlannerView(".EventDraggable");
-		
+
 			if(to.setting.eventsAddedInView)
 				to.setting.eventsAddedInView.call(to, to.setting.visibleView, ".ctpvEvent");
 		}
@@ -664,7 +683,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 	{
 		var to = this;
 		var $oElemDragged, sDroppableId,
-		sEventId, sId, oDraggedEvent, sEventClass, 
+		sEventId, sId, oDraggedEvent, sEventClass,
 		dStartDateTime = null, dEndDateTime = null, bIsAllDay = 0,
 		iArrNumOfDays, iNumOfDays, iNumOfHours, dNextDate, iDroppedDayIndex,
 		bEventEntered = false, dStartDateAfterDrop = null, dEndDateAfterDrop = null,
@@ -674,7 +693,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		$(to.elem).find(".ctpvTableRow2 .ctpvTableColumns").droppable(
 		{
 			scope: "Events",
-		
+
 			over: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -701,7 +720,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: dNextDate.getDate(), M: dNextDate.getMonth(), y: dNextDate.getFullYear(), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-			
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -729,7 +748,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 				}
 			},
-		
+
 			drop: function(event, ui)
 			{
 				$oElemDragged = $(ui.draggable);
@@ -747,7 +766,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 						$(sEventClass+".cEventBeingDragged").remove();
 						$(sEventClass).removeClass("ui-draggable-dragging cEditingEvent cEditingEventUI");
 					}, 300);
-					
+
 					to.tv.iTSEndEditing = $.cf.getTimestamp();
 					return true;
 				}
@@ -758,17 +777,17 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					dEndDateTime = oDraggedEvent.end;
 				if(oDraggedEvent.isAllDay !== null)
 					bIsAllDay = oDraggedEvent.isAllDay;
-			
+
 				iArrNumOfDays = to.getNumberOfDaysOfEvent(bIsAllDay, dStartDateTime, dEndDateTime, true, false, true);
 				iNumOfDays = iArrNumOfDays[0];
 				iNumOfHours = iArrNumOfDays[1];
-			
+
 				iDroppedDayIndex = parseInt(sDroppedCellId.replace("ctpvDayColumn", ""));
 				var dDroppedDate = new Date(to.tv.dAVDt[iDroppedDayIndex]);
 
 				dStartDateAfterDrop = to.setDateInFormat({"iDate": {d: dDroppedDate.getDate(), M: dDroppedDate.getMonth(), y: dDroppedDate.getFullYear(), H: dStartDateTime.getHours(), m: dStartDateTime.getMinutes(), s: dStartDateTime.getSeconds()}}, "");
 				dEndDateAfterDrop = new Date(dStartDateAfterDrop.getTime() + (dEndDateTime.getTime() - dStartDateTime.getTime()));
-			
+
 				if(to.tv.bChkDroppable)
 				{
 					$oElemDragged = $(to.elem).find("#" + sEventId + ".ui-draggable-dragging");
@@ -778,7 +797,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					$oElemDragged.removeClass("cCursorNotAllowed");
 					$oElemDragged.find(".cEventLink").removeClass("cCursorNotAllowed");
 				}
-			
+
 				if(bEventEntered)
 				{
 					setTimeout(function()
@@ -806,10 +825,10 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 					}
 					$(to.elem).find(".ctpvTableColumns").removeClass("cActivatedCell");
 				}
-			
+
 				if(to.setting.saveChangesOnEventDrop)
 					to.setting.saveChangesOnEventDrop.call(to, oDraggedEvent, dStartDateTime, dEndDateTime, dStartDateAfterDrop, dEndDateAfterDrop);
-			
+
 				to.tv.iTSEndEditing = $.cf.getTimestamp();
 			}
 		});
@@ -821,14 +840,14 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var iEventHeight = $(to.elem).find(".ctpvEvent").height(),
 		iEventWidth = $(to.elem).find("#ctpvDayColumn0").width(),
 		iTimeSlotWidth = iEventWidth + 1,
-	
+
 		iCalendarLeft = $(to.elem).position().left,
 		iCalendarMarginLeft = $(to.elem).css("margin-left");
 		iCalendarMarginLeft = parseInt(iCalendarMarginLeft.replace("px", ""));
 		var iLeft = iCalendarLeft + iCalendarMarginLeft + $(to.elem).find(".ctpvTableMain").position().left,
 		iX1 = iLeft,
 		iX2 = iX1 + $(to.elem).find(".ctpvTableMain").width() - iEventWidth,
-	
+
 		iCalendarTop = $(to.elem).position().top,
 		iCalendarMarginTop = $(to.elem).css("margin-top");
 		iCalendarMarginTop = parseInt(iCalendarMarginTop.replace("px", ""));
@@ -836,9 +855,9 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		if(to.tv.bDisFBar && $.cf.compareStrings(to.setting.filterBarPosition, "Top"))
 			iY1 += to.setting.filterBarHeight;
 		var iY2 = iY1 + $(to.elem).find(".ctpvTableMain").height() - iEventHeight;
-	
+
 		iEventWidth = iEventWidth - 10;
-	
+
 		$(to.elem).find(sClass).draggable(
 		{
 			zIndex: 100,
@@ -849,7 +868,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 			cursor: "move",
 			delay: 300,
 			revertDuration: 300,
-		
+
 			start: function()
 			{
 				var $oElemDragged = $(this);
@@ -864,7 +883,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				iEventWidth = $(to.elem).find(".ctpvTableColumns").width() - 10;
 				$oElemDragged.css({"width": iEventWidth});
 			},
-		
+
 			revert: function()
 			{
 				$(to.elem).find(".ctpvTableColumns").removeClass("cActivatedCell");
@@ -879,7 +898,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 		var to = this;
 		$(to.elem).find(sClass).tooltip(
 		{
-			
+
 			content: function()
 			{
 				var sTooltipText = "";
@@ -905,7 +924,7 @@ CalenStyle.prototype = $.extend(CalenStyle.prototype, {
 				}
 				return sTooltipText;
 			},
-						
+
 			position:
 			{
 				my: "center bottom-15",

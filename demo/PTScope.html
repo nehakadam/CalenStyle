@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<title>Default View</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-custom-1.11.2.min.js"></script>
+    	<link rel="stylesheet" type="text/css" href="css/jquery-ui-custom-1.11.2.min.css" />
+    
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-jquery-ui-override.css" />
+		<link rel="stylesheet" type="text/css" href="../src/calenstyle-iconfont.css" />
+		<script type="text/javascript" src="../src/calenstyle.js"></script>
+	
+		<script type="text/javascript" src="js/CalJsonGenerator.js"></script>
+	
+		<style type="text/css">
+
+			/* --------------- Required --------------- */
+			.calendarContOuter
+			{
+				width: 1000px;
+				height: 600px;
+				margin: 0px auto;
+
+            	font-size: 14px;
+			}
+
+			.cElemDatePicker
+			{
+				font-size: 14px;
+			}
+		
+		</style>
+
+
+		<script type="text/javascript">
+
+			var oCal1, sInputTZOffset = "-00:00";
+
+		    $(document).ready(function()
+		    {
+		       	$(".calendarContOuter").CalenStyle(
+		       	{
+
+		          	initialize: function()
+		          	{
+		            	oCal1 = this;
+		          	},
+
+			        calDataSource:
+			        [
+			            {
+			                sourceFetchType: "DATERANGE",
+			                sourceType: "URL",
+			                source: "loadcaldata.php" 
+			            }
+			        ],
+
+		         	//selectedDate: new Date(2014, 05, 12, 0, 0, 0, 0),
+
+		         	//visibleView: "QuickAgendaView",
+
+		         	viewsToDisplay: [
+			           	{
+			             	"viewName": "DetailedMonthView",
+			             	"viewDisplayName": "Month"
+			           	},
+			           	{
+			             	"viewName": "WeekView",
+			             	"viewDisplayName": "Week"
+			           	},
+			           	{
+			             	"viewName": "DayView",
+			             	"viewDisplayName": "Day"
+			           	},
+			           	{
+			             	"viewName": "AgendaView",
+			             	"viewDisplayName": "Agenda"
+			           	}
+			        ],
+
+		        	businessHoursSource: [
+		       			{
+		       				day: 1,
+		       				times: [{startTime: "09:00", endTime: "17:00"}]
+		       			},
+		       			{
+		       				day: 2,
+		       				times: [
+		       					{startTime: "09:00", endTime: "17:00"}
+		       				]
+		       			},
+		       			{
+		       				day: 3,
+		       				times: [{startTime: "09:00", endTime: "17:00"}]
+		       			},
+		       			{
+		       				day: 4,
+		       				times: [
+		       					{startTime: "09:00", endTime: "17:00"}
+		       				]
+		       			},
+		       			{
+		       				day: 5,
+		       				times: [{startTime: "09:00", endTime: "17:00"}]
+		       			},
+		       			{
+		       				day: 6,
+		       				times: [
+		       					{startTime: "09:00", endTime: "17:00"}
+		       				]
+		       			},
+		             {
+		               day: 0,
+		               times: [
+		                 {startTime: "09:00", endTime: "17:00"}
+		               ]
+		             }
+		       		],
+		         
+		         	headerSectionsList: {
+						left: ["DatePickerIcon", "PreviousButton", "NextButton", "MenuDropdownIcon"],
+						center: [],
+						right: []
+					},
+
+		        	adjustViewOnWindowResize: true,
+		         	visibleView: "WeekView", // "DetailedMonthView"
+		         	isDragNDropInMonthView: false,
+		         	isDragNDropInDetailView: false,
+		         	isDragNDropInQuickAgendaView: false,
+		         	isDragNDropInTaskPlannerView: false,
+		         	inputTZOffset: "+00:30",
+		         	tz: "Europe/London", // For Google Calendar
+		         	outputTZOffset: "+01:30", // +05:30
+
+		         	displayEventsForPeriodInList: function(listStartDate, listEndDate)
+					{
+		            	$("#demo").html(listStartDate);
+		            	console.log("start date " + listStartDate);
+						return displayEventsInList(this, listStartDate, listEndDate);
+					},
+
+		          	eventListAppended: function()
+					{
+						adjustList();
+					},
+
+		          	agendaViewDuration: "Month",
+		          	agendaViewTheme: "Timeline3",
+
+		         	displayWeekNumInMonthView: false,
+
+		         	changeColorBasedOn: "Event",
+
+		         	hideEventIcon: {Default: false},
+
+		         	is24Hour: true,
+		          	modifyActionBarView: function(actionBar, visibleViewName)
+		          	{
+		            	var thisObj = this;
+
+		            	$(actionBar).empty();
+		            	$(actionBar).append("<span class='reload'>Reload</span>");
+		            	$(".reload").click(function()
+		            	{
+		              		thisObj.reloadData();
+		            	});
+		          	},
+
+					eventClicked: function(visibleView, sElemSelector, oEvent)
+					{
+		  				var thisObj = this;
+		  				console.log(oEvent);
+		    			var thiseventdetails = thisObj.toString();
+		  				//  document.getElementById("demo").innerHTML = JSON.stringify(thisObj, null, 4);;
+		  				//  alert("Event details " + oEvent.desc + " ends "+ oEvent.end + " people "+ oEvent.people + " start "+oEvent.start + " identifier " + oEvent.identifier);
+		    			var id = oEvent.identifier;
+					    var start = oEvent.start;
+					    var end = oEvent.end;
+					    var title = oEvent.title;
+					    var desc = oEvent.desc;
+					    var clientid = oEvent.clientid;
+					    var todaysdate = "<?php echo $todaysdate; ?>";
+					    var apptype = oEvent.type;
+
+
+					    sStartDateTime = oCal1.getDateInFormat({"date": start}, "dd-MM-yyyy HH:mm", oCal1.setting.is24Hour, false);
+					    sEndDateTime = oCal1.getDateInFormat({"date": end}, "dd-MM-yyyy HH:mm", oCal1.setting.is24Hour, false);
+
+					    console.log("visible " + sStartDateTime);
+					  	showEvent(id, sStartDateTime, sEndDateTime, title, desc, clientid, apptype);
+
+						$(thisObj.elem).find(sElemSelector).popover(
+						{
+
+						    placement: "top",
+
+						    trigger: "manual",
+
+						    html: true,
+
+						    container: "body",
+
+						    content: function()
+						    {
+								var oTooltipContent = $(this).data("tooltipcontent"),
+								sTitle = oTooltipContent.title || "",
+								sStartDateTime = oTooltipContent.startDateTime || "",
+								sEndDateTime = oTooltipContent.endDateTime || "",
+
+								sTime = sStartDateTime  + ((sEndDateTime !== "") ? ("<br/>" + sEndDateTime) : ""),
+								sTooltipText = "<div class='cTooltipTitle'>" + sTitle + "</div><div class='cTooltipTime'>" + sTime + "</div>",
+								sViewStr = '<div>'+sTooltipText+'</div><div><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary">Edit</button></div>';
+								return sViewStr;
+						    }
+
+						});
+
+		  				//$(thisObj.elem).find(sElemSelector).popover('show');
+
+						$(document).click(function()
+						{
+							$(".popover").remove();
+						});
+					},
+
+		         	cellClicked: function(sView, dSelectedDateTime, bIsAllDay, pClickedAt)
+		         	{
+		           		console.log("Cell Clicked : " + sView + " " + dSelectedDateTime + " " + pClickedAt.x + " " + pClickedAt.y);
+		           		if((sView!="DetailedMonthView") && (sView!="QuickAgendaView") && (sView!="TaskPlannerView"))
+		           		{
+		              		showModal(bIsAllDay, dSelectedDateTime);
+		           		}
+
+		         	},
+		       	});
+
+		       	$('input[type="checkbox"]').bind('click',function()
+		       	{
+		         	validateAllDayChecked();
+		       	});
+
+		       	$('#modal-form').on('show.bs.modal', function (e)
+		       	{
+		         	validateAllDayChecked();
+		       	});
+
+		       	customizeInputs();
+		       	defineFormEvents();
+
+		    });
+
+		    function adjustList()
+		    {
+		        var oCal3 = $(".calendarContOuter").CalenStyle();
+		        var iEventWidth = $(oCal3.elem).width(),
+		        iEventColorWidth = $(".cListEventColor").outerWidth(true),
+		        iEventIconWidth = $(".cListEventIcon span").outerWidth(true),
+		        oElems = $(".cListEventTime span");
+		        var iMaxWidth = Math.max.apply(null, $(oElems).map(function()
+		        {
+		            return $(this).outerWidth(true);
+		        }).get());
+		        iMaxWidth += 5;
+		        $(".cListEventTime").css({"width": iMaxWidth});
+
+		        var iEventTitleWidth = iEventWidth - (iEventColorWidth + iMaxWidth + iEventIconWidth) - 25;
+		        $(".cListEventTitle").css({"width": iEventTitleWidth});
+		    }
+
+		    function showModal(bIsAllDay, dStartDateTime)
+		    {
+		      	// console.log("showModal : " + bIsAllDay + " " + dStartDateTime);
+		       	$("#modal-form").modal('show');
+		       	$("#ipTitle, #ipDesc").val("");
+		       	$('#identifier').html("");
+		       	$('#modal-header').html("Add entry");
+		        $("#ipTitle").prop("readonly", false);
+		        $("#ipDesc").prop("readonly", false);
+		        $("#ipStart").prop("readonly", false);
+		        $("#ipEnd").prop("readonly", false);
+		        $("#ipSubmit").prop("disabled", false);
+		        $("#apptype").val(0).change();
+		        $("#clientselectsession").val(0).change();
+
+		       	var dEndDateTime, sStartDateTime, sEndDateTime;
+		       	if(bIsAllDay)
+		       	{
+		        	dEndDateTime = new Date(dStartDateTime);
+		         	dEndDateTime.setDate(dStartDateTime.getDate() + (oCal1.setting.allDayEventDuration - 1));
+
+		         	sStartDateTime = oCal1.getDateInFormat({"date": dStartDateTime}, "dd-MM-yyyy", false, false);
+		         	sEndDateTime = oCal1.getDateInFormat({"date": dEndDateTime}, "dd-MM-yyyy", false, false);
+		       	}
+		       	else
+		       	{
+		         	dEndDateTime = new Date(dStartDateTime.getTime() + (oCal1.setting.eventDuration * 6E4));
+
+		         	sStartDateTime = oCal1.getDateInFormat({"date": dStartDateTime}, "dd-MM-yyyy HH:mm", oCal1.setting.is24Hour, false);
+		         	sEndDateTime = oCal1.getDateInFormat({"date": dEndDateTime}, "dd-MM-yyyy HH:mm", oCal1.setting.is24Hour, false);
+		       	}
+
+		    	//   console.log(sEndDateTime + "  " + sEndDateTime);
+		       	$("#ipStart").val(sStartDateTime);
+		       	$("#ipEnd").val(sEndDateTime);
+		       	validateAllDayChecked();
+		    }
+
+		    function showEvent(id, start, end, title, desc, clientid, apptype)
+		    {
+		        var todaysdate = "<?php echo $todaysdate; ?>";
+		        var readonly = "";
+		        //  alert(clientid);
+
+		        $("#apptype").val(apptype).change();
+		        $("#clientselectsession").val(clientid).change();
+
+		        if(start<todaysdate)
+		        {
+					readonly = "readonly";
+					$("#ipTitle").prop("readonly", true);
+					$("#ipDesc").prop("readonly", true);
+					$("#ipStart").prop("readonly", true);
+					$("#ipEnd").prop("readonly", true);
+					$("#ipSubmit").prop("disabled", true);
+
+		        }
+		        else
+		        {
+					$("#ipTitle").prop("readonly", false);
+					$("#ipDesc").prop("readonly", false);
+					$("#ipStart").prop("readonly", false);
+					$("#ipEnd").prop("readonly", false);
+					$("#ipSubmit").prop("disabled", false);
+				}
+				// console.log("showModal : " + bIsAllDay + " " + dStartDateTime);
+				//alert(clientid);
+				if(clientid!="")
+				{
+					$('#identifier').html(id + " " + clientid);
+				}
+				else
+				{
+					$('#identifier').html(id);
+				}
+
+				$('#ipTitle').val(title);
+				$('#ipDesc').val(desc);
+				$('#ipStart').val(start);
+				$('#ipEnd').val(end);
+				$('#modal-header').html("Edit entry");
+
+				$("#modal-form").modal('show');
+			}
+
+		    function customizeInputs()
+		    {
+		    	//   console.log("DateTimePicker : ");
+		    	//   console.log($(".modal-dtpicker"));
+		    }
+
+		    function validateDateTimes(bIsAllDay, dStartDateTime, dEndDateTime)
+		    {
+		       	if(bIsAllDay)
+		       	{
+		      		//   console.log("Date Comparison : " + oCal1.compareDates(dStartDateTime, dEndDateTime));
+		         	if(oCal1.compareDates(dStartDateTime, dEndDateTime)  > 0)
+		         	{
+		           		$("#ipAlertStartEnd").show();
+		           		return false;
+		         	}
+		       	}
+		       	else
+		       	{
+		        	// console.log("DateTime Comparison : " + oCal1.compareDateTimes(dStartDateTime, dEndDateTime));
+		         	if(oCal1.compareDateTimes(dStartDateTime, dEndDateTime)  > 0)
+		         	{
+		           		$("#ipAlertStartEnd").show();
+		           		return false;
+		         	}
+		       	}
+		       	$("#ipAlertStartEnd").hide();
+		       	return true;
+		    }
+
+		    function validateAllDayChecked()
+		    {
+		    	//   console.log("validateAllDayChecked " + ($("#ipAllDay").is(':checked')));
+		       	if($("#ipAllDay").is(':checked'))
+		       	{
+		        	$("#ipStart-group label").html("Start Date : ");
+		         	$("#ipEnd-group label").html("End Date : ");
+
+		         	$("#ipStart, #ipEnd").data("field", "date");
+
+		         	var sDateTimeRegex = /^([0-3]{1}[0-9]{1})(-([0-1]{1}[0-9]{1}))(-([0-9]{4}))(\s)([0-2]{1}[0-9]{1}):([0-6]{1}[0-9]{1})/;
+		         	var sDateTimeStart = $("#ipStart").val(),
+		         	sArrDateTimeStart = sDateTimeStart.match(sDateTimeRegex),
+		         	sDateTimeEnd = $("#ipEnd").val(),
+		         	sArrDateTimeEnd = sDateTimeEnd.match(sDateTimeRegex);
+		         	if(sArrDateTimeStart != null)
+		         	{
+		           		$("#ipStart").val(sDateTimeStart.split(" ")[0]);
+		         	}
+		         	if(sArrDateTimeEnd != null)
+		         	{
+		           		$("#ipEnd").val(sDateTimeEnd.split(" ")[0]);
+		         	}
+		       }
+		       else
+		       {
+					$("#ipStart-group label").html("Start Date Time : ");
+					$("#ipEnd-group label").html("End Date Time : ");
+
+					$("#ipStart, #ipEnd").data("field", "datetime");
+
+					var sDateTimeRegex = /^([0-3]{1}[0-9]{1})(-([0-1]{1}[0-9]{1}))(-([0-9]{4}))(\s)([0-2]{1}[0-9]{1}):([0-6]{1}[0-9]{1})/;
+					var sDateTimeStart = $("#ipStart").val(),
+					sArrDateTimeStart = sDateTimeStart.match(sDateTimeRegex),
+					sDateTimeEnd = $("#ipEnd").val(),
+					sArrDateTimeEnd = sDateTimeEnd.match(sDateTimeRegex);
+					console.log("Arrays : " + sDateTimeStart + " " + sDateTimeEnd);
+					console.log(sArrDateTimeStart);
+					console.log(sArrDateTimeEnd);
+					if(sArrDateTimeStart == null)
+					{
+						$("#ipStart").val(sDateTimeStart + " 00:00");
+					}
+					if(sArrDateTimeEnd == null)
+					{
+						$("#ipEnd").val(sDateTimeEnd + " 00:00");
+					}
+		       	}
+
+		        //alert('Start time '+sDateTimeStart+' end time '+sDateTimeEnd);
+		    }
+
+		    function parseDateInFormat(bIsAllDay, sDateTime)
+		    {
+		       	var dDateTime;
+		       	if(bIsAllDay)
+		       	{
+		         	var sArrDateTime = sDateTime.match(/^([0-3]{1}[0-9]{1})(-([0-1]{1}[0-9]{1}))(-([0-9]{4}))/);
+		         	console.log(sArrDateTime);
+		         	dDateTime = new Date(sArrDateTime[5], sArrDateTime[3] - 1, sArrDateTime[1], 0, 1, 0, 0);
+		       	}
+		       	else
+		       	{
+		         	var sArrDateTime = sDateTime.match(/^([0-3]{1}[0-9]{1})(-([0-1]{1}[0-9]{1}))(-([0-9]{4}))(\s)([0-2]{1}[0-9]{1}):([0-6]{1}[0-9]{1})/);
+		         	console.log(sArrDateTime);
+		         	dDateTime = new Date(sArrDateTime[5], sArrDateTime[3] - 1, sArrDateTime[1], sArrDateTime[7], sArrDateTime[8], 0, 0);
+		       	}
+		       	return dDateTime;
+		    }
+
+		    function defineFormEvents()
+		    {
+
+		       	$("#ipStart, #ipEnd").change(function()
+		       	{
+		         	var bIsAllDay = $("#ipAllDay").is(':checked'),
+		         	dStartDateTime = parseDateInFormat(bIsAllDay, $("#ipStart").val()),
+		         	dEndDateTime = parseDateInFormat(bIsAllDay, $("#ipEnd").val());
+		         	validateDateTimes(bIsAllDay, dStartDateTime, dEndDateTime);
+		       	});
+
+		       	$("#submit").click(function()
+		       	{
+		         	var bIsAllDay = $("#ipAllDay").is(':checked'),
+		         	dStartDateTime = parseDateInFormat(bIsAllDay, $("#ipStart").val()),
+		         	dEndDateTime = parseDateInFormat(bIsAllDay, $("#ipEnd").val()),
+		         	sTitle = $("#ipTitle").val(),
+		         	sDesc= $("#ipDesc").val();
+
+
+		         	alert('Start time '+dStartDateTime+' end time '+dEndDateTime+' title '+sTitle+' desc '+sDesc);
+
+
+		         	if(sTitle != "")
+		         	{
+		           		$("#ipAlertTitle").hide();
+		         	}
+		         	else
+		         	{
+		           		$("#ipAlertTitle").show();
+		         	}
+
+		         	if(sTitle != "" && validateDateTimes(bIsAllDay, dStartDateTime, dEndDateTime))
+		         	{
+		           		if(!bIsAllDay)
+		           		{
+		             		dStartDateTime = oCal1.normalizeDateTimeWithOffset(dStartDateTime, oCal1.setting.outputTZOffset, sInputTZOffset);
+		             		dEndDateTime = oCal1.normalizeDateTimeWithOffset(dEndDateTime, oCal1.setting.outputTZOffset, sInputTZOffset);
+		           		}
+
+						var oEvent = new CalEvent("AddedOnUI", bIsAllDay, dStartDateTime, dEndDateTime, "Dynamic", sTitle, sDesc, "https://www.google.com");
+						var oArrEvent = new Array();
+						oArrEvent.push(oEvent);
+						console.log(oEvent);
+						alert(oEvent);
+						console.log(oArrEvent);
+						oCal1.addEventsForSource(oArrEvent, "s1");
+						oCal1.refreshView();
+
+						$("#modal-form").modal("hide");
+		         	}
+		       	});
+		    }
+
+		</script>
+
+	</head>
+
+	<body>
+	
+		<!-- --------------- Required --------------- -->
+		<div class="calendarContOuter"></div>
+	
+	</body>
+
+</html>
