@@ -3870,17 +3870,17 @@ CalenStyle.prototype = {
 		return iUnitDiff;
 	},
 
-	// Public Method
-	compareDates: function(dDate1, dDate2)
-	{
-		var to = this;
+    // Offset from UTC in minutes
+    _iUTCoffset: new Date().getTimezoneOffset() * $.CalenStyle.extra.iMS.m,
 
-        // Get offset from UTC
-        var offset = new Date().getTimezoneOffset() * $.CalenStyle.extra.iMS.m;
+    // Public Method
+    compareDates: function(dDate1, dDate2)
+    {
+        var to = this;
 
         // Get timestamps as integers
-        var tsD1 = dDate1.getTime() - offset;
-        var tsD2 = dDate2.getTime() - offset;
+        var tsD1 = dDate1.getTime() - to._iUTCoffset;
+        var tsD2 = dDate2.getTime() - to._iUTCoffset;
 
         // Calculate offsets from 00:00:00 hh:mm:ss
         var iOffD1 = tsD1 % $.CalenStyle.extra.iMS.d;
