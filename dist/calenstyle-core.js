@@ -3866,15 +3866,24 @@ CalenStyle.prototype = {
 		return iUnitDiff;
 	},
 
-	// Public Method
-	compareDates: function(dDate1, dDate2)
-	{
-		var to = this;
-		dDate1 = to._normalizeDateTime(dDate1, "START", "T");
-		dDate2 = to._normalizeDateTime(dDate2, "START", "T");
-		var iDateDiff = to.__getDifference("d", dDate1, dDate2);
-		return (iDateDiff === 0) ? iDateDiff: (iDateDiff/Math.abs(iDateDiff));
-	},
+    // Public Method
+    compareDates: function(dDate1, dDate2)
+    {
+        var to = this;
+
+        // Get timestamps as integers
+        var iTzOffset = dDate1.getTimezoneOffset() * 60000;
+        var tsD1 = dDate1.getTime() - iTzOffset;
+        var tsD2 = dDate2.getTime() - iTzOffset;
+
+        // Calculate offsets from 00:00:00 hh:mm:ss
+        var iOffD1 = tsD1 % $.CalenStyle.extra.iMS.d;
+        var iOffD2 = tsD2 % $.CalenStyle.extra.iMS.d;
+
+        // Calculate date difference
+        var iDiff = (tsD1 - iOffD1 - (tsD2 - iOffD2));
+        return Math.sign(iDiff / $.CalenStyle.extra.iMS.d);
+    },
 
 	// Public Method
 	compareDateTimes: function(dDate1, dDate2)
